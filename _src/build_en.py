@@ -194,7 +194,7 @@ def build(ST):
 
     # setup
     data = json.loads((SRC / "data" / "apps.json").read_text(encoding="utf-8"))
-    bot_name = "@" + BOT.rsplit("/", 1)[-1]
+    bot_name = B.BOT_NAME
     tabs, panels = "", ""
     for i, dv in enumerate(data["devices"]):
         rec = dv["apps"][0]
@@ -208,7 +208,10 @@ def build(ST):
                    f'<small>Recommended · {esc(rec.get("label_en", rec["label"]))}</small></div>'
                    f'<a class="btn" href="{esc(rec["url"])}" target="_blank" rel="noopener nofollow">Download {esc(rec["app"])}</a></div>'
                    + (f'<p class="note" style="margin:14px 0 0">Store won\'t open or need another app:</p><div class="app-alt">{alts}</div>' if alts else "")
-                   + '</div>')
+                   + ('<p class="note" style="margin:14px 0 0"><b>Russian Apple ID?</b> Incy, HAPP and V2RayTun have been removed from the Russian '
+                      'App Store — the links open, but you can\'t download them with a Russian account. Already installed apps keep working. '
+                      f'For a new install you need an Apple ID from another country — <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">support will help</a>.</p>'
+                      if dv["id"] in ("ios", "mac") else "") + '</div>')
     tr = [("Is your subscription active?", f"Open {bot_name} → button <span class='kbd'>🌍 Мой VPN</span> (My VPN) → check the line <span class='kbd'>📆 Оплачен до</span> (Paid until). If it expired, renew in the bot."),
           ("Does the subscription have locations?", f"In {bot_name} → <span class='kbd'>🌍 Мой VPN</span> check <span class='kbd'>🌎 Локации в подписке</span> (Locations). If empty, tap <span class='kbd'>🔄 Обновить подписку</span> (Update subscription)."),
           ("Update the keys", f"In {bot_name} → <span class='kbd'>🌍 Мой VPN</span> → <span class='kbd'>🔄 Обновить подписку</span> and follow the prompts. Then paste the link into the app again."),
@@ -431,7 +434,7 @@ def build(ST):
 {cta()}
 """
     ld = [{"@context": "https://schema.org", "@type": "Organization", "name": BRAND, "url": SITE, "logo": f"{SITE}/og-en.png",
-           "sameAs": [x for x in (BOT, VPNSTATUS, CHANNEL) if x]},
+           "sameAs": [x for x in (B.BOT_PLAIN, VPNSTATUS, CHANNEL) if x]},
           {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": f"{SITE}/en/", "inLanguage": "en"},
           {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
               {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in hfaq if a]}]

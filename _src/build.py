@@ -22,7 +22,10 @@ SRC = ROOT / "_src"
 CFG = json.loads((SRC / "config.json").read_text(encoding="utf-8"))
 SITE = CFG["site_url"].rstrip("/")
 BRAND = CFG["brand"]
-BOT = CFG["bot_url"]
+BOT_PLAIN = CFG["bot_url"]
+BOT = CFG.get("bot_ref_url", BOT_PLAIN)  # реферальная ссылка — для подсчёта пришедших с сайта
+BOT_NAME = "@" + BOT_PLAIN.rsplit("/", 1)[-1]
+GC = CFG.get("goatcounter", "")
 VPNSTATUS = CFG.get("vpnstatus_url", "https://vpnstatus.site")
 ASSIST_PATH = SRC / "assistant.json"
 SUPPORT = CFG.get("support_url", BOT)
@@ -389,7 +392,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
     ld = ""
     for obj in jsonld or []:
         ld += f'<script type="application/ld+json">{json.dumps(obj, ensure_ascii=False)}</script>\n'
-    return f"""<!DOCTYPE html>
+    return track_clicks(f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
 <meta charset="utf-8">
@@ -410,6 +413,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0b10">
 {CFG.get("head_extra", "")}
+{f'<script data-goatcounter="https://{GC}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>' if GC else ""}
 <style>{CSS}</style>
 {ld}</head>
 <body>
@@ -423,7 +427,19 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 {assistant_html(lang)}
 </body>
 </html>
-"""
+""", path)
+
+
+def track_clicks(doc, path):
+    """Помечает клики по боту, поддержке и отзывам для счётчика GoatCounter (события «bot/…»)."""
+    if not GC:
+        return doc
+    marks = [(BOT, "bot"), (SUPPORT, "support"), (CHANNEL, "channel")]
+    for url, name in marks:
+        if url:
+            doc = doc.replace(f'href="{url}"', f'href="{url}" data-goatcounter-click="{name}{path}"')
+    doc = re.sub(r'href="(https://vpnstatus\.site[^"]*)"', lambda m: f'{m.group(0)} data-goatcounter-click="reviews{path}"', doc)
+    return doc
 
 
 def assistant_html(lang="ru"):
@@ -756,7 +772,7 @@ a{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:no
 
 def build_setup_page(urls, UPD):
     data = json.loads((SRC / "data" / "apps.json").read_text(encoding="utf-8"))
-    bot_name = "@" + BOT.rsplit("/", 1)[-1]
+    bot_name = BOT_NAME
     tabs, panels = "", ""
     for i, d in enumerate(data["devices"]):
         rec = d["apps"][0]
@@ -769,7 +785,12 @@ def build_setup_page(urls, UPD):
                    f'<div class="app-rec"><div><b>{esc(rec["app"])}</b><small>Рекомендуем · {esc(rec["label"])}</small></div>'
                    f'<a class="btn" href="{esc(rec["url"])}" target="_blank" rel="noopener nofollow">Скачать {esc(rec["app"])}</a></div>'
                    + (f'<p class="note" style="margin:14px 0 0">Не открывается магазин или нужно другое приложение:</p>'
-                      f'<div class="app-alt">{alts}</div>' if alts else "") + '</div>')
+                      f'<div class="app-alt">{alts}</div>' if alts else "")
+                   + ('<p class="note" style="margin:14px 0 0"><b>Российский Apple ID?</b> Incy, HAPP и V2RayTun удалены из российского '
+                      'App Store — ссылки откроются, но скачать с российского аккаунта не получится. Если приложение уже установлено, оно '
+                      'продолжит работать. Для новой установки нужен Apple ID другой страны — '
+                      f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">поддержка подскажет, как быть</a>.</p>'
+                      if d["id"] in ("ios", "mac") else "") + '</div>')
     troubles = [
         ("Подписка активна?", f"Откройте {bot_name} → кнопка <span class='kbd'>🌍 Мой VPN</span> → посмотрите строку <span class='kbd'>📆 Оплачен до</span>. Если срок закончился — продлите подписку в боте."),
         ("В подписке есть локации?", f"В {bot_name} → <span class='kbd'>🌍 Мой VPN</span> проверьте строку <span class='kbd'>🌎 Локации в подписке</span>. Если там пусто — нажмите <span class='kbd'>🔄 Обновить подписку</span>."),
@@ -1157,7 +1178,7 @@ def main():
 """
     home_ld = [{"@context": "https://schema.org", "@type": "Organization",
                 "name": BRAND, "url": SITE, "logo": f"{SITE}/og.png",
-                "sameAs": [x for x in (BOT, VPNSTATUS, CHANNEL) if x]},
+                "sameAs": [x for x in (BOT_PLAIN, VPNSTATUS, CHANNEL) if x]},
                {"@context": "https://schema.org", "@type": "WebSite",
                 "name": BRAND, "url": SITE, "inLanguage": "ru"}, home_ld_faq]
     write("index.html", page(f"{BRAND} — VPN для мобильного и домашнего интернета",
@@ -1177,7 +1198,7 @@ def main():
          "Google-Extended", "Bingbot"]) + f"Sitemap: {SITE}/sitemap.xml\n")
     llms = [f"# {BRAND}", "",
             f"> {BRAND} — VPN-сервис для пользователей из России с подключением через "
-            f"Telegram-бота ({BOT}). {price_line()}. Работает на мобильном и домашнем интернете"
+            f"Telegram-бота ({BOT_PLAIN}). {price_line()}. Работает на мобильном и домашнем интернете"
             + (f"; {CFG['whitelist_option'].lower()}" if CFG.get("whitelist_option") else "")
             + f". Поддержка: {SUPPORT}. Отзывы и голоса пользователей по операторам: {VPNSTATUS}. "
             "Сайт публикует ежедневную сводку блокировок, индекс блокировок и инструкции.", "",
@@ -1189,7 +1210,7 @@ def main():
     llms += [f"- [Не работает VPN на {loc}]({SITE}/operator/{s}/)" for s, (_, loc) in OPS.items()]
     llms += ["", "## Статьи"] + [f"- [{a['title']}]({SITE}/blog/{a['slug']}/): {a['description']}" for a in posts]
     llms += ["", "## English",
-             f"> {BRAND} is a VPN service for users in Russia, connected via a Telegram bot ({BOT}): 3 days free, then from "
+             f"> {BRAND} is a VPN service for users in Russia, connected via a Telegram bot ({BOT_PLAIN}): 3 days free, then from "
              f"{min([p['per_month'] for p in CFG.get('plans', [])] or [210])} ₽/month; works on mobile and home internet; "
              f"optional mobile whitelist bypass. Support: {SUPPORT}. Reviews by carrier: {VPNSTATUS}.",
              f"- [Home]({SITE}/en/)", f"- [Setup guide]({SITE}/en/podklyuchenie/)", f"- [5-second internet check]({SITE}/en/check/)",

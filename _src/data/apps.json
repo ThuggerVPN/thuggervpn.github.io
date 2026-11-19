@@ -1,5 +1,5 @@
 {
-  "_comment": "Приложения для подключения (источник: инструкция провайдера star.ipworking.ru/api/instruction). Первое приложение в списке устройства — рекомендованное.",
+  "_comment": "Приложения для подключения (источник: star.ipworking.ru/api/instruction, ссылки обновлены 19.11.2026). Ссылки App Store — без страны (apps.apple.com/app/id…), открываются в магазине региона пользователя. Первое приложение — рекомендованное. ВАЖНО: в российском App Store Incy, HAPP и V2RayTun удалены — для iPhone с российским Apple ID нужен Apple ID другой страны.",
   "devices": [
     {
       "id": "ios",
@@ -8,25 +8,19 @@
         {
           "app": "Incy",
           "label": "App Store",
-          "url": "https://apps.apple.com/us/app/incy/id6756943388",
+          "url": "https://apps.apple.com/app/id6756943388",
           "label_en": "App Store"
         },
         {
           "app": "HAPP",
-          "label": "App Store (Россия)",
-          "url": "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973",
-          "label_en": "App Store (Russia)"
-        },
-        {
-          "app": "HAPP",
-          "label": "App Store (другие страны)",
-          "url": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215",
-          "label_en": "App Store (other countries)"
+          "label": "App Store",
+          "url": "https://apps.apple.com/app/id6504287215",
+          "label_en": "App Store"
         },
         {
           "app": "V2RayTun",
           "label": "App Store",
-          "url": "https://apps.apple.com/us/app/v2raytun/id6476628951",
+          "url": "https://apps.apple.com/app/id6476628951",
           "label_en": "App Store"
         }
       ],
@@ -101,25 +95,19 @@
         {
           "app": "Incy",
           "label": "App Store",
-          "url": "https://apps.apple.com/us/app/incy/id6756943388",
+          "url": "https://apps.apple.com/app/id6756943388",
           "label_en": "App Store"
         },
         {
           "app": "HAPP",
-          "label": "App Store (Россия)",
-          "url": "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973",
-          "label_en": "App Store (Russia)"
-        },
-        {
-          "app": "HAPP",
-          "label": "App Store (другие страны)",
-          "url": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215",
-          "label_en": "App Store (other countries)"
+          "label": "App Store",
+          "url": "https://apps.apple.com/app/id6504287215",
+          "label_en": "App Store"
         },
         {
           "app": "V2RayTun",
           "label": "App Store",
-          "url": "https://apps.apple.com/us/app/v2raytun/id6476628951",
+          "url": "https://apps.apple.com/app/id6476628951",
           "label_en": "App Store"
         }
       ],
@@ -144,7 +132,7 @@
         {
           "app": "Incy",
           "label": "Apple TV — App Store",
-          "url": "https://apps.apple.com/us/app/incy/id6756943388",
+          "url": "https://apps.apple.com/app/id6756943388",
           "label_en": "Apple TV — App Store"
         },
         {
@@ -156,7 +144,7 @@
         {
           "app": "HAPP",
           "label": "Apple TV — App Store",
-          "url": "https://apps.apple.com/us/app/happ-proxy-utility-for-tv/id6748297274",
+          "url": "https://apps.apple.com/app/id6748297274",
           "label_en": "Apple TV — App Store"
         },
         {
