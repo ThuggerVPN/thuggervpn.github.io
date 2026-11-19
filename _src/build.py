@@ -11,7 +11,8 @@ import html
 import json
 import re
 import shutil
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 import markdown
@@ -26,6 +27,13 @@ VPNSTATUS = CFG.get("vpnstatus_url", "https://vpnstatus.site")
 ASSIST_PATH = SRC / "assistant.json"
 SUPPORT = CFG.get("support_url", BOT)
 CHANNEL = CFG.get("channel_url", "")
+
+MSK = ZoneInfo("Europe/Moscow")
+
+
+def today_msk():
+    return datetime.now(MSK).date()
+
 
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля",
           "августа", "сентября", "октября", "ноября", "декабря"]
@@ -291,7 +299,7 @@ def page(title, description, path, body, jsonld=None, og_type="website"):
 <main><div class="wrap">
 {body}
 </div></main>
-<footer><div class="wrap"><span>© {date.today().year} {BRAND}. Справочные материалы о стабильном доступе к интернету.</span>
+<footer><div class="wrap"><span>© {today_msk().year} {BRAND}. Справочные материалы о стабильном доступе к интернету.</span>
 <span><a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · <a href="/operator/mts/">МТС</a> · <a href="/operator/beeline/">Билайн</a> · <a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · <a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a></span></div></footer>
 {assistant_html()}
 </body>
@@ -419,10 +427,18 @@ OPS = {
 def load_status():
     p = SRC / "data" / "status.json"
     if not p.exists():
-        return {"updated": date.today().isoformat(), "events": []}
+        return {"updated": today_msk().isoformat(), "events": []}
     data = json.loads(p.read_text(encoding="utf-8"))
     data["events"].sort(key=lambda e: e["date"], reverse=True)
+    raw = str(data.get("updated", today_msk().isoformat()))
+    data["updated"] = raw[:10]
+    data["updated_time"] = raw[11:16] if len(raw) >= 16 else ""
     return data
+
+
+def upd_label(st, year=True):
+    t = f", {st['updated_time']} МСК" if st.get("updated_time") else " (МСК)"
+    return ru_date(st["updated"], year=year) + t
 
 
 def days_between(a, b):
@@ -468,7 +484,7 @@ def status_block(st):
 
 def telegram_post(st):
     fresh = recent(st["events"], st["updated"], 2)
-    lines = [f"<b>Статус блокировок · {ru_date(st['updated'], year=False)}</b>", ""]
+    lines = [f"<b>Статус блокировок · {upd_label(st, year=False)}</b>", ""]
     if fresh:
         for e in fresh[:5]:
             lines.append(f"• <b>{html.escape(e['region'])}</b> — {html.escape(e['title'])}")
@@ -589,7 +605,7 @@ def main():
         body_html = status["body_html"].replace("<p>{{STATUS_TABLE}}</p>", status_block(ST) + (f'<p>Сводка каждое утро в Telegram: <a href="{CHANNEL}" target="_blank" rel="noopener">@{CHANNEL.rsplit("/", 1)[-1]}</a></p>' if CHANNEL else ""))
         body = (f'<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
                 f'<h1>{esc(status["title"])}</h1>'
-                f'<div class="meta">Обновлено {ru_date(UPD)}</div>'
+                f'<div class="meta">Обновлено {upd_label(ST)}</div>'
                 f'{body_html}{cta_block()}</article>')
         write("status/index.html",
               page(f'{status["title"]} — {BRAND}', status["description"], path, body,

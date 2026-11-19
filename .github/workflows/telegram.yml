@@ -1,6 +1,7 @@
 name: Telegram channel post
 
 # Публикует утреннюю сводку в Telegram-канал, когда обновилась база событий.
+# Коммит с [no-post] в сообщении не публикует пост.
 # Нужны секреты репозитория: TG_BOT_TOKEN (токен бота-публикатора) и TG_CHANNEL (@имя_канала).
 on:
   push:
@@ -10,6 +11,7 @@ on:
 
 jobs:
   post:
+    if: ${{ !contains(github.event.head_commit.message, '[no-post]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
