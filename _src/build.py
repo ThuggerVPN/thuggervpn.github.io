@@ -402,6 +402,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <link rel="canonical" href="{url}">
 {alt_links(path)}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="{BRAND}" href="{SITE}{pre}/feed.xml">
 <link rel="preload" href="/assets/fonts/manrope-{'latin' if en else 'cyrillic'}-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="{BRAND}">
@@ -752,6 +753,24 @@ tabs.forEach(function(t){t.addEventListener('click',function(){sel(t.dataset.dev
 var ua=navigator.userAgent,h=location.hash.slice(1),ids=tabs.map(function(t){return t.dataset.dev});
 var d=ids.indexOf(h)>=0?h:/iPhone|iPad|iPod/.test(ua)?'ios':/Android/.test(ua)?(/TV|AFT/.test(ua)?'tv':'android'):/Mac/.test(ua)?'mac':/Win/.test(ua)?'windows':'ios';
 sel(d);})();</script>"""
+
+
+def write_feed(rel, title, home, lang, posts, prefix, ST):
+    """RSS 2.0: статьи + страница статуса (обновляется каждый день)."""
+    from email.utils import format_datetime
+    def rfc(iso):
+        return format_datetime(datetime.fromisoformat(iso + "T09:00:00").replace(tzinfo=MSK))
+    st_url = f"{home}status/"
+    st_title = ("Статус блокировок · " if lang == "ru" else "Blocking status · ") + ST["updated"]
+    items = [f"<item><title>{esc(st_title)}</title><link>{st_url}</link><guid isPermaLink=\"false\">{st_url}#{ST['updated']}</guid>"
+             f"<pubDate>{rfc(ST['updated'])}</pubDate></item>"]
+    for a in posts[:30]:
+        u = f"{SITE}{prefix}{a['slug']}/"
+        items.append(f"<item><title>{esc(a['title'])}</title><link>{u}</link><guid>{u}</guid>"
+                     f"<description>{esc(a['description'])}</description><pubDate>{rfc(a['date'])}</pubDate></item>")
+    write(rel, '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
+          f"<title>{esc(title)}</title><link>{home}</link><description>{esc(title)}</description><language>{lang}</language>"
+          f'<atom:link href="{SITE}/{rel}" rel="self" type="application/rss+xml"/>' + "".join(items) + "</channel></rss>\n")
 
 
 def read_embed_template():
@@ -1208,6 +1227,9 @@ def main():
     import build_en
     urls_en, posts_en = build_en.build(ST)
     urls += urls_en
+
+    write_feed("feed.xml", f"{BRAND} — статус блокировок и инструкции", f"{SITE}/", "ru", posts, "/blog/", ST)
+    write_feed("en/feed.xml", f"{BRAND} — Russia blocking status and VPN guides", f"{SITE}/en/", "en", posts_en, "/en/blog/", ST)
 
     sm = "".join(f"<url><loc>{SITE}{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
