@@ -14,6 +14,13 @@ def badge(label, msg, color, url, logo=""):
     return f'<a href="{url}"><img src="https://img.shields.io/badge/{q(label)}-{q(msg)}-{color}?style=for-the-badge{lg}" alt="{label}: {msg}"></a>'
 
 
+def short_region(r):
+    if len(r) <= 30:
+        return r
+    head = r.split(",")[0].split(" включая")[0].strip()
+    return head if len(head) <= 30 else head[:28].rstrip() + "…"
+
+
 def cell_md(s):
     return s.replace("|", "\\|").replace("\n", " ")
 
@@ -36,7 +43,7 @@ def build(ST, posts, posts_en):
 
     ev = ST["events"][:6]
     rows = "\n".join(
-        f"| {B.ru_date(e['date'], year=False)} | {cell_md(e['region'])} | {EMOJI.get(e['type'], '•')} {cell_md(e['title'])} | "
+        f"| {B.ru_date(e['date'], year=False)} | {cell_md(short_region(e['region']))} | {EMOJI.get(e['type'], '•')} {cell_md(e['title'])} | "
         f"[{cell_md(e['source'])}]({e['url']}) |" for e in ev)
 
 

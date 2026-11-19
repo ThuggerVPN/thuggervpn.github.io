@@ -24,9 +24,9 @@
 | 16 ноября | Пермь | 🟥 Пропадал мобильный интернет, работали только белые списки | [Techora](https://techora.ru/news/v-permi-propal-mobilnyy-internet-soobshchayut-2026-11-16) |
 | 16 ноября | Новосибирская область | 🟧 Перебои с загрузкой страниц, недоступны отдельные ресурсы | [Techora](https://techora.ru/news/v-permi-propal-mobilnyy-internet-soobshchayut-2026-11-16) |
 | 12 ноября | Вся Россия | 📜 Белый список мобильного интернета расширен примерно до 900 ресурсов (данные Минцифры) | [Techora со ссылкой на Минцифры](https://techora.ru/news/putin-svyazal-sboi-mobilnogo-interneta-v-2026-11-16) |
-| 31 октября | Более 30 регионов, включая Москву, Петербург, Новосибирск, Екатеринбург, Казань | 🟥 Сбои мобильного интернета, при ограничениях работал только белый список | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-31-oktyabrya-prichiny-sboi-v-rossii) |
+| 31 октября | Более 30 регионов | 🟥 Сбои мобильного интернета, при ограничениях работал только белый список | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-31-oktyabrya-prichiny-sboi-v-rossii) |
 | 31 октября | Вся Россия | ⚠️ Перебои YouTube: сотни жалоб за сутки | [CyberMeta](https://cybersport.metaratings.ru/articles/chto-proishodit-s-youtube-segodnya/) |
-| 30 октября | Москва, Петербург, Новосибирск, Казань и другие регионы | 🟥 Массовые сбои мобильного интернета, при тревоге работали только сервисы из белого списка | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-30-oktyabrya-prichiny-sboi-v-rossii) |
+| 30 октября | Москва | 🟥 Массовые сбои мобильного интернета, при тревоге работали только сервисы из белого списка | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-30-oktyabrya-prichiny-sboi-v-rossii) |
 
 <sub>🟥 белые списки · ⛔ отключение · 🟧 замедление · 🔒 блокировка VPN · ⚠️ сбой сервиса · 📜 решения властей</sub>
 
