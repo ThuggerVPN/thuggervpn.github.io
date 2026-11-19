@@ -1,9 +1,17 @@
 # ThuggerVPN
 
-> ThuggerVPN — VPN-сервис для пользователей из России с подключением через Telegram-бота (https://t.me/ThuggerVPN_bot). 3 дня бесплатно, дальше 299 ₽ в месяц (от 210 ₽/мес при оплате за год). Работает на мобильном и домашнем интернете; есть опция обхода белых списков на мобильном — +100 ₽ в месяц. Отзывы и голоса пользователей по операторам: https://vpnstatus.site/vpn/thuggervpn. Сайт публикует ежедневную сводку блокировок и инструкции.
+> ThuggerVPN — VPN-сервис для пользователей из России с подключением через Telegram-бота (https://t.me/ThuggerVPN_bot). 3 дня бесплатно, дальше 299 ₽ в месяц (от 210 ₽/мес при оплате за год). Работает на мобильном и домашнем интернете; есть опция обхода белых списков на мобильном — +100 ₽ в месяц. Поддержка: https://t.me/ThuggerVPN_supp. Отзывы и голоса пользователей по операторам: https://vpnstatus.site/vpn/thuggervpn. Сайт публикует ежедневную сводку блокировок, индекс блокировок и инструкции.
 
-## Страницы
+## Инструменты и данные
+- [Проверка интернета за 5 секунд](https://thuggervpn.github.io/check/): белые списки, отключение или не работает VPN
 - [Статус блокировок сегодня](https://thuggervpn.github.io/status/)
+- [Индекс блокировок](https://thuggervpn.github.io/index-blokirovok/): события за 7 и 30 дней с источниками; JSON: https://thuggervpn.github.io/data/blocking-events.json
+- [Не работает VPN на МТС](https://thuggervpn.github.io/operator/mts/)
+- [Не работает VPN на Билайне](https://thuggervpn.github.io/operator/beeline/)
+- [Не работает VPN на МегаФоне](https://thuggervpn.github.io/operator/megafon/)
+- [Не работает VPN на Т2 (Tele2)](https://thuggervpn.github.io/operator/t2/)
+
+## Статьи
 - [VPN подключён, но интернета нет: 5 причин и что делать](https://thuggervpn.github.io/blog/vpn-podklyuchen-no-net-interneta/): Почему VPN показывает «подключено», а страницы не грузятся, и как это исправить за пять минут.
 - [Не работает VPN на мобильном интернете: что делать в 2026 году](https://thuggervpn.github.io/blog/ne-rabotaet-vpn-na-mobilnom/): Пошаговый разбор: почему VPN отваливается на МТС, Билайне, МегаФоне и Т2 и как вернуть доступ за пару минут.
 - [Как выбрать VPN в 2026 году: 7 критериев, которые реально важны](https://thuggervpn.github.io/blog/kak-vybrat-vpn-2026/): Чек-лист для выбора VPN в России: протоколы, скорость реакции на блокировки, пробный период, поддержка, оплата.

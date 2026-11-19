@@ -1,0 +1,37 @@
+name: Telegram channel post
+
+# Публикует утреннюю сводку в Telegram-канал, когда обновилась база событий.
+# Нужны секреты репозитория: TG_BOT_TOKEN (токен бота-публикатора) и TG_CHANNEL (@имя_канала).
+on:
+  push:
+    branches: [main]
+    paths: ["_src/data/status.json"]
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Send post
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHANNEL: ${{ secrets.TG_CHANNEL }}
+        run: |
+          if [ -z "$TG_BOT_TOKEN" ] || [ -z "$TG_CHANNEL" ]; then
+            echo "Секреты TG_BOT_TOKEN / TG_CHANNEL не заданы — пропускаю."; exit 0
+          fi
+          python3 - <<'PY'
+          import json, os, urllib.request
+          text = open("_src/out/telegram.html", encoding="utf-8").read()
+          data = json.dumps({"chat_id": os.environ["TG_CHANNEL"], "text": text,
+                             "parse_mode": "HTML", "disable_web_page_preview": False}).encode()
+          req = urllib.request.Request(
+              f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/sendMessage",
+              data=data, headers={"Content-Type": "application/json"})
+          with urllib.request.urlopen(req, timeout=30) as r:
+              res = json.load(r)
+          print("ok" if res.get("ok") else res)
+          if not res.get("ok"):
+              raise SystemExit(1)
+          PY
