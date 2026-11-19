@@ -45,7 +45,8 @@
       "url": "https://techora.ru/news/putin-svyazal-sboi-mobilnogo-interneta-v-2026-11-16",
       "region_en": "All of Russia",
       "title_en": "Mobile internet whitelist expanded to about 900 resources (Ministry of Digital Development data)",
-      "meaning_en": "During restrictions only services on this list open"
+      "meaning_en": "During restrictions only services on this list open",
+      "source_en": "Techora, citing the Ministry of Digital Development"
     },
     {
       "date": "2026-10-31",
@@ -105,7 +106,8 @@
       "url": "https://www.samara.kp.ru/online/news/7248347/",
       "region_en": "Samara region",
       "title_en": "Mobile internet slowed down from 5 a.m.",
-      "meaning_en": "Pages and VPN are slow; Wi-Fi is more stable"
+      "meaning_en": "Pages and VPN are slow; Wi-Fi is more stable",
+      "source_en": "KP Samara"
     },
     {
       "date": "2026-10-30",

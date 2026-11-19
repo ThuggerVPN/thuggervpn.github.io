@@ -71,7 +71,7 @@ def table(events):
         return ""
     rows = ""
     for e in events:
-        src = (f' <a href="{esc(e["url"])}" target="_blank" rel="noopener nofollow">{esc(e["source"])}</a> (in Russian)'
+        src = (f' <a href="{esc(e["url"])}" target="_blank" rel="noopener nofollow">{esc(f(e, "source"))}</a> (in Russian)'
                if e.get("url") else "")
         rows += (f'<tr><td style="white-space:nowrap">{d(e["date"], False)}</td><td>{esc(f(e, "region"))}</td>'
                  f'<td>{esc(f(e, "title"))}.<br><small style="color:var(--muted)">Source:{src}</small></td>'
