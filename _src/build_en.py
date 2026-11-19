@@ -37,7 +37,7 @@ def page(title, desc, path, body, ld=None, og="website"):
 def jsonld(meta, path, crumbs):
     objs = B.article_jsonld(meta, path, crumbs)
     objs[0]["inLanguage"] = "en"
-    objs[0]["image"] = f"{SITE}/og-en.png"
+    objs[0]["image"] = f"{SITE}/og2-en.png"
     return objs
 
 
@@ -452,7 +452,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
 <section class="sec" id="faq"><h2>FAQ</h2>{faqh}</section>
 {cta()}
 """
-    ld = [{"@context": "https://schema.org", "@type": "Organization", "name": BRAND, "url": SITE, "logo": f"{SITE}/og-en.png",
+    ld = [{"@context": "https://schema.org", "@type": "Organization", "name": BRAND, "url": SITE, "logo": f"{SITE}/logo.png",
            "sameAs": [x for x in (B.BOT_PLAIN, VPNSTATUS, CHANNEL) if x]},
           {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": f"{SITE}/en/", "inLanguage": "en"},
           {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [

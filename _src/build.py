@@ -411,7 +411,8 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE}/og{'-en' if en else ''}.png">
+<meta property="og:image" content="{SITE}/og2{'-en' if en else ''}.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:locale" content="{locale}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0b10">
@@ -520,7 +521,7 @@ def article_jsonld(a, path, crumbs):
         "datePublished": a["date"],
         "dateModified": a["updated"],
         "inLanguage": "ru",
-        "image": f"{SITE}/og.png",
+        "image": f"{SITE}/og2.png",
         "mainEntityOfPage": f"{SITE}{path}",
         "author": {"@type": "Organization", "name": BRAND, "url": SITE},
         "publisher": {"@type": "Organization", "name": BRAND, "url": SITE},
@@ -1218,7 +1219,7 @@ def main():
 {cta_block()}
 """
     home_ld = [{"@context": "https://schema.org", "@type": "Organization",
-                "name": BRAND, "url": SITE, "logo": f"{SITE}/og.png",
+                "name": BRAND, "url": SITE, "logo": f"{SITE}/logo.png",
                 "sameAs": [x for x in (BOT_PLAIN, VPNSTATUS, CHANNEL) if x]},
                {"@context": "https://schema.org", "@type": "WebSite",
                 "name": BRAND, "url": SITE, "inLanguage": "ru"}, home_ld_faq]
