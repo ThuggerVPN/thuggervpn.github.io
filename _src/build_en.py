@@ -210,7 +210,7 @@ def build(ST):
                    + (f'<p class="note" style="margin:14px 0 0">Store won\'t open or need another app:</p><div class="app-alt">{alts}</div>' if alts else "")
                    + ('<p class="note" style="margin:14px 0 0"><b>Russian Apple ID?</b> Incy, HAPP and V2RayTun have been removed from the Russian '
                       'App Store — the links open, but you can\'t download them with a Russian account. Already installed apps keep working. '
-                      f'For a new install you need an Apple ID from another country — <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">support will help</a>.</p>'
+                      'For a new install you need an Apple ID from another country — <a href="#apple-id">here is how</a>.</p>'
                       if dv["id"] in ("ios", "mac") else "") + '</div>')
     tr = [("Is your subscription active?", f"Open {bot_name} → button <span class='kbd'>🌍 Мой VPN</span> (My VPN) → check the line <span class='kbd'>📆 Оплачен до</span> (Paid until). If it expired, renew in the bot."),
           ("Does the subscription have locations?", f"In {bot_name} → <span class='kbd'>🌍 Мой VPN</span> check <span class='kbd'>🌎 Локации в подписке</span> (Locations). If empty, tap <span class='kbd'>🔄 Обновить подписку</span> (Update subscription)."),
@@ -224,6 +224,9 @@ def build(ST):
              "If it won't install, HAPP or V2RayTun work too: the subscription link works in any of them."),
             ("Where do I get the subscription link?", f"In the Telegram bot {bot_name}. Tap the link once and it's copied automatically."),
             ("How many devices can I connect?", EN.get("devices", "")),
+            ("How do I download the app on an iPhone with a Russian Apple ID?", "Incy, HAPP and V2RayTun were removed from the Russian App Store. "
+             "If the app is already installed, keep it. If not, you need an Apple ID from another country: in the App Store sign out of "
+             "\"Media & Purchases\" only, sign in to the other account, download the app and switch back."),
             ("The VPN doesn't work — what now?", "Check that the subscription is active and has locations, update it in the bot. "
              "If only Russian sites open, it's a whitelist — connect to Wi-Fi. Still stuck? Message support.")]
     script = B.build_setup_page.__globals__.get("SETUP_SCRIPT", "")
@@ -240,6 +243,22 @@ def build(ST):
             f'<div><div class="n">4</div><div><h3>Connect</h3><p>A server list appears. Pick a location and tap <span class="kbd">Connect</span>.</p></div></div></div>'
             f'<div class="done">✓ Done — your internet now runs through {esc(BRAND)}.</div>'
             f'<p style="margin:18px 0"><a class="btn" href="{BOT}" rel="nofollow">Get the link in {bot_name}</a></p>'
+f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
+            f'<p>Apple removed Incy, HAPP and V2RayTun from the Russian App Store. There is no other way to install apps on an iPhone in Russia: '
+            f'installing outside the App Store is only allowed in the EU. What to do depends on your situation:</p>'
+            f'<details class="acc-q" open><summary>The app is already installed</summary><p>Don\'t delete it — it keeps working. '
+            f'Just update the subscription: {bot_name} → <span class="kbd">🌍 Мой VPN</span> (My VPN) → <span class="kbd">🔄 Обновить подписку</span> (Update subscription), '
+            f'then paste the link into the app again.</p></details>'
+            f'<details class="acc-q"><summary>No app yet: an Apple ID from another country</summary><p>'
+            f'1. Open the App Store → tap your avatar → sign out of "Media & Purchases" only. Don\'t touch iCloud — your photos and contacts stay.<br>'
+            f'2. Create a new Apple ID for another country (e.g. Kazakhstan, Turkey, the US) or sign in to an existing one.<br>'
+            f'3. Download Incy (or HAPP, V2RayTun).<br>'
+            f'4. Sign out and back into your own Apple ID — the app stays on the phone.<br>'
+            f'<b>Note:</b> Apple asks for an address in the chosen country, and future app updates will need that same account.</p></details>'
+            f'<details class="acc-q"><summary>An Apple ID of someone abroad</summary><p>You can download the app under the account of someone you trust: '
+            f'sign in to "Media & Purchases" only, download the app and sign out. Don\'t save their password or sign in to their iCloud.</p></details>'
+            f'<p>The subscription from the bot works with any of the three apps — install whichever you can download. Stuck on a step? '
+            f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Message support</a>.</p>'
             f'<h2>If the VPN doesn\'t work</h2>{tr_html}'
             f'<p>Still stuck? <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Message support</a> or '
             f'<a href="/en/check/">check your internet in 5 seconds</a>.</p><h2>FAQ</h2>{faq_html(sfaq)}{cta()}</article>{script}')
