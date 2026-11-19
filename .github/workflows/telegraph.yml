@@ -1,0 +1,52 @@
+name: Telegraph mirror
+
+# Публикует короткие версии статей на telegra.ph (новые — создаёт, изменённые — обновляет).
+# Аккаунт telegra.ph анонимный. Его токен хранится в репозитории только в зашифрованном виде
+# (_src/telegraph/token.enc), ключ шифрования — секрет TG_BOT_TOKEN, который уже задан.
+on:
+  push:
+    branches: [main]
+    paths: ["_src/articles/**", "_src/articles_en/**", "_src/telegraph.py"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegraph
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q markdown
+      - name: Publish
+        env:
+          KEY: ${{ secrets.TG_BOT_TOKEN }}
+        run: |
+          if [ -z "$KEY" ]; then echo "Нет секрета TG_BOT_TOKEN — пропускаю."; exit 0; fi
+          ENC=_src/telegraph/token.enc
+          if [ -f "$ENC" ]; then
+            TELEGRAPH_TOKEN=$(openssl enc -d -aes-256-cbc -pbkdf2 -a -A -pass env:KEY -in "$ENC")
+            echo "::add-mask::$TELEGRAPH_TOKEN"
+            export TELEGRAPH_TOKEN
+          fi
+          export NEW_TOKEN_FILE="$RUNNER_TEMP/tp_token"
+          python3 _src/telegraph.py
+          if [ -s "$NEW_TOKEN_FILE" ]; then
+            echo "::add-mask::$(cat "$NEW_TOKEN_FILE")"
+            mkdir -p _src/telegraph
+            openssl enc -aes-256-cbc -pbkdf2 -salt -a -A -pass env:KEY -in "$NEW_TOKEN_FILE" -out "$ENC"
+            rm -f "$NEW_TOKEN_FILE"
+          fi
+      - name: Save state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _src/telegraph
+          if git diff --cached --quiet; then echo "Без изменений"; exit 0; fi
+          git commit -q -m "Зеркало telegra.ph [no-post]"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0; sleep 5; done
+          exit 1

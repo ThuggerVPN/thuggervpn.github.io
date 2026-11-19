@@ -38,16 +38,18 @@ EN_STATIC = {"/", "/check/", "/podklyuchenie/", "/status/", "/index-blokirovok/"
              "/operator/mts/", "/operator/beeline/", "/operator/megafon/", "/operator/t2/"}
 
 
-def _en_slugs():
+def _slugs(folder):
     out = set()
-    for f in (SRC / "articles_en").glob("*.md") if (SRC / "articles_en").exists() else []:
+    for f in (SRC / folder).glob("*.md") if (SRC / folder).exists() else []:
         m = re.search(r"^slug:\s*(\S+)", f.read_text(encoding="utf-8"), re.M)
         if m and m.group(1) != "status":
             out.add(f"/blog/{m.group(1)}/")
     return out
 
 
-EN_PAGES = EN_STATIC | _en_slugs()
+# Статья связывается с переводом, только если есть обе версии.
+# Статьи только на английском (для иностранцев) живут без пары.
+EN_PAGES = EN_STATIC | (_slugs("articles_en") & _slugs("articles"))
 
 
 def ru_path(path):
