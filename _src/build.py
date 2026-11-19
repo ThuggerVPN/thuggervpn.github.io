@@ -1230,6 +1230,9 @@ def main():
     urls_en, posts_en = build_en.build(ST)
     urls += urls_en
 
+    import readme
+    readme.build(ST, posts, posts_en)
+
     write_feed("feed.xml", f"{BRAND} — статус блокировок и инструкции", f"{SITE}/", "ru", posts, "/blog/", ST)
     write_feed("en/feed.xml", f"{BRAND} — Russia blocking status and VPN guides", f"{SITE}/en/", "en", posts_en, "/en/blog/", ST)
 
