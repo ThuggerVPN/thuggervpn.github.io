@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Белые списки на мобильном интернете: что это и как понять, что они включены — ThuggerVPN</title>
+<meta name="description" content="Что такое белые списки, какие сервисы в них работают, почему перестаёт работать VPN и что можно сделать.">
+<link rel="canonical" href="https://thuggervpn.github.io/blog/belye-spiski-chto-eto/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Белые списки на мобильном интернете: что это и как понять, что они включены — ThuggerVPN">
+<meta property="og:description" content="Что такое белые списки, какие сервисы в них работают, почему перестаёт работать VPN и что можно сделать.">
+<meta property="og:url" content="https://thuggervpn.github.io/blog/belye-spiski-chto-eto/">
+<meta property="og:locale" content="ru_RU">
+<meta name="theme-color" content="#0d0f14">
+<style>
+:root{--bg:#0d0f14;--card:#161a22;--text:#e8eaf0;--muted:#9aa3b2;--accent:#8b5cf6;--accent2:#a78bfa;--line:#252b36}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--accent2)}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:800;color:var(--text);text-decoration:none;letter-spacing:.3px}
+.logo span{color:var(--accent2)}
+nav{white-space:nowrap}nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-size:15px}
+.tbl{overflow-x:auto;margin:16px 0}.tbl table{margin:0;min-width:520px}
+nav a:hover{color:var(--text)}
+main{padding:32px 0 56px}
+h1{font-size:30px;line-height:1.25;margin:0 0 12px}
+h2{font-size:23px;margin:36px 0 10px}
+h3{font-size:19px;margin:26px 0 8px}
+.meta{color:var(--muted);font-size:14px;margin-bottom:24px}
+.lead{font-size:19px;color:#cfd4de}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+code{background:var(--card);padding:2px 6px;border-radius:5px}
+blockquote{margin:16px 0;padding:12px 16px;border-left:3px solid var(--accent);background:var(--card);border-radius:0 8px 8px 0}
+.cta{margin:36px 0;padding:22px;background:linear-gradient(135deg,#1f1640,#161a22);border:1px solid #3b2f6b;border-radius:14px}
+.cta b{font-size:19px}
+.btn{display:inline-block;margin-top:12px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:10px}
+.btn:hover{background:#7c3aed}
+.list{list-style:none;padding:0;margin:0}
+.list li{padding:16px 0;border-bottom:1px solid var(--line)}
+.list a{font-weight:700;font-size:18px;text-decoration:none}
+.list p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.badge{display:inline-block;font-size:12px;font-weight:700;color:#0d0f14;background:#a3e635;border-radius:6px;padding:2px 7px;margin-right:6px;vertical-align:2px}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;padding:24px 0}
+@media(max-width:560px){h1{font-size:25px}nav a{margin-left:12px;font-size:14px}.long{display:none}table{font-size:14px}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Белые списки на мобильном интернете: что это и как понять, что они включены", "description": "Что такое белые списки, какие сервисы в них работают, почему перестаёт работать VPN и что можно сделать.", "datePublished": "2026-11-19", "dateModified": "2026-11-19", "inLanguage": "ru", "mainEntityOfPage": "https://thuggervpn.github.io/blog/belye-spiski-chto-eto/", "author": {"@type": "Organization", "name": "ThuggerVPN", "url": "https://thuggervpn.github.io"}, "publisher": {"@type": "Organization", "name": "ThuggerVPN", "url": "https://thuggervpn.github.io"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Белые списки включают и на домашнем интернете?", "acceptedAnswer": {"@type": "Answer", "text": "По заявлениям Минцифры и операторов — нет, механизм касается мобильного интернета. Поэтому при ограничениях первым делом стоит подключиться к Wi-Fi."}}, {"@type": "Question", "name": "Почему в белом списке работает Яндекс, но не работает VPN?", "acceptedAnswer": {"@type": "Answer", "text": "В белый список вносят конкретные сервисы. VPN-серверов в нём нет, поэтому обычный VPN не может установить соединение, пока режим включён."}}, {"@type": "Question", "name": "Сколько длится режим белых списков?", "acceptedAnswer": {"@type": "Answer", "text": "По-разному: от нескольких часов до нескольких дней, в зависимости от региона и причины ограничений."}}]}</script>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="/">Thugger<span>VPN</span></a>
+<nav><a href="/status/">Статус<span class="long"> блокировок</span></a><a href="/blog/">Статьи</a><a href="https://t.me/BOT_USERNAME" rel="nofollow">Бот</a></nav></div></header>
+<main><div class="wrap">
+<article><h1>Белые списки на мобильном интернете: что это и как понять, что они включены</h1><div class="meta">19 ноября 2026</div><p class="lead"><b>Коротко:</b> белый список — режим, при котором на мобильном интернете открываются только заранее разрешённые сайты и приложения. Всё остальное, включая обычные VPN, не работает, пока режим не снимут.</p>
+
+<h2>Как это устроено</h2>
+<p>Обычные блокировки работают по чёрному списку: запрещено то, что в него внесли. Белый список — наоборот: разрешено только то, что в него внесли. В периоды ограничений мобильный интернет переключается в этот режим.</p>
+<ul>
+<li><strong>Касается только мобильного интернета.</strong> Минцифры прямо заявляло, что механизм относится к мобильным сетям, а не к домашнему интернету.</li>
+<li><strong>Список растёт.</strong> По данным Минцифры, на 12 ноября 2026 года в белый список включили около 900 ресурсов: госсервисы, банки, маркетплейсы, крупные российские сервисы.</li>
+<li><strong>Включается без предупреждения.</strong> Иногда операторы заранее рассылают уведомления, но чаще режим просто появляется.</li>
+</ul>
+<h2>Как понять, что у вас белый список</h2>
+<ol>
+<li>Госуслуги, Яндекс, Wildberries или Ozon открываются.</li>
+<li>Telegram, YouTube и зарубежные сайты — нет.</li>
+<li>VPN не подключается или подключается без трафика.</li>
+<li>На Wi-Fi всё работает нормально.</li>
+</ol>
+<p>Если совпало три-четыре пункта — это белый список.</p>
+<h2>Что можно сделать</h2>
+<ul>
+<li><strong>Переключиться на Wi-Fi.</strong> Самый надёжный вариант: домашний интернет режимом не ограничивается.</li>
+<li><strong>Подождать.</strong> Режим обычно вводят на время — от нескольких часов до суток.</li>
+<li><strong>Использовать VPN с обходом белых списков.</strong> Это редкая и дорогая технология: ей нужны особые серверы, и такие схемы регулярно закрывают. Если сервис обещает обход — проверьте это на пробном периоде, прежде чем платить.</li>
+</ul>
+<p>Актуальная картина по регионам — на странице <a href="/status/">статус блокировок сегодня</a>.</p>
+<h2>Вопросы и ответы</h2>
+<h3>Белые списки включают и на домашнем интернете?</h3>
+<p>По заявлениям Минцифры и операторов — нет, механизм касается мобильного интернета. Поэтому при ограничениях первым делом стоит подключиться к Wi-Fi.</p>
+<h3>Почему в белом списке работает Яндекс, но не работает VPN?</h3>
+<p>В белый список вносят конкретные сервисы. VPN-серверов в нём нет, поэтому обычный VPN не может установить соединение, пока режим включён.</p>
+<h3>Сколько длится режим белых списков?</h3>
+<p>По-разному: от нескольких часов до нескольких дней, в зависимости от региона и причины ограничений.</p><div class="cta"><b>VPN снова отвалился?</b><br>ThuggerVPN работает на мобильном и домашнем интернете. 3 дня бесплатно, дальше — 299 ₽ в месяц. Подключение за пару минут через Telegram-бота.<br><a class="btn" href="https://t.me/BOT_USERNAME" rel="nofollow">Попробовать 3 дня бесплатно</a></div></article>
+</div></main>
+<footer><div class="wrap">© 2026 ThuggerVPN. Справочные материалы о стабильном доступе к интернету.</div></footer>
+</body>
+</html>
