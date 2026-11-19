@@ -347,12 +347,12 @@ def page(title, description, path, body, jsonld=None, og_type="website"):
 {ld}</head>
 <body>
 <header><div class="wrap"><a class="logo" href="/" aria-label="{BRAND} — на главную"><i><b></b></i>{BRAND}</a>
-<nav aria-label="Основное меню"><a href="/check/">Проверка</a><a href="/status/">Статус</a><a href="/blog/">Статьи</a><a class="btn-s" href="{BOT}" rel="nofollow">Бот</a></nav></div></header>
+<nav aria-label="Основное меню"><a href="/podklyuchenie/">Инструкция</a><a href="/check/">Проверка</a><a href="/status/">Статус</a><a class="btn-s" href="{BOT}" rel="nofollow">Бот</a></nav></div></header>
 <main><div class="wrap">
 {body}
 </div></main>
 <footer><div class="wrap"><span>© {today_msk().year} {BRAND}. Справочные материалы о стабильном доступе к интернету.</span>
-<span><a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · <a href="/operator/mts/">МТС</a> · <a href="/operator/beeline/">Билайн</a> · <a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · <a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a></span></div></footer>
+<span><a href="/podklyuchenie/">Как подключить</a> · <a href="/blog/">Статьи</a> · <a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · <a href="/operator/mts/">МТС</a> · <a href="/operator/beeline/">Билайн</a> · <a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · <a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a></span></div></footer>
 {assistant_html()}
 </body>
 </html>
@@ -634,6 +634,103 @@ def count_types(evs):
     return c
 
 
+SETUP_CSS = """<style>
+.dev-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.dev-tabs button{font:700 15px Manrope,sans-serif;background:var(--card2);color:var(--soft);border:1px solid #2b2f44;border-radius:999px;padding:11px 16px;cursor:pointer;min-height:44px}
+.dev-tabs button[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.dev-panel{padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--line)}
+.app-rec{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding:18px;border-radius:16px;background:var(--violet-bg);border:1px solid var(--violet-line)}
+.app-rec b{font-size:19px}.app-rec small{display:block;color:#c9c2e8;font-size:14px;margin-top:2px}
+.app-alt{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.app-alt a{padding:9px 13px;border-radius:12px;background:var(--card2);border:1px solid var(--line);text-decoration:none;color:var(--text);font-size:14px;font-weight:600;min-height:40px;display:inline-flex;align-items:center}
+.app-alt a:hover{border-color:#5b47a8}
+.st4{counter-reset:s;display:grid;gap:12px;margin:18px 0}
+.st4>div{display:grid;grid-template-columns:52px 1fr;gap:16px;padding:20px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.st4 .n{width:52px;height:52px;border-radius:14px;background:var(--accent);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center}
+.st4 h3{margin:2px 0 6px;font-size:19px}.st4 p{margin:0;color:var(--soft)}
+.kbd{display:inline-block;padding:2px 8px;border-radius:8px;background:var(--card2);border:1px solid #2b2f44;font-weight:700;font-size:15px;color:#fff;white-space:nowrap}
+.done{padding:16px 20px;border-radius:16px;background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.35);font-weight:700}
+</style>"""
+
+
+def build_setup_page(urls, UPD):
+    data = json.loads((SRC / "data" / "apps.json").read_text(encoding="utf-8"))
+    bot_name = "@" + BOT.rsplit("/", 1)[-1]
+    tabs, panels = "", ""
+    for i, d in enumerate(data["devices"]):
+        rec = d["apps"][0]
+        alts = "".join(f'<a href="{esc(a["url"])}" target="_blank" rel="noopener nofollow">{esc(a["app"])} · {esc(a["label"])}</a>'
+                       for a in d["apps"][1:])
+        tabs += (f'<button type="button" role="tab" id="tab-{d["id"]}" aria-controls="p-{d["id"]}" '
+                 f'aria-selected="{"true" if i == 0 else "false"}" data-dev="{d["id"]}">{esc(d["name"])}</button>')
+        panels += (f'<div class="dev-panel" role="tabpanel" id="p-{d["id"]}" aria-labelledby="tab-{d["id"]}" data-panel="{d["id"]}">'
+                   f'<h3 style="margin:0 0 12px">{esc(d["name"])}</h3>'
+                   f'<div class="app-rec"><div><b>{esc(rec["app"])}</b><small>Рекомендуем · {esc(rec["label"])}</small></div>'
+                   f'<a class="btn" href="{esc(rec["url"])}" target="_blank" rel="noopener nofollow">Скачать {esc(rec["app"])}</a></div>'
+                   + (f'<p class="note" style="margin:14px 0 0">Не открывается магазин или нужно другое приложение:</p>'
+                      f'<div class="app-alt">{alts}</div>' if alts else "") + '</div>')
+    troubles = [
+        ("Подписка активна?", f"Откройте {bot_name} → кнопка <span class='kbd'>🌍 Мой VPN</span> → посмотрите строку <span class='kbd'>📆 Оплачен до</span>. Если срок закончился — продлите подписку в боте."),
+        ("В подписке есть локации?", f"В {bot_name} → <span class='kbd'>🌍 Мой VPN</span> проверьте строку <span class='kbd'>🌎 Локации в подписке</span>. Если там пусто — нажмите <span class='kbd'>🔄 Обновить подписку</span>."),
+        ("Обновите ключи", f"В {bot_name} → <span class='kbd'>🌍 Мой VPN</span> → <span class='kbd'>🔄 Обновить подписку</span> и следуйте подсказкам в боте. Затем снова вставьте ссылку в приложение."),
+        ("Возможно, это белые списки", "Операторы могут временно ограничивать мобильный интернет: работают только разрешённые сайты — Госуслуги, банки, крупные российские сервисы. Если VPN не подключается или страницы не грузятся — подключитесь к Wi-Fi. Проверить, что у вас, можно за 5 секунд на странице проверки."),
+    ]
+    tr_html = "".join(f'<details class="acc-q"><summary>{i + 1}. {esc(q)}</summary><p>{a}</p></details>'
+                      for i, (q, a) in enumerate(troubles))
+    path = "/podklyuchenie/"
+    crumbs = [("Главная", "/"), ("Как подключить", path)]
+    title = "Как подключить ThuggerVPN: iPhone, Android, Windows, Mac, ТВ"
+    faq = [
+        ("Какое приложение выбрать?", "Рекомендуем Incy — оно есть для iPhone, Android, Windows, macOS и телевизоров. "
+         "Если не получается установить, подойдут HAPP или V2RayTun: ссылка подписки работает в любом из них."),
+        ("Где взять ссылку подписки?", f"В Telegram-боте {bot_name}. Нажмите на ссылку один раз — она скопируется автоматически."),
+        ("Сколько устройств можно подключить?", CFG.get("devices", "")),
+        ("VPN не работает — что делать?", "Проверьте, что подписка активна и в ней есть локации, обновите подписку в боте. "
+         "Если открываются только российские сайты — это белые списки, подключитесь к Wi-Fi. Не помогло — напишите в поддержку."),
+    ]
+    faq_html = "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq if a)
+    script = """<script>(function(){var tabs=[].slice.call(document.querySelectorAll('.dev-tabs [role=tab]')),
+panels=[].slice.call(document.querySelectorAll('[data-panel]'));
+function sel(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.dev===id?'true':'false')});
+panels.forEach(function(p){p.hidden=p.dataset.panel!==id});}
+tabs.forEach(function(t){t.addEventListener('click',function(){sel(t.dataset.dev);history.replaceState(null,'','#'+t.dataset.dev)})});
+var ua=navigator.userAgent,h=location.hash.slice(1),ids=tabs.map(function(t){return t.dataset.dev});
+var d=ids.indexOf(h)>=0?h:/iPhone|iPad|iPod/.test(ua)?'ios':/Android/.test(ua)?(/TV|AFT/.test(ua)?'tv':'android'):/Mac/.test(ua)?'mac':/Win/.test(ua)?'windows':'ios';
+sel(d);})();</script>"""
+    body = (f'{SETUP_CSS}<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}<h1>{esc(title)}</h1>'
+            f'<p class="lead"><b>Коротко:</b> 4 шага и 2 минуты. Скачайте приложение, возьмите ссылку подписки в боте, '
+            f'вставьте её в приложение и нажмите «Подключиться».</p>'
+            f'<div class="st4">'
+            f'<div><div class="n">1</div><div><h3>Скачайте приложение</h3><p>Выберите своё устройство — мы определили его автоматически.</p></div></div></div>'
+            f'<div class="dev-tabs" role="tablist" aria-label="Устройство">{tabs}</div>{panels}'
+            f'<div class="st4">'
+            f'<div><div class="n">2</div><div><h3>Скопируйте ссылку подписки</h3><p>Откройте <a href="{BOT}" rel="nofollow">{bot_name}</a> '
+            f'и получите персональную ссылку. Нажмите на неё один раз — она скопируется автоматически. '
+            f'Ещё нет подписки? Возьмите {CFG["trial"]}.</p></div></div>'
+            f'<div><div class="n">3</div><div><h3>Вставьте ссылку в приложение</h3><p>Откройте скачанное приложение и нажмите '
+            f'<span class="kbd">Из буфера</span>.</p></div></div>'
+            f'<div><div class="n">4</div><div><h3>Подключитесь</h3><p>Появится список серверов. Выберите локацию и нажмите '
+            f'<span class="kbd">Подключиться</span>.</p></div></div></div>'
+            f'<div class="done">✓ Готово — интернет работает через {esc(BRAND)}.</div>'
+            f'<p style="margin:18px 0"><a class="btn" href="{BOT}" rel="nofollow">Получить ссылку в {bot_name}</a></p>'
+            f'<h2>Если VPN не работает</h2>{tr_html}'
+            f'<p>Не помогло? <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Напишите в поддержку</a> или '
+            f'<a href="/check/">проверьте свой интернет за 5 секунд</a>.</p>'
+            f'<h2>Вопросы и ответы</h2>{faq_html}{cta_block()}</article>{script}')
+    meta = {"title": title, "description": "Пошаговая инструкция: приложения Incy, HAPP, V2RayTun для iPhone, Android, Windows, macOS и ТВ, ссылка подписки из бота, что делать, если VPN не работает.",
+            "date": "2026-11-19", "updated": UPD, "faq": faq}
+    howto = {"@context": "https://schema.org", "@type": "HowTo", "name": title, "totalTime": "PT2M",
+             "step": [{"@type": "HowToStep", "position": i + 1, "name": n, "text": t} for i, (n, t) in enumerate([
+                 ("Скачайте приложение", "Установите Incy (или HAPP, V2RayTun) для своего устройства."),
+                 ("Скопируйте ссылку подписки", f"Получите персональную ссылку в Telegram-боте {bot_name}."),
+                 ("Вставьте ссылку в приложение", "Откройте приложение и нажмите «Из буфера»."),
+                 ("Подключитесь", "Выберите локацию и нажмите «Подключиться»."),
+             ])]}
+    write("podklyuchenie/index.html", page(f"{title} — {BRAND}", meta["description"], path, body,
+                                           article_jsonld(meta, path, crumbs) + [howto]))
+    urls.append((path, UPD))
+
+
 def main():
     arts = [parse(p) for p in sorted((SRC / "articles").glob("*.md"))]
     status = next((a for a in arts if a["slug"] == "status"), None)
@@ -642,7 +739,7 @@ def main():
     ST = load_status()
     UPD = ST["updated"]
 
-    for d in ("blog", "status", "check", "operator", "index-blokirovok", "embed", "informer", "data"):
+    for d in ("blog", "status", "check", "podklyuchenie", "operator", "index-blokirovok", "embed", "informer", "data"):
         shutil.rmtree(ROOT / d, ignore_errors=True)
 
     urls = [("/", UPD)]
@@ -712,6 +809,8 @@ def main():
     write("check/index.html", page(f'{check_meta["title"]} — {BRAND}', check_meta["description"], path, body,
                                    article_jsonld(check_meta, path, crumbs)))
     urls.append((path, UPD))
+
+    build_setup_page(urls, UPD)
 
     # --- страницы операторов ---
     for slug, (name, name_loc) in OPS.items():
@@ -906,7 +1005,7 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
         ("Сколько устройств можно подключить?", CFG.get("devices", "")),
         ("Что такое обход белых списков?", "Когда мобильный интернет переводят в режим белых списков, обычные VPN перестают работать. "
          f"Опция обхода — {CFG.get('whitelist_detail', '')}."),
-        ("Что нужно установить?", "Откройте бота в Telegram — он выдаст ссылку и пошаговую инструкцию для телефона и компьютера."),
+        ("Что нужно установить?", "Приложение Incy (или HAPP, V2RayTun) для вашего устройства и ссылку подписки из Telegram-бота. Пошаговая инструкция — на странице «Как подключить»."),
         ("Что делать, если не заработает?", "Напишите в поддержку @ThuggerVPN_supp — ответит живой человек и поможет подобрать рабочий сервер."),
     ]
     faq_html = "".join(f'<details class="acc-q"><summary>{esc(q)}</summary><p>{esc(a)}</p></details>'
@@ -941,10 +1040,10 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
 </section>
 
 <section class="sec" id="how"><h2>Как подключить</h2><div class="steps3">
-<div><span>1</span><b>Откройте @{BOT.rsplit("/", 1)[-1]}</b><small>и нажмите «Старт»</small></div>
-<div><span>2</span><b>Возьмите {CFG["trial"]}</b><small>без оплаты</small></div>
-<div><span>3</span><b>Подключитесь</b><small>бот даст ссылку и инструкцию</small></div>
-</div></section>
+<div><span>1</span><b>Скачайте Incy</b><small>iPhone, Android, Windows, Mac, ТВ</small></div>
+<div><span>2</span><b>Возьмите ссылку в боте</b><small>{CFG["trial"]} — без оплаты</small></div>
+<div><span>3</span><b>Вставьте и подключитесь</b><small>«Из буфера» → «Подключиться»</small></div>
+</div><p style="margin-top:16px"><a href="/podklyuchenie/">Подробная инструкция для вашего устройства →</a></p></section>
 
 <section class="sec" id="reviews"><div class="trust2">
 <div class="tr-head"><div><h2>Что говорят клиенты</h2>
@@ -994,6 +1093,7 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
             + f". Поддержка: {SUPPORT}. Отзывы и голоса пользователей по операторам: {VPNSTATUS}. "
             "Сайт публикует ежедневную сводку блокировок, индекс блокировок и инструкции.", "",
             "## Инструменты и данные",
+            f"- [Как подключить ThuggerVPN]({SITE}/podklyuchenie/): приложения Incy, HAPP, V2RayTun для iPhone, Android, Windows, macOS, ТВ",
             f"- [Проверка интернета за 5 секунд]({SITE}/check/): белые списки, отключение или не работает VPN",
             f"- [Статус блокировок сегодня]({SITE}/status/)",
             f"- [Индекс блокировок]({SITE}/index-blokirovok/): события за 7 и 30 дней с источниками; JSON: {SITE}/data/blocking-events.json"]

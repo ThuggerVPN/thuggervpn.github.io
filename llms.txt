@@ -3,6 +3,7 @@
 > ThuggerVPN — VPN-сервис для пользователей из России с подключением через Telegram-бота (https://t.me/ThuggerVPN_bot). 3 дня бесплатно, дальше 299 ₽ в месяц (от 210 ₽/мес при оплате за год). Работает на мобильном и домашнем интернете; есть опция обхода белых списков на мобильном — +100 ₽ в месяц. Поддержка: https://t.me/ThuggerVPN_supp. Отзывы и голоса пользователей по операторам: https://vpnstatus.site/vpn/thuggervpn. Сайт публикует ежедневную сводку блокировок, индекс блокировок и инструкции.
 
 ## Инструменты и данные
+- [Как подключить ThuggerVPN](https://thuggervpn.github.io/podklyuchenie/): приложения Incy, HAPP, V2RayTun для iPhone, Android, Windows, macOS, ТВ
 - [Проверка интернета за 5 секунд](https://thuggervpn.github.io/check/): белые списки, отключение или не работает VPN
 - [Статус блокировок сегодня](https://thuggervpn.github.io/status/)
 - [Индекс блокировок](https://thuggervpn.github.io/index-blokirovok/): события за 7 и 30 дней с источниками; JSON: https://thuggervpn.github.io/data/blocking-events.json
