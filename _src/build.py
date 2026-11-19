@@ -23,6 +23,7 @@ SITE = CFG["site_url"].rstrip("/")
 BRAND = CFG["brand"]
 BOT = CFG["bot_url"]
 VPNSTATUS = CFG.get("vpnstatus_url", "https://vpnstatus.site")
+ASSIST_PATH = SRC / "assistant.json"
 
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля",
           "августа", "сентября", "октября", "ноября", "декабря"]
@@ -194,6 +195,28 @@ footer{border-top:1px solid #1a1d29;color:#8b93a5;font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:26px;padding-bottom:26px}
 footer a{color:#b9a4ff;text-decoration:none}
 @media(max-width:860px){.hide-m{display:none!important}nav a{padding:8px 11px;font-size:14px}.tile-head h2{font-size:24px}.trust h2{font-size:24px}.cta b{font-size:20px}.tile.wide{grid-column:auto}.hero h1{font-size:42px}.stage{height:380px}.iso{width:220px;height:220px}.sec h2{font-size:30px}.step.s1,.step.s3{transform:none}article h1{font-size:30px}.p3{font-size:20px}}
+.qa-fab{position:fixed;right:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:14px 20px;font:700 16px Manrope,sans-serif;cursor:pointer;box-shadow:0 14px 34px -8px rgba(139,92,246,.75);min-height:48px}
+.qa-fab:hover{background:#7c3aed}
+.qa{position:fixed;right:18px;bottom:84px;z-index:51;width:min(420px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 110px));display:none;flex-direction:column;background:#11121a;border:1px solid #2b2f44;border-radius:22px;box-shadow:0 40px 80px -20px rgba(0,0,0,.8),0 0 0 1px rgba(139,92,246,.15);overflow:hidden}
+.qa.open{display:flex}
+.qa-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line)}
+.qa-head b{font-size:17px}
+.qa-x{background:none;border:0;color:var(--soft);font-size:24px;line-height:1;cursor:pointer;width:44px;height:44px;border-radius:12px}
+.qa-x:hover{background:var(--card2);color:#fff}
+.qa-body{padding:16px 18px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.qa-form{display:flex;gap:8px}
+.qa-form label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.qa-form input{flex:1;min-width:0;background:var(--card2);border:1px solid #2b2f44;color:var(--text);border-radius:12px;padding:12px 14px;font:16px Manrope,sans-serif;min-height:46px}
+.qa-form input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.qa-form button{background:var(--accent);color:#fff;border:0;border-radius:12px;padding:0 16px;font:700 15px Manrope,sans-serif;cursor:pointer;min-height:46px}
+.qa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.qa-chips button{background:var(--card2);color:var(--soft);border:1px solid #2b2f44;border-radius:999px;padding:9px 13px;font:600 14px Manrope,sans-serif;cursor:pointer;text-align:left;min-height:40px}
+.qa-chips button:hover{border-color:#5b47a8;color:#fff}
+.qa-ans{background:var(--violet-bg);border:1px solid var(--violet-line);border-radius:16px;padding:14px 16px;white-space:pre-line;font-size:15px;line-height:1.6;color:#e4defc}
+.qa-ans:empty{display:none}
+.qa-ans a{display:inline-block;margin-top:10px;margin-right:12px;font-weight:700}
+.qa-hint{color:var(--muted);font-size:13px;margin:0}
+@media(max-width:560px){.qa-fab span{display:none}.qa-fab{padding:14px}.qa{right:12px;bottom:78px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """
 
@@ -268,9 +291,68 @@ def page(title, description, path, body, jsonld=None, og_type="website"):
 </div></main>
 <footer><div class="wrap"><span>© {date.today().year} {BRAND}. Справочные материалы о стабильном доступе к интернету.</span>
 <span><a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы на vpnstatus.site</a> · <a href="{BOT}" rel="nofollow">@{BOT.rsplit("/", 1)[-1]}</a></span></div></footer>
+{assistant_html()}
 </body>
 </html>
 """
+
+
+def assistant_html():
+    if not ASSIST_PATH.exists():
+        return ""
+    data = json.loads(ASSIST_PATH.read_text(encoding="utf-8"))
+    subs = {"{BOT}": BOT, "{PRICE}": CFG["price"], "{PRICE_FROM}": CFG.get("price_from", ""),
+            "{TRIAL}": CFG["trial"], "{WL}": CFG.get("whitelist_option", "").split("—")[-1].strip()
+            or CFG.get("whitelist_option", ""), "{VPNSTATUS}": VPNSTATUS}
+
+    def sub(t):
+        for k, v in subs.items():
+            t = t.replace(k, v)
+        return t
+    intents = [{"id": i["id"], "chip": i["chip"], "keys": i["keys"], "answer": sub(i["answer"]),
+                "link": sub(i["link"]), "link_text": i["link_text"]} for i in data["intents"]]
+    payload = json.dumps({"intents": intents, "fallback": data["fallback"], "bot": BOT},
+                         ensure_ascii=False).replace("</", "<\\/")
+    chips = "".join(f'<button type="button" data-id="{esc(i["id"])}">{esc(i["chip"])}</button>'
+                    for i in intents[:8])
+    return f"""<button class="qa-fab" type="button" aria-expanded="false" aria-controls="qa" id="qa-fab">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Быстрый ответ</span></button>
+<div class="qa" id="qa" role="dialog" aria-modal="false" aria-labelledby="qa-title">
+<div class="qa-head"><b id="qa-title">Быстрый ответ</b><button class="qa-x" type="button" aria-label="Закрыть" id="qa-x">×</button></div>
+<div class="qa-body">
+<form class="qa-form" id="qa-form"><label for="qa-in">Опишите проблему</label>
+<input id="qa-in" type="text" autocomplete="off" placeholder="Например: VPN подключён, но не грузит">
+<button type="submit">Ответ</button></form>
+<div class="qa-ans" id="qa-ans" aria-live="polite"></div>
+<div class="qa-chips" id="qa-chips">{chips}</div>
+<p class="qa-hint">Ответы готовы заранее и показываются сразу, без отправки ваших слов на сервер.</p>
+</div></div>
+<script id="qa-data" type="application/json">{payload}</script>
+<script>
+(function(){{
+var D=JSON.parse(document.getElementById('qa-data').textContent);
+var fab=document.getElementById('qa-fab'),box=document.getElementById('qa'),inp=document.getElementById('qa-in'),
+ans=document.getElementById('qa-ans'),chips=document.getElementById('qa-chips');
+function open(v){{box.classList.toggle('open',v);fab.setAttribute('aria-expanded',v?'true':'false');if(v)setTimeout(function(){{inp.focus()}},30);else fab.focus();}}
+fab.addEventListener('click',function(){{open(!box.classList.contains('open'))}});
+document.getElementById('qa-x').addEventListener('click',function(){{open(false)}});
+box.addEventListener('keydown',function(e){{if(e.key==='Escape')open(false)}});
+document.querySelectorAll('[data-qa-open]').forEach(function(b){{b.addEventListener('click',function(e){{e.preventDefault();open(true)}})}});
+function norm(t){{return (' '+t.toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9₽ ]+/g,' ').replace(/\\s+/g,' ')+' ')}}
+function score(q,it){{var s=0;it.keys.forEach(function(k){{var kk=norm(k).trim();if(!kk)return;
+var hit=kk.length<3?q.indexOf(' '+kk+' ')>=0:q.indexOf(kk)>=0;if(hit)s+=kk.length;}});return s;}}
+function show(it){{ans.textContent='';
+var p=document.createElement('div');p.textContent=it?it.answer:D.fallback;ans.appendChild(p);
+var a=document.createElement('a');
+if(it){{a.href=it.link;a.textContent=it.link_text+' →';if(/^https?:/.test(it.link)){{a.target='_blank';a.rel='noopener';}}ans.appendChild(a);}}
+if(!it||it.link!==D.bot){{var b=document.createElement('a');b.href=D.bot;b.target='_blank';b.rel='noopener nofollow';b.textContent='Написать в бот →';ans.appendChild(b);}}}}
+document.getElementById('qa-form').addEventListener('submit',function(e){{e.preventDefault();
+var q=norm(inp.value);if(!q.trim())return;var best=null,bs=0;
+D.intents.forEach(function(it){{var s=score(q,it);if(s>bs){{bs=s;best=it;}}}});show(bs>=3?best:null);}});
+chips.addEventListener('click',function(e){{var id=e.target.getAttribute('data-id');if(!id)return;
+for(var i=0;i<D.intents.length;i++)if(D.intents[i].id===id){{inp.value=D.intents[i].chip;show(D.intents[i]);}}}});
+}})();
+</script>"""
 
 
 def article_jsonld(a, path, crumbs):
@@ -379,6 +461,7 @@ def main():
 <h1>Интернет без «соединение…»</h1>
 <p class="lead">{BRAND} работает на мобильном и домашнем интернете. Подключение через Telegram-бота за пару минут.</p>
 <div class="row"><a class="btn" href="{BOT}" rel="nofollow">{CFG["trial"].capitalize()}</a>
+<a class="btn-ghost" href="#" data-qa-open="1">Быстрый ответ на проблему</a>
 <span class="note">дальше {CFG["price"]}{(" · " + CFG["price_from"]) if CFG.get("price_from") else ""}</span></div>
 </div>
 <div class="stage" aria-hidden="true"><div class="iso"><div class="grid"></div>
