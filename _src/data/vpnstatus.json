@@ -1,0 +1,22 @@
+{
+  "_comment": "Снимок карточки https://vpnstatus.site/vpn/thuggervpn для превью отзывов на сайте. Обновляется ежедневной задачей. checked — дата проверки по Москве. Отзывы — короткий пересказ своими словами, не цитаты. works/total — голоса «работает» из всех; null — голосов нет.",
+  "url": "https://vpnstatus.site/vpn/thuggervpn",
+  "checked": "2026-11-19",
+  "rating": "5.0",
+  "votes": 9,
+  "works_percent": 100,
+  "reviews_count": 8,
+  "mobile": [
+    {"name": "МТС", "works": 1, "total": 1, "wl_works": null, "wl_total": null},
+    {"name": "МегаФон", "works": 1, "total": 1, "wl_works": 1, "wl_total": 1},
+    {"name": "Билайн", "works": 2, "total": 2, "wl_works": 2, "wl_total": 2},
+    {"name": "Т2", "works": 1, "total": 1, "wl_works": null, "wl_total": null}
+  ],
+  "home_works": 4,
+  "home_total": 4,
+  "reviews": [
+    {"period": "10 месяцев", "text": "Перепробовал много VPN — этот самый стабильный, поддержка отвечает быстро."},
+    {"period": "3 года", "text": "С сервисом с 2023 года: проблемы при смене протоколов решали, обход белых списков проверил сам."},
+    {"period": "несколько месяцев", "text": "Работал во время крупной волны блокировок, видео в высоком качестве без переподключений."}
+  ]
+}
