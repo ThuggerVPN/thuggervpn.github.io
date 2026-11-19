@@ -26,10 +26,10 @@ jobs:
           fi
           API="https://api.telegram.org/bot${TG_BOT_TOKEN}"
           D=_src/channel
-          echo "== Аватарка";  curl -sS -F chat_id="$TG_CHANNEL" -F photo=@$D/avatar.png "$API/setChatPhoto"; echo
+          echo "== Аватарка";  curl -sS --form-string chat_id="$TG_CHANNEL" -F photo=@$D/avatar.png "$API/setChatPhoto"; echo
           echo "== Описание";  curl -sS --data-urlencode chat_id="$TG_CHANNEL" --data-urlencode description@$D/description.txt "$API/setChatDescription"; echo
           echo "== Пост"
-          RES=$(curl -sS -F chat_id="$TG_CHANNEL" -F photo=@$D/welcome.png -F parse_mode=HTML -F caption="<$D/welcome.html" "$API/sendPhoto")
+          RES=$(curl -sS --form-string chat_id="$TG_CHANNEL" -F photo=@$D/welcome.png --form-string parse_mode=HTML -F caption="<$D/welcome.html" "$API/sendPhoto")
           echo "$RES"
           MID=$(echo "$RES" | python3 -c "import sys,json;print(json.load(sys.stdin).get('result',{}).get('message_id',''))")
           if [ -n "$MID" ]; then
