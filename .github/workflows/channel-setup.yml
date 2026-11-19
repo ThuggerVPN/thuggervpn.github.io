@@ -1,0 +1,39 @@
+name: Telegram channel setup
+
+# Оформление канала: аватарка, описание, закреплённый пост.
+# Запускается вручную (Actions → Telegram channel setup → Run workflow)
+# или когда меняется файл _src/channel/run.txt.
+# Нужны секреты TG_BOT_TOKEN и TG_CHANNEL; бот — админ канала с правами:
+# публикация сообщений, изменение профиля канала, закрепление сообщений.
+on:
+  push:
+    branches: [main]
+    paths: ["_src/channel/run.txt"]
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure channel
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHANNEL: ${{ secrets.TG_CHANNEL }}
+        run: |
+          if [ -z "$TG_BOT_TOKEN" ] || [ -z "$TG_CHANNEL" ]; then
+            echo "Секреты TG_BOT_TOKEN / TG_CHANNEL не заданы — пропускаю."; exit 0
+          fi
+          API="https://api.telegram.org/bot${TG_BOT_TOKEN}"
+          D=_src/channel
+          echo "== Аватарка";  curl -sS -F chat_id="$TG_CHANNEL" -F photo=@$D/avatar.png "$API/setChatPhoto"; echo
+          echo "== Описание";  curl -sS --data-urlencode chat_id="$TG_CHANNEL" --data-urlencode description@$D/description.txt "$API/setChatDescription"; echo
+          echo "== Пост"
+          RES=$(curl -sS -F chat_id="$TG_CHANNEL" -F photo=@$D/welcome.png -F parse_mode=HTML -F caption="<$D/welcome.html" "$API/sendPhoto")
+          echo "$RES"
+          MID=$(echo "$RES" | python3 -c "import sys,json;print(json.load(sys.stdin).get('result',{}).get('message_id',''))")
+          if [ -n "$MID" ]; then
+            echo "== Закрепление"; curl -sS --data-urlencode chat_id="$TG_CHANNEL" -d message_id="$MID" -d disable_notification=true "$API/pinChatMessage"; echo
+          else
+            echo "Пост не отправлен"; exit 1
+          fi

@@ -1,0 +1,5 @@
+Канал сервиса ThuggerVPN — статус блокировок каждое утро: где отключили мобильный интернет, белые списки и что делать.
+
+Проверить интернет: thuggervpn.github.io/check
+VPN: @ThuggerVPN_bot
+Поддержка: @ThuggerVPN_supp
