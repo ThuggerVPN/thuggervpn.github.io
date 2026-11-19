@@ -17,3 +17,15 @@
 - [Не работает VPN на мобильном интернете: что делать в 2026 году](https://thuggervpn.github.io/blog/ne-rabotaet-vpn-na-mobilnom/): Пошаговый разбор: почему VPN отваливается на МТС, Билайне, МегаФоне и Т2 и как вернуть доступ за пару минут.
 - [Как выбрать VPN в 2026 году: 7 критериев, которые реально важны](https://thuggervpn.github.io/blog/kak-vybrat-vpn-2026/): Чек-лист для выбора VPN в России: протоколы, скорость реакции на блокировки, пробный период, поддержка, оплата.
 - [Белые списки на мобильном интернете: что это и как понять, что они включены](https://thuggervpn.github.io/blog/belye-spiski-chto-eto/): Что такое белые списки, какие сервисы в них работают, почему перестаёт работать VPN и что можно сделать.
+
+## English
+> ThuggerVPN is a VPN service for users in Russia, connected via a Telegram bot (https://t.me/ThuggerVPN_bot): 3 days free, then from 210 ₽/month; works on mobile and home internet; optional mobile whitelist bypass. Support: https://t.me/ThuggerVPN_supp. Reviews by carrier: https://vpnstatus.site/vpn/thuggervpn.
+- [Home](https://thuggervpn.github.io/en/)
+- [Setup guide](https://thuggervpn.github.io/en/podklyuchenie/)
+- [5-second internet check](https://thuggervpn.github.io/en/check/)
+- [Blocking status in Russia today](https://thuggervpn.github.io/en/status/)
+- [Russia internet blocking index](https://thuggervpn.github.io/en/index-blokirovok/)
+- [VPN connected but no internet: 5 causes and fixes](https://thuggervpn.github.io/en/blog/vpn-podklyuchen-no-net-interneta/): Why your VPN says "connected" but pages won't load, and how to fix it in five minutes.
+- [VPN not working on mobile data in Russia: what to do in 2026](https://thuggervpn.github.io/en/blog/ne-rabotaet-vpn-na-mobilnom/): Step by step: why VPNs drop on MTS, Beeline, MegaFon and T2, and how to get access back in a couple of minutes.
+- [How to choose a VPN for Russia in 2026: 7 criteria that matter](https://thuggervpn.github.io/en/blog/kak-vybrat-vpn-2026/): Checklist for choosing a VPN in Russia: protocols, reaction speed to blocks, free trial, support, payment.
+- [Mobile internet whitelists in Russia: what they are and how to tell](https://thuggervpn.github.io/en/blog/belye-spiski-chto-eto/): What whitelists are, which services work during them, why your VPN stops working and what you can do.

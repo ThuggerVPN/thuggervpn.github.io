@@ -30,6 +30,35 @@ CHANNEL = CFG.get("channel_url", "")
 
 MSK = ZoneInfo("Europe/Moscow")
 
+# Страницы, у которых есть английская версия (/en + тот же путь)
+EN_STATIC = {"/", "/check/", "/podklyuchenie/", "/status/", "/index-blokirovok/", "/informer/", "/blog/",
+             "/operator/mts/", "/operator/beeline/", "/operator/megafon/", "/operator/t2/"}
+
+
+def _en_slugs():
+    out = set()
+    for f in (SRC / "articles_en").glob("*.md") if (SRC / "articles_en").exists() else []:
+        m = re.search(r"^slug:\s*(\S+)", f.read_text(encoding="utf-8"), re.M)
+        if m and m.group(1) != "status":
+            out.add(f"/blog/{m.group(1)}/")
+    return out
+
+
+EN_PAGES = EN_STATIC | _en_slugs()
+
+
+def ru_path(path):
+    return path[3:] if path.startswith("/en/") else path
+
+
+def alt_links(path):
+    rp = ru_path(path)
+    if rp not in EN_PAGES:
+        return ""
+    return (f'<link rel="alternate" hreflang="ru" href="{SITE}{rp}">'
+            f'<link rel="alternate" hreflang="en" href="{SITE}/en{rp}">'
+            f'<link rel="alternate" hreflang="x-default" href="{SITE}{rp}">')
+
 
 def today_msk():
     return datetime.now(MSK).date()
@@ -72,7 +101,7 @@ def parse(path):
 
 
 def extract_faq(md_text):
-    m = re.search(r"^## Вопросы и ответы\s*$(.*?)(?=^## |\Z)", md_text, re.S | re.M)
+    m = re.search(r"^## (?:Вопросы и ответы|FAQ)\s*$(.*?)(?=^## |\Z)", md_text, re.S | re.M)
     if not m:
         return []
     items = []
@@ -118,6 +147,7 @@ a{color:#b9a4ff}a:hover{color:#fff}
 .narrow{max-width:780px}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:18px;padding-bottom:18px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:800;font-size:19px}
+.hl{display:flex;align-items:center;gap:10px}.lang{font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--soft);text-decoration:none;border:1px solid #2b2f44;border-radius:8px;padding:5px 8px;min-height:28px;display:inline-flex;align-items:center}.lang:hover{color:#fff;border-color:#5b47a8}
 .logo i{width:30px;height:30px;border-radius:9px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;transform:rotate(45deg)}
 .logo i b{width:12px;height:12px;border-radius:3px;background:var(--bg)}
 nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;padding:5px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
@@ -321,54 +351,90 @@ def trust_block():
 </div>"""
 
 
-def page(title, description, path, body, jsonld=None, og_type="website"):
+def page(title, description, path, body, jsonld=None, og_type="website", lang="ru"):
     url = f"{SITE}{path}"
+    en = lang == "en"
+    rp = ru_path(path)
+    if rp in EN_PAGES:
+        sw = (f'<a class="lang" href="{rp}" hreflang="ru" lang="ru">RU</a>' if en
+              else f'<a class="lang" href="/en{rp}" hreflang="en" lang="en">EN</a>')
+    else:
+        sw = (f'<a class="lang" href="/" hreflang="ru" lang="ru">RU</a>' if en
+              else f'<a class="lang" href="/en/" hreflang="en" lang="en">EN</a>')
+    pre = "/en" if en else ""
+    if en:
+        nav = (f'<a href="/en/podklyuchenie/">Setup</a><a href="/en/check/">Check</a>'
+               f'<a href="/en/status/">Status</a><a class="btn-s" href="{BOT}" rel="nofollow">Bot</a>')
+        foot_l = f"© {today_msk().year} {BRAND}. Guides on stable internet access in Russia."
+        foot_r = (f'<a href="/en/podklyuchenie/">How to connect</a> · <a href="/en/blog/">Articles</a> · '
+                  f'<a href="/en/index-blokirovok/">Blocking index</a> · <a href="/en/informer/">Widget</a> · '
+                  f'<a href="/en/operator/mts/">MTS</a> · <a href="/en/operator/beeline/">Beeline</a> · '
+                  f'<a href="/en/operator/megafon/">MegaFon</a> · <a href="/en/operator/t2/">T2</a> · '
+                  f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">Reviews</a> · '
+                  f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Support</a> · '
+                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram channel</a>')
+        home_label, menu_label, locale = "home", "Main menu", "en_US"
+    else:
+        nav = (f'<a href="/podklyuchenie/">Инструкция</a><a href="/check/">Проверка</a>'
+               f'<a href="/status/">Статус</a><a class="btn-s" href="{BOT}" rel="nofollow">Бот</a>')
+        foot_l = f"© {today_msk().year} {BRAND}. Справочные материалы о стабильном доступе к интернету."
+        foot_r = (f'<a href="/podklyuchenie/">Как подключить</a> · <a href="/blog/">Статьи</a> · '
+                  f'<a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · '
+                  f'<a href="/operator/mts/">МТС</a> · <a href="/operator/beeline/">Билайн</a> · '
+                  f'<a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · '
+                  f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · '
+                  f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · '
+                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a>')
+        home_label, menu_label, locale = "на главную", "Основное меню", "ru_RU"
     ld = ""
     for obj in jsonld or []:
         ld += f'<script type="application/ld+json">{json.dumps(obj, ensure_ascii=False)}</script>\n'
     return f"""<!DOCTYPE html>
-<html lang="ru">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
 <link rel="canonical" href="{url}">
+{alt_links(path)}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/manrope-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/manrope-{'latin' if en else 'cyrillic'}-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="{BRAND}">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE}/og.png">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="{SITE}/og{'-en' if en else ''}.png">
+<meta property="og:locale" content="{locale}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0b10">
 {CFG.get("head_extra", "")}
 <style>{CSS}</style>
 {ld}</head>
 <body>
-<header><div class="wrap"><a class="logo" href="/" aria-label="{BRAND} — на главную"><i><b></b></i>{BRAND}</a>
-<nav aria-label="Основное меню"><a href="/podklyuchenie/">Инструкция</a><a href="/check/">Проверка</a><a href="/status/">Статус</a><a class="btn-s" href="{BOT}" rel="nofollow">Бот</a></nav></div></header>
+<header><div class="wrap"><span class="hl"><a class="logo" href="{pre}/" aria-label="{BRAND} — {home_label}"><i><b></b></i>{BRAND}</a>{sw}</span>
+<nav aria-label="{menu_label}">{nav}</nav></div></header>
 <main><div class="wrap">
 {body}
 </div></main>
-<footer><div class="wrap"><span>© {today_msk().year} {BRAND}. Справочные материалы о стабильном доступе к интернету.</span>
-<span><a href="/podklyuchenie/">Как подключить</a> · <a href="/blog/">Статьи</a> · <a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · <a href="/operator/mts/">МТС</a> · <a href="/operator/beeline/">Билайн</a> · <a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · <a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a></span></div></footer>
-{assistant_html()}
+<footer><div class="wrap"><span>{foot_l}</span>
+<span>{foot_r}</span></div></footer>
+{assistant_html(lang)}
 </body>
 </html>
 """
 
 
-def assistant_html():
-    if not ASSIST_PATH.exists():
+def assistant_html(lang="ru"):
+    en = lang == "en"
+    ap = SRC / ("assistant_en.json" if en else "assistant.json")
+    if not ap.exists():
         return ""
-    data = json.loads(ASSIST_PATH.read_text(encoding="utf-8"))
+    data = json.loads(ap.read_text(encoding="utf-8"))
     subs = {"{BOT}": BOT, "{PRICE}": CFG["price"], "{PRICE_FROM}": CFG.get("price_from", ""),
-            "{TRIAL}": CFG["trial"], "{WL}": CFG.get("whitelist_option", "").split("—")[-1].strip()
-            or CFG.get("whitelist_option", ""), "{VPNSTATUS}": VPNSTATUS, "{SUPPORT}": SUPPORT}
+            "{TRIAL}": CFG["trial"], "{WL}": (CFG["en"]["whitelist_detail"] if en else
+                                                 CFG.get("whitelist_option", "").split("—")[-1].strip()), "{VPNSTATUS}": VPNSTATUS, "{SUPPORT}": SUPPORT}
 
     def sub(t):
         for k, v in subs.items():
@@ -376,21 +442,27 @@ def assistant_html():
         return t
     intents = [{"id": i["id"], "chip": i["chip"], "keys": i["keys"], "answer": sub(i["answer"]),
                 "link": sub(i["link"]), "link_text": i["link_text"]} for i in data["intents"]]
-    payload = json.dumps({"intents": intents, "fallback": data["fallback"], "support": SUPPORT},
+    L = ({"qa": "Quick answer", "close": "Close", "describe": "Describe the problem", "ph": "e.g. VPN connected but nothing loads",
+          "go": "Answer", "hint": "Answers are prepared in advance and shown instantly; nothing you type is sent to a server.",
+          "sup": "Message support →"} if en else
+         {"qa": "Быстрый ответ", "close": "Закрыть", "describe": "Опишите проблему", "ph": "Например: VPN подключён, но не грузит",
+          "go": "Ответ", "hint": "Ответы готовы заранее и показываются сразу, без отправки ваших слов на сервер.",
+          "sup": "Написать в поддержку →"})
+    payload = json.dumps({"intents": intents, "fallback": data["fallback"], "support": SUPPORT, "sup_label": L["sup"]},
                          ensure_ascii=False).replace("</", "<\\/")
     chips = "".join(f'<button type="button" data-id="{esc(i["id"])}">{esc(i["chip"])}</button>'
                     for i in intents[:8])
     return f"""<button class="qa-fab" type="button" aria-expanded="false" aria-controls="qa" id="qa-fab">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Быстрый ответ</span></button>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span>{L['qa']}</span></button>
 <div class="qa" id="qa" role="dialog" aria-modal="false" aria-labelledby="qa-title">
-<div class="qa-head"><b id="qa-title">Быстрый ответ</b><button class="qa-x" type="button" aria-label="Закрыть" id="qa-x">×</button></div>
+<div class="qa-head"><b id="qa-title">{L['qa']}</b><button class="qa-x" type="button" aria-label="{L['close']}" id="qa-x">×</button></div>
 <div class="qa-body">
-<form class="qa-form" id="qa-form"><label for="qa-in">Опишите проблему</label>
-<input id="qa-in" type="text" autocomplete="off" placeholder="Например: VPN подключён, но не грузит">
-<button type="submit">Ответ</button></form>
+<form class="qa-form" id="qa-form"><label for="qa-in">{L['describe']}</label>
+<input id="qa-in" type="text" autocomplete="off" placeholder="{L['ph']}">
+<button type="submit">{L['go']}</button></form>
 <div class="qa-ans" id="qa-ans" aria-live="polite"></div>
 <div class="qa-chips" id="qa-chips">{chips}</div>
-<p class="qa-hint">Ответы готовы заранее и показываются сразу, без отправки ваших слов на сервер.</p>
+<p class="qa-hint">{L['hint']}</p>
 </div></div>
 <script id="qa-data" type="application/json">{payload}</script>
 <script>
@@ -410,7 +482,7 @@ function show(it){{ans.textContent='';
 var p=document.createElement('div');p.textContent=it?it.answer:D.fallback;ans.appendChild(p);
 var a=document.createElement('a');
 if(it){{a.href=it.link;a.textContent=it.link_text+' →';if(/^https?:/.test(it.link)){{a.target='_blank';a.rel='noopener';}}ans.appendChild(a);}}
-if(!it||it.link!==D.support){{var b=document.createElement('a');b.href=D.support;b.target='_blank';b.rel='noopener nofollow';b.textContent='Написать в поддержку →';ans.appendChild(b);}}}}
+if(!it||it.link!==D.support){{var b=document.createElement('a');b.href=D.support;b.target='_blank';b.rel='noopener nofollow';b.textContent=D.sup_label;ans.appendChild(b);}}}}
 document.getElementById('qa-form').addEventListener('submit',function(e){{e.preventDefault();
 var q=norm(inp.value);if(!q.trim())return;var best=null,bs=0;
 D.intents.forEach(function(it){{var s=score(q,it);if(s>bs){{bs=s;best=it;}}}});show(bs>=3?best:null);}});
@@ -656,6 +728,32 @@ SETUP_CSS = """<style>
 </style>"""
 
 
+SETUP_SCRIPT = """<script>(function(){var tabs=[].slice.call(document.querySelectorAll('.dev-tabs [role=tab]')),
+panels=[].slice.call(document.querySelectorAll('[data-panel]'));
+function sel(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.dev===id?'true':'false')});
+panels.forEach(function(p){p.hidden=p.dataset.panel!==id});}
+tabs.forEach(function(t){t.addEventListener('click',function(){sel(t.dataset.dev);history.replaceState(null,'','#'+t.dataset.dev)})});
+var ua=navigator.userAgent,h=location.hash.slice(1),ids=tabs.map(function(t){return t.dataset.dev});
+var d=ids.indexOf(h)>=0?h:/iPhone|iPad|iPod/.test(ua)?'ios':/Android/.test(ua)?(/TV|AFT/.test(ua)?'tv':'android'):/Mac/.test(ua)?'mac':/Win/.test(ua)?'windows':'ios';
+sel(d);})();</script>"""
+
+
+def read_embed_template():
+    return ("""<!DOCTYPE html><html lang="{{LANG}}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>{{TITLE}} — """ + BRAND + """</title><style>
+@font-face{font-family:Manrope;font-weight:200 800;src:url(/assets/fonts/manrope-cyrillic-wght-normal.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:Manrope;font-weight:200 800;src:url(/assets/fonts/manrope-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+body{margin:0;background:#12131b;color:#edeff5;font:15px/1.5 Manrope,system-ui,sans-serif}
+.w{padding:16px;border:1px solid #1f2230;border-radius:16px;height:100%;box-sizing:border-box}
+h1{font-size:16px;margin:0 0 10px;display:flex;justify-content:space-between;gap:8px}
+h1 span{font-size:12px;color:#0a0b10;background:#a3e635;border-radius:6px;padding:2px 7px;align-self:center}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}li{padding:10px 12px;border-radius:12px;background:#191b27}
+li small{display:block;color:#9aa2b3;font-size:12px}li b{font-size:14px;font-weight:600}
+a{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:none;font-size:14px}
+</style></head><body><div class="w"><h1>{{TITLE}} <span>{{DATE}}</span></h1><ul>{{ROWS}}</ul>
+<a href="{{LINK}}" target="_blank" rel="noopener">{{LINKTEXT}}</a></div></body></html>""")
+
+
 def build_setup_page(urls, UPD):
     data = json.loads((SRC / "data" / "apps.json").read_text(encoding="utf-8"))
     bot_name = "@" + BOT.rsplit("/", 1)[-1]
@@ -692,14 +790,7 @@ def build_setup_page(urls, UPD):
          "Если открываются только российские сайты — это белые списки, подключитесь к Wi-Fi. Не помогло — напишите в поддержку."),
     ]
     faq_html = "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq if a)
-    script = """<script>(function(){var tabs=[].slice.call(document.querySelectorAll('.dev-tabs [role=tab]')),
-panels=[].slice.call(document.querySelectorAll('[data-panel]'));
-function sel(id){tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.dev===id?'true':'false')});
-panels.forEach(function(p){p.hidden=p.dataset.panel!==id});}
-tabs.forEach(function(t){t.addEventListener('click',function(){sel(t.dataset.dev);history.replaceState(null,'','#'+t.dataset.dev)})});
-var ua=navigator.userAgent,h=location.hash.slice(1),ids=tabs.map(function(t){return t.dataset.dev});
-var d=ids.indexOf(h)>=0?h:/iPhone|iPad|iPod/.test(ua)?'ios':/Android/.test(ua)?(/TV|AFT/.test(ua)?'tv':'android'):/Mac/.test(ua)?'mac':/Win/.test(ua)?'windows':'ios';
-sel(d);})();</script>"""
+    script = SETUP_SCRIPT
     body = (f'{SETUP_CSS}<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}<h1>{esc(title)}</h1>'
             f'<p class="lead"><b>Коротко:</b> 4 шага и 2 минуты. Скачайте приложение, возьмите ссылку подписки в боте, '
             f'вставьте её в приложение и нажмите «Подключиться».</p>'
@@ -742,7 +833,7 @@ def main():
     ST = load_status()
     UPD = ST["updated"]
 
-    for d in ("blog", "status", "check", "podklyuchenie", "operator", "index-blokirovok", "embed", "informer", "data"):
+    for d in ("blog", "status", "check", "podklyuchenie", "operator", "index-blokirovok", "embed", "informer", "data", "en"):
         shutil.rmtree(ROOT / d, ignore_errors=True)
 
     urls = [("/", UPD)]
@@ -917,18 +1008,9 @@ def main():
     emb_rows = "".join(
         f'<li><small>{ru_date(e["date"], year=False)} · {esc(e["region"])}</small><b>{esc(e["title"])}</b></li>'
         for e in latest3)
-    embed = f"""<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex"><title>Статус блокировок — информер {BRAND}</title><style>
-@font-face{{font-family:Manrope;font-weight:200 800;src:url(/assets/fonts/manrope-cyrillic-wght-normal.woff2) format('woff2')}}
-body{{margin:0;background:#12131b;color:#edeff5;font:15px/1.5 Manrope,system-ui,sans-serif}}
-.w{{padding:16px;border:1px solid #1f2230;border-radius:16px;height:100%;box-sizing:border-box}}
-h1{{font-size:16px;margin:0 0 10px;display:flex;justify-content:space-between;gap:8px}}
-h1 span{{font-size:12px;color:#0a0b10;background:#a3e635;border-radius:6px;padding:2px 7px;align-self:center}}
-ul{{list-style:none;margin:0;padding:0;display:grid;gap:8px}}li{{padding:10px 12px;border-radius:12px;background:#191b27}}
-li small{{display:block;color:#9aa2b3;font-size:12px}}li b{{font-size:14px;font-weight:600}}
-a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:none;font-size:14px}}
-</style></head><body><div class="w"><h1>Статус блокировок <span>{ru_date(UPD, year=False)}</span></h1><ul>{emb_rows}</ul>
-<a href="{SITE}/status/" target="_blank" rel="noopener">Полная сводка и что делать — {BRAND} →</a></div></body></html>"""
+    embed = read_embed_template().replace("{{LANG}}", "ru").replace("{{TITLE}}", "Статус блокировок").replace(
+        "{{DATE}}", ru_date(UPD, year=False)).replace("{{ROWS}}", emb_rows).replace("{{LINK}}", f"{SITE}/status/").replace(
+        "{{LINKTEXT}}", f"Полная сводка и что делать — {BRAND} →")
     write("embed/status/index.html", embed)
     code = (f'<iframe src="{SITE}/embed/status/" width="100%" height="360" style="border:0;max-width:420px" '
             f'loading="lazy" title="Статус блокировок — {BRAND}"></iframe>')
@@ -1082,10 +1164,14 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
                              "Проверка блокировок за 5 секунд, статус по операторам, что делать, если VPN не работает. "
                              f"{BRAND}: {CFG['trial']}.", "/", home, home_ld))
 
+    import build_en
+    urls_en, posts_en = build_en.build(ST)
+    urls += urls_en
+
     sm = "".join(f"<url><loc>{SITE}{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
           f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
-    write("robots.txt", "User-agent: *\nAllow: /\nDisallow: /embed/\n\n" + "".join(
+    write("robots.txt", "User-agent: *\nAllow: /\nDisallow: /embed/\nDisallow: /en/embed/\n\n" + "".join(
         f"User-agent: {b}\nAllow: /\n\n" for b in
         ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "ClaudeBot",
          "Google-Extended", "Bingbot"]) + f"Sitemap: {SITE}/sitemap.xml\n")
@@ -1102,6 +1188,13 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
             f"- [Индекс блокировок]({SITE}/index-blokirovok/): события за 7 и 30 дней с источниками; JSON: {SITE}/data/blocking-events.json"]
     llms += [f"- [Не работает VPN на {loc}]({SITE}/operator/{s}/)" for s, (_, loc) in OPS.items()]
     llms += ["", "## Статьи"] + [f"- [{a['title']}]({SITE}/blog/{a['slug']}/): {a['description']}" for a in posts]
+    llms += ["", "## English",
+             f"> {BRAND} is a VPN service for users in Russia, connected via a Telegram bot ({BOT}): 3 days free, then from "
+             f"{min([p['per_month'] for p in CFG.get('plans', [])] or [210])} ₽/month; works on mobile and home internet; "
+             f"optional mobile whitelist bypass. Support: {SUPPORT}. Reviews by carrier: {VPNSTATUS}.",
+             f"- [Home]({SITE}/en/)", f"- [Setup guide]({SITE}/en/podklyuchenie/)", f"- [5-second internet check]({SITE}/en/check/)",
+             f"- [Blocking status in Russia today]({SITE}/en/status/)", f"- [Russia internet blocking index]({SITE}/en/index-blokirovok/)"]
+    llms += [f"- [{a['title']}]({SITE}/en/blog/{a['slug']}/): {a['description']}" for a in posts_en]
     write("llms.txt", "\n".join(llms) + "\n")
     write(f"{CFG['indexnow_key']}.txt", CFG["indexnow_key"])
     write(".nojekyll", "")
@@ -1112,7 +1205,7 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
     write("404.html", page(f"Страница не найдена — {BRAND}", "Страница не найдена.",
                            "/404.html", "<h1>Страница не найдена</h1>"
                            "<p><a href='/'>На главную</a> · <a href='/check/'>Проверить интернет</a></p>"))
-    print(f"Готово: {len(posts)} статей, {len(ST['events'])} событий в базе, "
+    print(f"Готово: {len(posts)} статей RU, {len(posts_en)} EN, {len(ST['events'])} событий в базе, "
           f"{len(urls)} адресов в sitemap")
 
 

@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /embed/
+Disallow: /en/embed/
 
 User-agent: GPTBot
 Allow: /

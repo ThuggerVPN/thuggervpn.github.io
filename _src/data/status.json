@@ -1,106 +1,156 @@
 {
-  "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата — дата события по Москве. updated — момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ.",
+  "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата — дата события по Москве. updated — момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ. Для английской версии сайта заполняйте region_en, title_en, meaning_en (перевод).",
   "updated": "2026-11-19 23:10",
   "events": [
     {
       "date": "2026-11-16",
       "region": "Пермь",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "whitelist",
       "title": "Пропадал мобильный интернет, работали только белые списки",
       "meaning": "Открываются только разрешённые сайты и приложения, обычный VPN на мобильном не подключается — нужен Wi-Fi",
       "source": "Techora",
-      "url": "https://techora.ru/news/v-permi-propal-mobilnyy-internet-soobshchayut-2026-11-16"
+      "url": "https://techora.ru/news/v-permi-propal-mobilnyy-internet-soobshchayut-2026-11-16",
+      "region_en": "Perm",
+      "title_en": "Mobile internet went down; only whitelisted services worked",
+      "meaning_en": "Only approved sites and apps open; a regular VPN won't connect on mobile — use Wi-Fi"
     },
     {
       "date": "2026-11-16",
       "region": "Новосибирская область",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "slow",
       "title": "Перебои с загрузкой страниц, недоступны отдельные ресурсы",
       "meaning": "Может помочь смена сервера или протокола в VPN",
       "source": "Techora",
-      "url": "https://techora.ru/news/v-permi-propal-mobilnyy-internet-soobshchayut-2026-11-16"
+      "url": "https://techora.ru/news/v-permi-propal-mobilnyy-internet-soobshchayut-2026-11-16",
+      "region_en": "Novosibirsk region",
+      "title_en": "Pages loading with interruptions, some resources unavailable",
+      "meaning_en": "Switching the VPN server or protocol may help"
     },
     {
       "date": "2026-11-12",
       "region": "Вся Россия",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "policy",
       "title": "Белый список мобильного интернета расширен примерно до 900 ресурсов (данные Минцифры)",
       "meaning": "Во время ограничений открываются только сервисы из этого списка",
       "source": "Techora со ссылкой на Минцифры",
-      "url": "https://techora.ru/news/putin-svyazal-sboi-mobilnogo-interneta-v-2026-11-16"
+      "url": "https://techora.ru/news/putin-svyazal-sboi-mobilnogo-interneta-v-2026-11-16",
+      "region_en": "All of Russia",
+      "title_en": "Mobile internet whitelist expanded to about 900 resources (Ministry of Digital Development data)",
+      "meaning_en": "During restrictions only services on this list open"
     },
     {
       "date": "2026-10-31",
       "region": "Более 30 регионов, включая Москву, Петербург, Новосибирск, Екатеринбург, Казань",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "whitelist",
       "title": "Сбои мобильного интернета, при ограничениях работал только белый список",
       "meaning": "На мобильном — только разрешённые сервисы; на Wi-Fi VPN продолжает работать",
       "source": "News.ru",
-      "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-31-oktyabrya-prichiny-sboi-v-rossii"
+      "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-31-oktyabrya-prichiny-sboi-v-rossii",
+      "region_en": "30+ regions incl. Moscow, St Petersburg, Novosibirsk, Yekaterinburg, Kazan",
+      "title_en": "Mobile internet outages; only the whitelist worked during restrictions",
+      "meaning_en": "On mobile only approved services work; VPN keeps working on Wi-Fi"
     },
     {
       "date": "2026-10-31",
       "region": "Вся Россия",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "service",
       "title": "Перебои YouTube: сотни жалоб за сутки",
       "meaning": "Помогает смена сервера VPN на более близкую страну",
       "source": "CyberMeta",
-      "url": "https://cybersport.metaratings.ru/articles/chto-proishodit-s-youtube-segodnya/"
+      "url": "https://cybersport.metaratings.ru/articles/chto-proishodit-s-youtube-segodnya/",
+      "region_en": "All of Russia",
+      "title_en": "YouTube disruptions: hundreds of complaints in a day",
+      "meaning_en": "Switching to a VPN server in a closer country helps"
     },
     {
       "date": "2026-10-30",
       "region": "Москва, Петербург, Новосибирск, Казань и другие регионы",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "whitelist",
       "title": "Массовые сбои мобильного интернета, при тревоге работали только сервисы из белого списка",
       "meaning": "Обычный VPN на мобильном не работает до снятия ограничений",
       "source": "News.ru",
-      "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-30-oktyabrya-prichiny-sboi-v-rossii"
+      "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-30-oktyabrya-prichiny-sboi-v-rossii",
+      "region_en": "Moscow, St Petersburg, Novosibirsk, Kazan and other regions",
+      "title_en": "Mass mobile internet outages; during alerts only whitelisted services worked",
+      "meaning_en": "A regular VPN on mobile won't work until restrictions are lifted"
     },
     {
       "date": "2026-10-30",
       "region": "Самарская область",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "slow",
       "title": "Замедление мобильного интернета с 5 утра",
       "meaning": "Страницы и VPN работают медленно; Wi-Fi стабильнее",
       "source": "КП Самара",
-      "url": "https://www.samara.kp.ru/online/news/7248347/"
+      "url": "https://www.samara.kp.ru/online/news/7248347/",
+      "region_en": "Samara region",
+      "title_en": "Mobile internet slowed down from 5 a.m.",
+      "meaning_en": "Pages and VPN are slow; Wi-Fi is more stable"
     },
     {
       "date": "2026-10-30",
       "region": "Калининградская область",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "outage",
       "title": "Отключение электричества и перебои мобильного интернета",
       "meaning": "При полном отключении связи VPN не поможет",
       "source": "my.ua",
-      "url": "https://my.ua/news/cluster/2026-10-31-bez-sveta-i-mobilnogo-interneta-v-rossii-tselaia-oblast-pogruzilas-v-blekaut"
+      "url": "https://my.ua/news/cluster/2026-10-31-bez-sveta-i-mobilnogo-interneta-v-rossii-tselaia-oblast-pogruzilas-v-blekaut",
+      "region_en": "Kaliningrad region",
+      "title_en": "Power outage and mobile internet disruptions",
+      "meaning_en": "No VPN helps when the network is fully down"
     },
     {
       "date": "2026-10-29",
       "region": "Москва, центр (внутри ТТК)",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "slow",
       "title": "Мобильный интернет замедлялся примерно в 17 раз (27–29 октября)",
       "meaning": "Мобильный интернет почти не работает; лучше Wi-Fi",
       "source": "SecurityLab",
-      "url": "https://www.securitylab.ru/news/579315.php"
+      "url": "https://www.securitylab.ru/news/579315.php",
+      "region_en": "Central Moscow (inside the Third Ring Road)",
+      "title_en": "Mobile internet slowed roughly 17-fold (27–29 October)",
+      "meaning_en": "Mobile internet barely works; use Wi-Fi"
     },
     {
       "date": "2026-10-29",
       "region": "Ряд регионов",
-      "operators": ["all"],
+      "operators": [
+        "all"
+      ],
       "type": "outage",
       "title": "Сбои связи и мобильного интернета",
       "meaning": "Проверьте, открываются ли российские сайты: если нет — интернет отключён, VPN не поможет",
       "source": "Hi-Tech Mail",
-      "url": "https://hi-tech.mail.ru/news/145610-sboi-interneta-v-rossii/"
+      "url": "https://hi-tech.mail.ru/news/145610-sboi-interneta-v-rossii/",
+      "region_en": "Several regions",
+      "title_en": "Mobile network and internet outages",
+      "meaning_en": "Check if Russian sites open: if not, the internet is down and VPN won't help"
     }
   ]
 }

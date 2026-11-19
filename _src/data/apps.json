@@ -1,32 +1,172 @@
 {
   "_comment": "Приложения для подключения (источник: инструкция провайдера star.ipworking.ru/api/instruction). Первое приложение в списке устройства — рекомендованное.",
   "devices": [
-    {"id": "ios", "name": "iPhone и iPad", "apps": [
-      {"app": "Incy", "label": "App Store", "url": "https://apps.apple.com/us/app/incy/id6756943388"},
-      {"app": "HAPP", "label": "App Store (Россия)", "url": "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973"},
-      {"app": "HAPP", "label": "App Store (другие страны)", "url": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215"},
-      {"app": "V2RayTun", "label": "App Store", "url": "https://apps.apple.com/us/app/v2raytun/id6476628951"}]},
-    {"id": "android", "name": "Android", "apps": [
-      {"app": "Incy", "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru"},
-      {"app": "Incy", "label": "Файл .apk", "url": "https://github.com/INCY-DEV/incy-platforms/releases/download/latest/Incy.apk"},
-      {"app": "HAPP", "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.happproxy"},
-      {"app": "HAPP", "label": "Файл .apk", "url": "https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk"},
-      {"app": "V2RayTun", "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.v2raytun.android"}]},
-    {"id": "windows", "name": "Windows", "apps": [
-      {"app": "Incy", "label": "Скачать для Windows", "url": "https://github.com/INCY-DEV/incy-platforms/releases/download/latest/incy-windows-setup.exe"},
-      {"app": "HAPP", "label": "Скачать для Windows", "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe"},
-      {"app": "V2RayTun", "label": "Скачать для Windows", "url": "https://storage.v2raytun.com/v2RayTun_Setup.exe"}]},
-    {"id": "mac", "name": "macOS", "apps": [
-      {"app": "Incy", "label": "App Store", "url": "https://apps.apple.com/us/app/incy/id6756943388"},
-      {"app": "HAPP", "label": "App Store (Россия)", "url": "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973"},
-      {"app": "HAPP", "label": "App Store (другие страны)", "url": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215"},
-      {"app": "V2RayTun", "label": "App Store", "url": "https://apps.apple.com/us/app/v2raytun/id6476628951"}]},
-    {"id": "tv", "name": "Телевизор", "apps": [
-      {"app": "Incy", "label": "Android TV — Google Play", "url": "https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru"},
-      {"app": "Incy", "label": "Android TV — .apk", "url": "https://github.com/INCY-DEV/incy-platforms/releases/download/latest/Incy.apk"},
-      {"app": "Incy", "label": "Apple TV — App Store", "url": "https://apps.apple.com/us/app/incy/id6756943388"},
-      {"app": "HAPP", "label": "Android TV — Google Play", "url": "https://play.google.com/store/apps/details?id=com.happproxy"},
-      {"app": "HAPP", "label": "Apple TV — App Store", "url": "https://apps.apple.com/us/app/happ-proxy-utility-for-tv/id6748297274"},
-      {"app": "V2RayTun", "label": "Android TV — Google Play", "url": "https://play.google.com/store/apps/details?id=com.v2raytun.android"}]}
+    {
+      "id": "ios",
+      "name": "iPhone и iPad",
+      "apps": [
+        {
+          "app": "Incy",
+          "label": "App Store",
+          "url": "https://apps.apple.com/us/app/incy/id6756943388",
+          "label_en": "App Store"
+        },
+        {
+          "app": "HAPP",
+          "label": "App Store (Россия)",
+          "url": "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973",
+          "label_en": "App Store (Russia)"
+        },
+        {
+          "app": "HAPP",
+          "label": "App Store (другие страны)",
+          "url": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215",
+          "label_en": "App Store (other countries)"
+        },
+        {
+          "app": "V2RayTun",
+          "label": "App Store",
+          "url": "https://apps.apple.com/us/app/v2raytun/id6476628951",
+          "label_en": "App Store"
+        }
+      ],
+      "name_en": "iPhone & iPad"
+    },
+    {
+      "id": "android",
+      "name": "Android",
+      "apps": [
+        {
+          "app": "Incy",
+          "label": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru",
+          "label_en": "Google Play"
+        },
+        {
+          "app": "Incy",
+          "label": "Файл .apk",
+          "url": "https://github.com/INCY-DEV/incy-platforms/releases/download/latest/Incy.apk",
+          "label_en": ".apk file"
+        },
+        {
+          "app": "HAPP",
+          "label": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.happproxy",
+          "label_en": "Google Play"
+        },
+        {
+          "app": "HAPP",
+          "label": "Файл .apk",
+          "url": "https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk",
+          "label_en": ".apk file"
+        },
+        {
+          "app": "V2RayTun",
+          "label": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.v2raytun.android",
+          "label_en": "Google Play"
+        }
+      ],
+      "name_en": "Android"
+    },
+    {
+      "id": "windows",
+      "name": "Windows",
+      "apps": [
+        {
+          "app": "Incy",
+          "label": "Скачать для Windows",
+          "url": "https://github.com/INCY-DEV/incy-platforms/releases/download/latest/incy-windows-setup.exe",
+          "label_en": "Download for Windows"
+        },
+        {
+          "app": "HAPP",
+          "label": "Скачать для Windows",
+          "url": "https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe",
+          "label_en": "Download for Windows"
+        },
+        {
+          "app": "V2RayTun",
+          "label": "Скачать для Windows",
+          "url": "https://storage.v2raytun.com/v2RayTun_Setup.exe",
+          "label_en": "Download for Windows"
+        }
+      ],
+      "name_en": "Windows"
+    },
+    {
+      "id": "mac",
+      "name": "macOS",
+      "apps": [
+        {
+          "app": "Incy",
+          "label": "App Store",
+          "url": "https://apps.apple.com/us/app/incy/id6756943388",
+          "label_en": "App Store"
+        },
+        {
+          "app": "HAPP",
+          "label": "App Store (Россия)",
+          "url": "https://apps.apple.com/ru/app/happ-proxy-utility-plus/id6746188973",
+          "label_en": "App Store (Russia)"
+        },
+        {
+          "app": "HAPP",
+          "label": "App Store (другие страны)",
+          "url": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215",
+          "label_en": "App Store (other countries)"
+        },
+        {
+          "app": "V2RayTun",
+          "label": "App Store",
+          "url": "https://apps.apple.com/us/app/v2raytun/id6476628951",
+          "label_en": "App Store"
+        }
+      ],
+      "name_en": "macOS"
+    },
+    {
+      "id": "tv",
+      "name": "Телевизор",
+      "apps": [
+        {
+          "app": "Incy",
+          "label": "Android TV — Google Play",
+          "url": "https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru",
+          "label_en": "Android TV — Google Play"
+        },
+        {
+          "app": "Incy",
+          "label": "Android TV — .apk",
+          "url": "https://github.com/INCY-DEV/incy-platforms/releases/download/latest/Incy.apk",
+          "label_en": "Android TV — .apk"
+        },
+        {
+          "app": "Incy",
+          "label": "Apple TV — App Store",
+          "url": "https://apps.apple.com/us/app/incy/id6756943388",
+          "label_en": "Apple TV — App Store"
+        },
+        {
+          "app": "HAPP",
+          "label": "Android TV — Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.happproxy",
+          "label_en": "Android TV — Google Play"
+        },
+        {
+          "app": "HAPP",
+          "label": "Apple TV — App Store",
+          "url": "https://apps.apple.com/us/app/happ-proxy-utility-for-tv/id6748297274",
+          "label_en": "Apple TV — App Store"
+        },
+        {
+          "app": "V2RayTun",
+          "label": "Android TV — Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.v2raytun.android",
+          "label_en": "Android TV — Google Play"
+        }
+      ],
+      "name_en": "TV"
+    }
   ]
 }
