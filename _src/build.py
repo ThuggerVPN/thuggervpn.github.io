@@ -24,6 +24,7 @@ BRAND = CFG["brand"]
 BOT = CFG["bot_url"]
 VPNSTATUS = CFG.get("vpnstatus_url", "https://vpnstatus.site")
 ASSIST_PATH = SRC / "assistant.json"
+SUPPORT = CFG.get("support_url", BOT)
 
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля",
           "августа", "сентября", "октября", "ноября", "декабря"]
@@ -303,7 +304,7 @@ def assistant_html():
     data = json.loads(ASSIST_PATH.read_text(encoding="utf-8"))
     subs = {"{BOT}": BOT, "{PRICE}": CFG["price"], "{PRICE_FROM}": CFG.get("price_from", ""),
             "{TRIAL}": CFG["trial"], "{WL}": CFG.get("whitelist_option", "").split("—")[-1].strip()
-            or CFG.get("whitelist_option", ""), "{VPNSTATUS}": VPNSTATUS}
+            or CFG.get("whitelist_option", ""), "{VPNSTATUS}": VPNSTATUS, "{SUPPORT}": SUPPORT}
 
     def sub(t):
         for k, v in subs.items():
@@ -311,7 +312,7 @@ def assistant_html():
         return t
     intents = [{"id": i["id"], "chip": i["chip"], "keys": i["keys"], "answer": sub(i["answer"]),
                 "link": sub(i["link"]), "link_text": i["link_text"]} for i in data["intents"]]
-    payload = json.dumps({"intents": intents, "fallback": data["fallback"], "bot": BOT},
+    payload = json.dumps({"intents": intents, "fallback": data["fallback"], "support": SUPPORT},
                          ensure_ascii=False).replace("</", "<\\/")
     chips = "".join(f'<button type="button" data-id="{esc(i["id"])}">{esc(i["chip"])}</button>'
                     for i in intents[:8])
@@ -345,7 +346,7 @@ function show(it){{ans.textContent='';
 var p=document.createElement('div');p.textContent=it?it.answer:D.fallback;ans.appendChild(p);
 var a=document.createElement('a');
 if(it){{a.href=it.link;a.textContent=it.link_text+' →';if(/^https?:/.test(it.link)){{a.target='_blank';a.rel='noopener';}}ans.appendChild(a);}}
-if(!it||it.link!==D.bot){{var b=document.createElement('a');b.href=D.bot;b.target='_blank';b.rel='noopener nofollow';b.textContent='Написать в бот →';ans.appendChild(b);}}}}
+if(!it||it.link!==D.support){{var b=document.createElement('a');b.href=D.support;b.target='_blank';b.rel='noopener nofollow';b.textContent='Написать в поддержку →';ans.appendChild(b);}}}}
 document.getElementById('qa-form').addEventListener('submit',function(e){{e.preventDefault();
 var q=norm(inp.value);if(!q.trim())return;var best=null,bs=0;
 D.intents.forEach(function(it){{var s=score(q,it);if(s>bs){{bs=s;best=it;}}}});show(bs>=3?best:null);}});
