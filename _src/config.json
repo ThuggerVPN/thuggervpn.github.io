@@ -9,5 +9,34 @@
   "whitelist_option": "Есть опция обхода белых списков на мобильном — +100 ₽ в месяц",
   "vpnstatus_url": "https://vpnstatus.site/vpn/thuggervpn",
   "support_url": "https://t.me/ThuggerVPN_supp",
-  "channel_url": "https://t.me/ThuggerVPN"
+  "channel_url": "https://t.me/ThuggerVPN",
+  "plans": [
+    {
+      "months": 1,
+      "total": 299,
+      "per_month": 299,
+      "label": "1 месяц"
+    },
+    {
+      "months": 3,
+      "total": 855,
+      "per_month": 285,
+      "label": "3 месяца"
+    },
+    {
+      "months": 6,
+      "total": 1530,
+      "per_month": 255,
+      "label": "6 месяцев"
+    },
+    {
+      "months": 12,
+      "total": 2520,
+      "per_month": 210,
+      "label": "12 месяцев",
+      "best": true
+    }
+  ],
+  "devices": "2 устройства в тарифе, до 6 — по +60 ₽ за каждое",
+  "whitelist_detail": "+100 ₽ в месяц, 100 ГБ на отдельных LTE-серверах"
 }

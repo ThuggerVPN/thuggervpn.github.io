@@ -177,6 +177,28 @@ a.tile:hover,.tile.hov:hover{transform:translateY(-5px);border-color:#5b47a8}
 .trust{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:32px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
 .trust p{margin:6px 0 0;color:var(--soft);max-width:640px}
 .trust h2{margin:0;font-size:30px}
+.proof{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:var(--soft);text-decoration:none;font-size:15px;flex-wrap:wrap}
+.proof svg{width:16px;height:16px}.proof b{color:#fff}.proof:hover{color:#fff}
+.usp{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;padding-top:10px}
+.usp .u{padding:20px 22px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.usp b{display:block;font-size:18px}.usp span{display:block;color:var(--muted);font-size:15px;margin-top:4px;line-height:1.5}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:14px}
+.plan{position:relative;padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--line)}
+.plan.best{background:var(--violet-bg);border-color:var(--accent);box-shadow:0 20px 50px -25px rgba(139,92,246,.8)}
+.plan .tag{position:absolute;top:-11px;left:18px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px}
+.pl-name{font-weight:700;color:var(--soft)}.pl-price{font-size:36px;font-weight:800;margin:6px 0 2px}.pl-price small{font-size:16px;color:var(--muted);font-weight:600}
+.pl-sub{font-size:14px;color:var(--muted)}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.steps3>div{display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:center;padding:18px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.steps3 span{grid-row:span 2;width:44px;height:44px;border-radius:12px;background:var(--accent);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:18px}
+.steps3 small{color:var(--muted);font-size:14px}
+details.acc,details.acc-q{border-radius:18px;background:var(--card);border:1px solid var(--line);padding:0 20px;margin-bottom:10px}
+details.acc>summary,details.acc-q>summary{cursor:pointer;list-style:none;padding:18px 32px 18px 0;font-weight:700;font-size:17px;position:relative;min-height:44px}
+details.acc>summary::-webkit-details-marker,details.acc-q>summary::-webkit-details-marker{display:none}
+details.acc>summary::after,details.acc-q>summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:24px;color:var(--accent2);font-weight:500}
+details[open].acc>summary::after,details[open].acc-q>summary::after{content:"–"}
+details.acc[open],details.acc-q[open]{padding-bottom:18px}
+details.acc-q p{margin:0;color:var(--soft)}
 .stars{display:flex;gap:4px;margin-bottom:10px}
 .stars.sm svg{width:14px;height:14px}
 .trust2{padding:30px;border-radius:24px;background:var(--card);border:1px solid var(--line)}
@@ -215,7 +237,7 @@ blockquote{margin:16px 0;padding:14px 18px;background:var(--card);border-radius:
 footer{border-top:1px solid #1a1d29;color:#8b93a5;font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:26px;padding-bottom:26px}
 footer a{color:#b9a4ff;text-decoration:none}
-@media(max-width:860px){.tr-grid{grid-template-columns:1fr}.tr-head h2{font-size:24px}.trust2{padding:22px}.stage{height:360px}.hide-m{display:none!important}nav a{padding:8px 11px;font-size:14px}.tile-head h2{font-size:24px}.trust h2{font-size:24px}.cta b{font-size:20px}.tile.wide{grid-column:auto}.hero h1{font-size:42px}.stage{height:300px;margin-top:-10px;margin-bottom:-30px}.iso{width:220px;height:220px}.sec h2{font-size:30px}.step.s1,.step.s3{transform:none}article h1{font-size:30px}.p3{font-size:20px}}
+@media(max-width:860px){.tr-grid{grid-template-columns:1fr}.tr-head h2{font-size:24px}.trust2{padding:22px}.stage{height:360px}.hide-m{display:none!important}nav a{padding:8px 11px;font-size:14px}.tile-head h2{font-size:24px}.trust h2{font-size:24px}.cta b{font-size:20px}.tile.wide{grid-column:auto}.hero h1{font-size:42px}.stage{height:320px;margin-top:24px;margin-bottom:-50px}.plans{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.plan{padding:18px 14px}.pl-price{font-size:26px}.pl-sub{font-size:12.5px}.usp .u{padding:16px 18px}.tr-revs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:6px}.tr-revs .rv{flex:0 0 82%;scroll-snap-align:start}.iso{width:220px;height:220px}.sec h2{font-size:30px}.step.s1,.step.s3{transform:none}article h1{font-size:30px}.p3{font-size:20px}}
 .qa-fab{position:fixed;right:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:14px 20px;font:700 16px Manrope,sans-serif;cursor:pointer;box-shadow:0 14px 34px -8px rgba(139,92,246,.75);min-height:48px}
 .qa-fab:hover{background:#7c3aed}
 .qa{position:fixed;right:18px;bottom:84px;z-index:51;width:min(420px,calc(100vw - 24px));max-height:min(640px,calc(100vh - 110px));display:none;flex-direction:column;background:#11121a;border:1px solid #2b2f44;border-radius:22px;box-shadow:0 40px 80px -20px rgba(0,0,0,.8),0 0 0 1px rgba(139,92,246,.15);overflow:hidden}
@@ -257,10 +279,9 @@ def price_line():
 
 
 def cta_block():
-    extra = f' {CFG["whitelist_option"]}.' if CFG.get("whitelist_option") else ""
     return (f'<div class="cta"><div><b>VPN снова отвалился?</b>'
-            f'<p>{BRAND} работает на мобильном и домашнем интернете.{extra} '
-            f'{price_line()}. Подключение за пару минут через Telegram-бота.</p></div>'
+            f'<p>{CFG["trial"].capitalize()} — проверьте на своём операторе. Дальше от '
+            f'{min([p["per_month"] for p in CFG.get("plans", [])] or [210])} ₽ в месяц.</p></div>'
             f'<div class="links"><a class="btn" href="{BOT}" rel="nofollow">'
             f'Попробовать {CFG["trial"]}</a>'
             f'<a class="small" href="{VPNSTATUS}" target="_blank" rel="noopener">'
@@ -853,51 +874,108 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
         f'<a class="tile" href="/blog/{a["slug"]}/"><div><div class="t-title">{esc(a["title"])}</div>'
         f'<div class="t-sub">{esc(a["description"])}</div></div>'
         f'<span class="arrow" aria-hidden="true">↗</span></a>' for a in posts[:6])
+    vpd = json.loads((SRC / "data" / "vpnstatus.json").read_text(encoding="utf-8")) \
+        if (SRC / "data" / "vpnstatus.json").exists() else None
+    vlink = (vpd or {}).get("url", VPNSTATUS)
+    rating_line = (f'<a class="proof" href="{vlink}" target="_blank" rel="noopener">{STAR * 5}'
+                   f'<span><b>{esc(vpd["rating"])}</b> · {vpd["votes"]} оценок на vpnstatus.site</span></a>'
+                   if vpd else "")
+    plans = CFG.get("plans", [])
+    plan_cards = ""
+    for pl in plans:
+        best = pl.get("best")
+        save = round(100 - 100 * pl["per_month"] / plans[0]["per_month"]) if plans else 0
+        plan_cards += (f'<div class="plan{" best" if best else ""}">'
+                       + ('<span class="tag">Выгоднее всего</span>' if best else "") +
+                       f'<div class="pl-name">{esc(pl["label"])}</div>'
+                       f'<div class="pl-price">{pl["per_month"]} ₽<small>/мес</small></div>'
+                       f'<div class="pl-sub">{pl["total"]} ₽ за весь срок'
+                       + (f' · экономия {save}%' if save > 0 else "") + '</div></div>')
+    revs = ""
+    ops_rows = ""
+    if vpd:
+        revs = "".join(f'<div class="rv"><div class="stars sm">{STAR * 5}</div><p>{esc(r["text"])}</p>'
+                       f'<small>Клиент · {esc(r["period"])}</small></div>' for r in vpd["reviews"][:3])
+
+        def cell(w, t):
+            return '<span class="na">нет голосов</span>' if t in (None, 0) else f'<b>{w}/{t}</b>'
+        ops_rows = "".join(f'<tr><td>{esc(o["name"])}</td><td>{cell(o["works"], o["total"])}</td>'
+                           f'<td>{cell(o["wl_works"], o["wl_total"])}</td></tr>' for o in vpd["mobile"])
+    faq = [
+        ("Есть бесплатный пробный период?", f"Да, {CFG['trial']}. Проверьте на мобильном интернете своего оператора и дома, прежде чем платить."),
+        ("Сколько устройств можно подключить?", CFG.get("devices", "")),
+        ("Что такое обход белых списков?", "Когда мобильный интернет переводят в режим белых списков, обычные VPN перестают работать. "
+         f"Опция обхода — {CFG.get('whitelist_detail', '')}."),
+        ("Что нужно установить?", "Откройте бота в Telegram — он выдаст ссылку и пошаговую инструкцию для телефона и компьютера."),
+        ("Что делать, если не заработает?", "Напишите в поддержку @ThuggerVPN_supp — ответит живой человек и поможет подобрать рабочий сервер."),
+    ]
+    faq_html = "".join(f'<details class="acc-q"><summary>{esc(q)}</summary><p>{esc(a)}</p></details>'
+                       for q, a in faq if a)
+    home_ld_faq = {"@context": "https://schema.org", "@type": "FAQPage",
+                   "mainEntity": [{"@type": "Question", "name": q,
+                                   "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq if a]}
     home = f"""{CHECK_CSS}
 <section class="hero">
 <div class="hero-text">
-<h1>Интернет без «соединение…»</h1>
-<p class="lead">{BRAND} работает на мобильном и домашнем интернете. Подключение через Telegram-бота за пару минут.</p>
-<div class="row"><a class="btn" href="{BOT}" rel="nofollow">{CFG["trial"].capitalize()}</a>
-<a class="btn-ghost" href="/check/">Проверить мой интернет</a></div>
-<p class="note" style="margin-top:14px">дальше {CFG["price"]}{(" · " + CFG["price_from"]) if CFG.get("price_from") else ""}</p>
+<h1>VPN, который работает, когда остальные отвалились</h1>
+<p class="lead">Мобильный и домашний интернет, обход белых списков. Подключение за 2 минуты в Telegram.</p>
+<div class="row"><a class="btn" href="{BOT}" rel="nofollow">Попробовать {CFG["trial"]}</a>
+<a class="btn-ghost" href="#prices">Тарифы от {min([p["per_month"] for p in plans] or [210])} ₽</a></div>
+{rating_line}
 </div>
 <div class="stage" aria-hidden="true"><div class="iso"><div class="grid"></div>
 <div class="plate p1">Мобильный интернет</div><div class="plate p2">Домашний Wi-Fi</div>
 <div class="plate p3">{SHIELD}<span>{BRAND}</span></div></div><div class="beam"></div></div>
 </section>
 
-<section class="sec" id="status"><div class="bento">
-<div class="tile wide"><div class="tile-head"><h2>{esc(st_title)}</h2><span><a href="/status/">Вся сводка →</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Сводка в Telegram</a></span></div>
-<div class="st-grid">{st_tiles}</div></div>
-<div class="tile violet"><div><div class="big">5 секунд</div>
-<p style="color:#c9c2e8;margin:10px 0 0">чтобы понять, что у вас: белые списки, отключение или не работает VPN.</p></div>
-<a class="btn" href="/check/" style="align-self:flex-start">Проверить интернет</a></div>
-<div class="tile"><h2 style="font-size:22px;margin:0 0 14px">Статус по оператору</h2><div class="chips">{op_chips}</div></div>
-<a class="tile" href="/index-blokirovok/"><div><div class="t-title">Индекс блокировок</div>
-<div class="t-sub">Сколько сбоев и белых списков за неделю и месяц — с источниками</div></div><span class="arrow" aria-hidden="true">↗</span></a>
-<div class="tile"><div class="t-title">{CFG["trial"].capitalize()}</div>
-<div class="t-sub">Проверьте на своём операторе, прежде чем платить.</div>
-<p style="margin:14px 0 0"><a href="{BOT}" rel="nofollow">Открыть бота →</a></p></div>
+<section class="sec usp">
+<div class="u"><b>Мобильный и дома</b><span>МТС, МегаФон, Билайн, Т2 и домашний интернет</span></div>
+<div class="u"><b>Обход белых списков</b><span>Опция для мобильного: {esc(CFG.get("whitelist_detail", ""))}</span></div>
+<div class="u"><b>Живая поддержка</b><span>Отвечает человек в Telegram, а не робот</span></div>
+</section>
+
+<section class="sec" id="prices"><h2>Тарифы</h2>
+<div class="plans">{plan_cards}</div>
+<p class="note">{esc(CFG.get("devices", ""))}. Обход белых списков — {esc(CFG.get("whitelist_detail", ""))}. Сначала {CFG["trial"]}.</p>
+<p><a class="btn" href="{BOT}" rel="nofollow">Начать с {CFG["trial"]}</a></p>
+</section>
+
+<section class="sec" id="how"><h2>Как подключить</h2><div class="steps3">
+<div><span>1</span><b>Откройте @{BOT.rsplit("/", 1)[-1]}</b><small>и нажмите «Старт»</small></div>
+<div><span>2</span><b>Возьмите {CFG["trial"]}</b><small>без оплаты</small></div>
+<div><span>3</span><b>Подключитесь</b><small>бот даст ссылку и инструкцию</small></div>
 </div></section>
 
-<section class="sec" id="reviews">{trust_block()}</section>
-
-<section class="sec" id="articles"><h2>Если VPN отвалился</h2><div class="bento">{cards}</div>
-<p style="margin-top:18px"><a href="/blog/">Все статьи →</a></p></section>
-
-<section class="sec" id="how"><h2>Три шага</h2><div class="steps">
-<div class="step s1"><div class="n">01</div><div class="t-title" style="margin-top:14px">Откройте @{BOT.rsplit("/", 1)[-1]}</div><div class="t-sub">Нажмите «Старт» в Telegram</div></div>
-<div class="step"><div class="n" style="color:#3b2f6b">02</div><div class="t-title" style="margin-top:14px">Возьмите {CFG["trial"]}</div><div class="t-sub">Проверьте на мобильном и дома</div></div>
-<div class="step s3"><div class="n">03</div><div class="t-title" style="margin-top:14px;color:#fff">Подключитесь</div><div class="t-sub">Бот выдаст ссылку и инструкцию</div></div>
+<section class="sec" id="reviews"><div class="trust2">
+<div class="tr-head"><div><h2>Что говорят клиенты</h2>
+<p>Оценки и отзывы — в независимом каталоге vpnstatus.site{(" · " + esc(vpd["rating"]) + "/5, " + str(vpd["votes"]) + " оценок") if vpd else ""}</p></div>
+<a class="btn-ghost" href="{vlink}" target="_blank" rel="noopener">Все отзывы ↗</a></div>
+<div class="tr-revs">{revs}</div>
+<details class="acc" style="margin-top:14px"><summary>Голоса по операторам</summary>
+<div class="tbl" style="margin:12px 0 0"><table class="tr-ops"><thead><tr><th>Мобильный</th><th>Работает</th><th>Обход белых списков</th></tr></thead><tbody>{ops_rows}</tbody></table></div>
+<p class="note">По данным vpnstatus.site на {ru_date(vpd["checked"]) if vpd else ""}.</p></details>
 </div></section>
+
+<section class="sec" id="more"><h2>Полезное</h2>
+<details class="acc"><summary>Статус блокировок · {ru_date(UPD, year=False)}</summary>
+<div class="st-grid" style="margin-top:14px">{st_tiles}</div>
+<p style="margin:14px 0 0"><a href="/status/">Вся сводка →</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Сводка каждое утро в Telegram</a></p></details>
+<details class="acc"><summary>Проверить свой интернет за 5 секунд</summary>
+<p style="margin:12px 0">Узнайте, что у вас: белые списки, отключение или не работает VPN.</p><a class="btn" href="/check/">Проверить интернет</a></details>
+<details class="acc"><summary>Статус по оператору</summary><div class="chips" style="margin-top:14px">{op_chips}</div>
+<p style="margin:14px 0 0"><a href="/index-blokirovok/">Индекс блокировок за неделю →</a></p></details>
+<details class="acc"><summary>Инструкции, если VPN отвалился</summary><div class="bento" style="margin-top:14px">{cards}</div>
+<p style="margin:14px 0 0"><a href="/blog/">Все статьи →</a></p></details>
+</section>
+
+<section class="sec" id="faq"><h2>Частые вопросы</h2>{faq_html}</section>
 {cta_block()}
 """
     home_ld = [{"@context": "https://schema.org", "@type": "Organization",
                 "name": BRAND, "url": SITE, "logo": f"{SITE}/og.png",
                 "sameAs": [x for x in (BOT, VPNSTATUS, CHANNEL) if x]},
                {"@context": "https://schema.org", "@type": "WebSite",
-                "name": BRAND, "url": SITE, "inLanguage": "ru"}]
+                "name": BRAND, "url": SITE, "inLanguage": "ru"}, home_ld_faq]
     write("index.html", page(f"{BRAND} — VPN для мобильного и домашнего интернета",
                              "Проверка блокировок за 5 секунд, статус по операторам, что делать, если VPN не работает. "
                              f"{BRAND}: {CFG['trial']}.", "/", home, home_ld))
