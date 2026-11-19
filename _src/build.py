@@ -25,6 +25,7 @@ BOT = CFG["bot_url"]
 VPNSTATUS = CFG.get("vpnstatus_url", "https://vpnstatus.site")
 ASSIST_PATH = SRC / "assistant.json"
 SUPPORT = CFG.get("support_url", BOT)
+CHANNEL = CFG.get("channel_url", "")
 
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля",
           "августа", "сентября", "октября", "ноября", "декабря"]
@@ -291,7 +292,7 @@ def page(title, description, path, body, jsonld=None, og_type="website"):
 {body}
 </div></main>
 <footer><div class="wrap"><span>© {date.today().year} {BRAND}. Справочные материалы о стабильном доступе к интернету.</span>
-<span><a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · <a href="/operator/mts/">МТС</a> · <a href="/operator/beeline/">Билайн</a> · <a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · <a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a></span></div></footer>
+<span><a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · <a href="/operator/mts/">МТС</a> · <a href="/operator/beeline/">Билайн</a> · <a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · <a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a></span></div></footer>
 {assistant_html()}
 </body>
 </html>
@@ -585,7 +586,7 @@ def main():
         path = "/status/"
         crumbs = [("Главная", "/"), (status["title"], path)]
         status["updated"] = max(status["updated"], UPD)
-        body_html = status["body_html"].replace("<p>{{STATUS_TABLE}}</p>", status_block(ST))
+        body_html = status["body_html"].replace("<p>{{STATUS_TABLE}}</p>", status_block(ST) + (f'<p>Сводка каждое утро в Telegram: <a href="{CHANNEL}" target="_blank" rel="noopener">@{CHANNEL.rsplit("/", 1)[-1]}</a></p>' if CHANNEL else ""))
         body = (f'<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
                 f'<h1>{esc(status["title"])}</h1>'
                 f'<div class="meta">Обновлено {ru_date(UPD)}</div>'
@@ -809,7 +810,7 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
 </section>
 
 <section class="sec" id="status"><div class="bento">
-<div class="tile wide"><div class="tile-head"><h2>{esc(st_title)}</h2><a href="/status/">Вся сводка →</a></div>
+<div class="tile wide"><div class="tile-head"><h2>{esc(st_title)}</h2><span><a href="/status/">Вся сводка →</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Сводка в Telegram</a></span></div>
 <div class="st-grid">{st_tiles}</div></div>
 <div class="tile violet"><div><div class="big">5 секунд</div>
 <p style="color:#c9c2e8;margin:10px 0 0">чтобы понять, что у вас: белые списки, отключение или не работает VPN.</p></div>
@@ -836,7 +837,7 @@ a{{display:block;margin-top:10px;color:#c4b5fd;font-weight:700;text-decoration:n
 """
     home_ld = [{"@context": "https://schema.org", "@type": "Organization",
                 "name": BRAND, "url": SITE, "logo": f"{SITE}/og.png",
-                "sameAs": [BOT, VPNSTATUS]},
+                "sameAs": [x for x in (BOT, VPNSTATUS, CHANNEL) if x]},
                {"@context": "https://schema.org", "@type": "WebSite",
                 "name": BRAND, "url": SITE, "inLanguage": "ru"}]
     write("index.html", page(f"{BRAND} — VPN для мобильного и домашнего интернета",
