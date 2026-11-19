@@ -4,5 +4,8 @@
   "bot_url": "https://t.me/ThuggerVPN_bot",
   "price": "299 ₽ в месяц",
   "trial": "3 дня бесплатно",
-  "indexnow_key": "de04fac64d7e4c9f9a518f1fa7be3176"
+  "indexnow_key": "de04fac64d7e4c9f9a518f1fa7be3176",
+  "price_from": "от 210 ₽/мес при оплате за год",
+  "whitelist_option": "Есть опция обхода белых списков на мобильном — +100 ₽ в месяц",
+  "vpnstatus_url": "https://vpnstatus.site/vpn/thuggervpn"
 }
