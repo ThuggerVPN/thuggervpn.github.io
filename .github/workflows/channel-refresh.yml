@@ -26,6 +26,11 @@ jobs:
               echo "== Удаляю пост $id"; curl -sS --data-urlencode chat_id="$TG_CHANNEL" -d message_id="$id" "$API/deleteMessage"; echo
             done
           fi
+          if [ -s $D/edit_status_post.txt ]; then
+            EID=$(cat $D/edit_status_post.txt)
+            echo "== Правлю пост $EID текстом _src/out/telegram.html"
+            curl -sS --data-urlencode chat_id="$TG_CHANNEL" -d message_id="$EID" --data-urlencode text@_src/out/telegram.html -d parse_mode=HTML -d link_preview_options='{"is_disabled":true}' "$API/editMessageText" | python3 -c "import sys,json;r=json.load(sys.stdin);print('ok' if r.get('ok') else r)"
+          fi
           echo "== Описание"
           curl -sS --data-urlencode chat_id="$TG_CHANNEL" --data-urlencode description@$D/description.txt "$API/setChatDescription" || true; echo
           MID=$(curl -sS --data-urlencode chat_id="$TG_CHANNEL" "$API/getChat" | python3 -c "import sys,json;print(json.load(sys.stdin).get('result',{}).get('pinned_message',{}).get('message_id',''))")
