@@ -1,5 +1,5 @@
 ---
-title: Travelling to Russia in 2026: internet, SIM cards and VPN — what to set up before you fly
+title: Travelling to Russia in 2026: internet, SIM cards and VPN - what to set up before you fly
 description: What works online in Russia in 2026, why a foreign SIM goes silent on arrival, how mobile internet shutdowns work, and why you should install a VPN at home.
 date: 2026-11-19
 slug: travel-russia-internet-vpn
@@ -10,15 +10,15 @@ slug: travel-russia-internet-vpn
 
 - **Messengers.** WhatsApp has been blocked since February 2026, and Telegram is restricted. Without a VPN they won't work properly.
 - **Social networks and video.** Instagram, Facebook, X and YouTube have been blocked for years.
-- **VPN apps themselves.** Many VPN apps have been removed from the Russian App Store and Google Play. With your own foreign Apple ID or Google account you can still install them — but it's easier to do it at home, on a stable connection.
+- **VPN apps themselves.** Many VPN apps have been removed from the Russian App Store and Google Play. With your own foreign Apple ID or Google account you can still install them - but it's easier to do it at home, on a stable connection.
 
-Russian services — Yandex Maps and Go, banks, marketplaces — work normally.
+Russian services - Yandex Maps and Go, banks, marketplaces - work normally.
 
 ## Your foreign SIM on arrival
 
-Since October 2025, a foreign SIM or eSIM that connects to a Russian network **loses mobile internet and SMS for the first 24 hours**. Calls keep working. Carriers let you lift the block earlier by passing a check on their page — usually with Wi-Fi and VPN turned off, over mobile data.
+Since October 2025, a foreign SIM or eSIM that connects to a Russian network **loses mobile internet and SMS for the first 24 hours**. Calls keep working. Carriers let you lift the block earlier by passing a check on their page - usually with Wi-Fi and VPN turned off, over mobile data.
 
-Some travellers used to rely on roaming eSIMs to reach blocked apps without a VPN. According to eSIM sellers and traveller reports, since summer 2026 roaming traffic is filtered too, so don't count on it — bring a VPN.
+Some travellers used to rely on roaming eSIMs to reach blocked apps without a VPN. According to eSIM sellers and traveller reports, since summer 2026 roaming traffic is filtered too, so don't count on it - bring a VPN.
 
 ## Mobile internet shutdowns
 
@@ -28,7 +28,7 @@ What helps:
 
 - **Wi-Fi.** According to the Ministry of Digital Development, the restrictions apply to mobile networks, not to home internet. Hotel, café and apartment Wi-Fi keeps working, and a VPN works over it.
 - **Offline maps and a translator.** Download them before the trip.
-- **A VPN with whitelist bypass.** Rare and not always available — check it during the trial before relying on it.
+- **A VPN with whitelist bypass.** Rare and not always available - check it during the trial before relying on it.
 
 Our [internet check](/en/check/) tells you in 5 seconds whether you're dealing with a whitelist, a full shutdown or a VPN problem. The [blocking status page](/en/status/) shows recent restrictions by region.
 
@@ -42,7 +42,7 @@ Our [internet check](/en/check/) tells you in 5 seconds whether you're dealing w
 
 ## Setting up {{BRAND}}
 
-{{BRAND}} works through a Telegram bot: {{TRIAL}}, then from 210 ₽ a month. Step-by-step setup for iPhone, Android, Windows, Mac and TV is on the [setup page](/en/podklyuchenie/). Check the payment options in the bot during the trial — foreign Visa, Mastercard and American Express cards don't work inside Russia.
+{{BRAND}} works through a Telegram bot: {{TRIAL}}, then from 210 ₽ a month. Step-by-step setup for iPhone, Android, Windows, Mac and TV is on the [setup page](/en/podklyuchenie/). Check the payment options in the bot during the trial - foreign Visa, Mastercard and American Express cards don't work inside Russia.
 
 ## FAQ
 
@@ -53,7 +53,7 @@ Russian rules target VPN providers and advertising of ways to bypass blocks. In 
 Don't count on it. Since summer 2026 travellers report that roaming traffic is filtered like local traffic. Install a VPN as well.
 
 ### Does a VPN work during a mobile internet shutdown?
-Usually not over mobile data — only whitelisted Russian services work then. Connect to Wi-Fi: home and hotel internet isn't affected, and the VPN works over it.
+Usually not over mobile data - only whitelisted Russian services work then. Connect to Wi-Fi: home and hotel internet isn't affected, and the VPN works over it.
 
 ### Why does my foreign SIM have no internet when I land?
 That's the 24-hour block for foreign SIMs introduced in October 2025. Calls work; you can lift the block earlier through the carrier's check page.

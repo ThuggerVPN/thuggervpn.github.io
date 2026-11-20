@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://thuggervpn.github.io/"><img src="assets/readme/showcase.png" alt="ThuggerVPN — сайт на компьютере и телефоне" width="100%"></a>
+<a href="https://thuggervpn.github.io/"><img src="assets/readme/showcase.png" alt="Сайт ThuggerVPN на компьютере и телефоне" width="100%"></a>
 
 # ThuggerVPN
 
@@ -17,7 +17,7 @@
 
 ## 📡 Сводка блокировок
 
-Обновляется каждый день. Последнее обновление: **20 ноября 2026, 08:54 МСК**. Полная картина — на странице [статуса](https://thuggervpn.github.io/status/) и в [индексе блокировок](https://thuggervpn.github.io/index-blokirovok/).
+Обновляется каждый день. Последнее обновление: **20 ноября 2026, 08:54 МСК**. Полная картина - на странице [статуса](https://thuggervpn.github.io/status/) и в [индексе блокировок](https://thuggervpn.github.io/index-blokirovok/).
 
 | Дата | Где | Что случилось | Источник |
 |---|---|---|---|
@@ -37,19 +37,19 @@
 <td width="50%" valign="top">
 <a href="https://thuggervpn.github.io/check/"><img src="assets/readme/check.png" alt="Проверка интернета"></a>
 <h3><a href="https://thuggervpn.github.io/check/">Проверка интернета за 5 секунд</a></h3>
-Белые списки, отключение или проблема с VPN — страница проверяет прямо в браузере и говорит, что делать. Ничего не сохраняет.
+Белые списки, отключение или проблема с VPN - страница проверяет прямо в браузере и говорит, что делать. Ничего не сохраняет.
 </td>
 <td width="50%" valign="top">
 <a href="https://thuggervpn.github.io/status/"><img src="assets/readme/status.png" alt="Статус блокировок"></a>
 <h3><a href="https://thuggervpn.github.io/status/">Статус блокировок сегодня</a></h3>
-Ежедневная сводка сбоев мобильного интернета по регионам и операторам: <a href="https://thuggervpn.github.io/operator/mts/">МТС</a>, <a href="https://thuggervpn.github.io/operator/beeline/">Билайн</a>, <a href="https://thuggervpn.github.io/operator/megafon/">МегаФон</a>, <a href="https://thuggervpn.github.io/operator/t2/">Т2</a>. Каждое событие — со ссылкой на источник.
+Ежедневная сводка сбоев мобильного интернета по регионам и операторам: <a href="https://thuggervpn.github.io/operator/mts/">МТС</a>, <a href="https://thuggervpn.github.io/operator/beeline/">Билайн</a>, <a href="https://thuggervpn.github.io/operator/megafon/">МегаФон</a>, <a href="https://thuggervpn.github.io/operator/t2/">Т2</a>. Каждое событие - со ссылкой на источник.
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 <a href="https://thuggervpn.github.io/podklyuchenie/"><img src="assets/readme/setup.png" alt="Инструкция по подключению"></a>
 <h3><a href="https://thuggervpn.github.io/podklyuchenie/">Как подключить VPN</a></h3>
-iPhone, Android, Windows, macOS и телевизор — по шагам. Отдельно: что делать, если у вас российский Apple ID.
+iPhone, Android, Windows, macOS и телевизор - по шагам. Отдельно: что делать, если у вас российский Apple ID.
 </td>
 <td width="50%" valign="top">
 <p align="center">
@@ -65,11 +65,11 @@ iPhone, Android, Windows, macOS и телевизор — по шагам. От�
 
 ## 📊 Открытые данные
 
-База событий открыта и обновляется ежедневно — для журналистов, исследователей и разработчиков. Используйте со ссылкой на источник.
+База событий открыта и обновляется ежедневно - для журналистов, исследователей и разработчиков. Используйте со ссылкой на источник.
 
 - JSON: [`/data/blocking-events.json`](https://thuggervpn.github.io/data/blocking-events.json)
-- [Индекс блокировок](https://thuggervpn.github.io/index-blokirovok/) — события за 7 и 30 дней по типам
-- [Информер для вашего сайта](https://thuggervpn.github.io/informer/) — сводка блокировок одной строкой кода
+- [Индекс блокировок](https://thuggervpn.github.io/index-blokirovok/) - события за 7 и 30 дней по типам
+- [Информер для вашего сайта](https://thuggervpn.github.io/informer/) - сводка блокировок одной строкой кода
 - RSS: [русский](https://thuggervpn.github.io/feed.xml) · [English](https://thuggervpn.github.io/en/feed.xml)
 
 ## 📝 Свежие статьи
@@ -88,13 +88,13 @@ iPhone, Android, Windows, macOS и телевизор — по шагам. От�
 
 | Оператор | Работает | Обход белых списков |
 |---|---|---|
-| МТС | 1/1 ✅ | — |
+| МТС | 1/1 ✅ | - |
 | МегаФон | 1/1 ✅ | 1/1 ✅ |
 | Билайн | 3/3 ✅ | 3/3 ✅ |
 | Т2 | 2/2 ✅ | 1/1 ✅ |
-| Домашний интернет | 6/6 ✅ | — |
+| Домашний интернет | 6/6 ✅ | - |
 
-Пользовались ThuggerVPN? [Отметьте своего оператора](https://vpnstatus.site/vpn/thuggervpn) — это помогает другим выбрать.
+Пользовались ThuggerVPN? [Отметьте своего оператора](https://vpnstatus.site/vpn/thuggervpn) - это помогает другим выбрать.
 
 ## 🚀 О сервисе ThuggerVPN
 
@@ -103,7 +103,7 @@ VPN для мобильного и домашнего интернета с оп
 | | |
 |---|---|
 | 🎁 Пробный период | 3 дня бесплатно |
-| 📱 Устройства | 2 устройства в тарифе, до 6 — по +60 ₽ за каждое |
+| 📱 Устройства | 2 устройства в тарифе, до 6 по +60 ₽ за каждое |
 | 🛡️ Обход белых списков | +100 ₽ в месяц, 100 ГБ на отдельных LTE-серверах |
 | 💬 Поддержка | [@ThuggerVPN_supp](https://t.me/ThuggerVPN_supp) |
 
@@ -124,7 +124,7 @@ VPN для мобильного и домашнего интернета с оп
 
 ## 🌍 English
 
-**Daily status of mobile internet shutdowns, whitelist mode and VPN blocking in Russia** — with sources, a 5-second internet check and setup guides. Useful if you live in Russia, travel there or have family there.
+**Daily status of mobile internet shutdowns, whitelist mode and VPN blocking in Russia** - with sources, a 5-second internet check and setup guides. Useful if you live in Russia, travel there or have family there.
 
 - [Blocking status today](https://thuggervpn.github.io/en/status/) · [Internet check](https://thuggervpn.github.io/en/check/) · [Setup guide](https://thuggervpn.github.io/en/podklyuchenie/) · [Blocking index](https://thuggervpn.github.io/en/index-blokirovok/)
 - Open data: [`blocking-events.json`](https://thuggervpn.github.io/data/blocking-events.json) · RSS: [`/en/feed.xml`](https://thuggervpn.github.io/en/feed.xml)
@@ -133,13 +133,13 @@ VPN для мобильного и домашнего интернета с оп
 
 - [Russian bank apps not working with VPN: Sber, T-Bank, Ozon fixes](https://thuggervpn.github.io/en/blog/vpn-i-bankovskie-prilozheniya/)
 - [VPN connected but no internet: 5 causes and fixes](https://thuggervpn.github.io/en/blog/vpn-podklyuchen-no-net-interneta/)
-- [Travelling to Russia in 2026: internet, SIM cards and VPN — what to set up before you fly](https://thuggervpn.github.io/en/blog/travel-russia-internet-vpn/)
+- [Travelling to Russia in 2026: internet, SIM cards and VPN - what to set up before you fly](https://thuggervpn.github.io/en/blog/travel-russia-internet-vpn/)
 - [VPN not working on mobile data in Russia: what to do in 2026](https://thuggervpn.github.io/en/blog/ne-rabotaet-vpn-na-mobilnom/)
 - [How to choose a VPN for Russia in 2026: 7 criteria that matter](https://thuggervpn.github.io/en/blog/kak-vybrat-vpn-2026/)
 - [Mobile internet whitelists in Russia: what they are and how to tell](https://thuggervpn.github.io/en/blog/belye-spiski-chto-eto/)
 
-ThuggerVPN: 3 days free, then from 210 ₽/month — [Telegram bot](https://t.me/ThuggerVPN_bot) · reviews on [vpnstatus.site](https://vpnstatus.site/vpn/thuggervpn).
+ThuggerVPN: 3 days free, then from 210 ₽/month - [Telegram bot](https://t.me/ThuggerVPN_bot) · reviews on [vpnstatus.site](https://vpnstatus.site/vpn/thuggervpn).
 
 ---
 
-<sub>Сайт собирается автоматически: статьи — `_src/articles/` и `_src/articles_en/`, база событий — `_src/data/status.json`, сборка — `python3 _src/build.py`. Эта страница обновляется вместе с сайтом.</sub>
+<sub>Сайт собирается автоматически: статьи - `_src/articles/` и `_src/articles_en/`, база событий - `_src/data/status.json`, сборка - `python3 _src/build.py`. Эта страница обновляется вместе с сайтом.</sub>

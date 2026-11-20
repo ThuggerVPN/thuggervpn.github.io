@@ -1,0 +1,31 @@
+name: Telegram channel refresh
+
+# Обновляет описание канала и закреплённый пост на месте (без нового поста).
+# Запускается при изменении _src/channel/refresh.txt или вручную.
+on:
+  push:
+    branches: [main]
+    paths: ["_src/channel/refresh.txt"]
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHANNEL: ${{ secrets.TG_CHANNEL }}
+        run: |
+          if [ -z "$TG_BOT_TOKEN" ] || [ -z "$TG_CHANNEL" ]; then echo "Нет секретов"; exit 0; fi
+          API="https://api.telegram.org/bot${TG_BOT_TOKEN}"
+          D=_src/channel
+          echo "== Описание"
+          curl -sS --data-urlencode chat_id="$TG_CHANNEL" --data-urlencode description@$D/description.txt "$API/setChatDescription"; echo
+          MID=$(curl -sS --data-urlencode chat_id="$TG_CHANNEL" "$API/getChat" | python3 -c "import sys,json;print(json.load(sys.stdin).get('result',{}).get('pinned_message',{}).get('message_id',''))")
+          echo "Закреплённый пост: $MID"
+          if [ -z "$MID" ]; then echo "Нет закреплённого поста"; exit 1; fi
+          MEDIA=$(python3 -c "import json;print(json.dumps({'type':'photo','media':'attach://pic','caption':open('$D/welcome.html',encoding='utf-8').read(),'parse_mode':'HTML'}))")
+          echo "== Пост"
+          curl -sS --form-string chat_id="$TG_CHANNEL" --form-string message_id="$MID" --form-string media="$MEDIA" -F pic=@$D/welcome.png "$API/editMessageMedia" | python3 -c "import sys,json;r=json.load(sys.stdin);print('ok' if r.get('ok') else r)"

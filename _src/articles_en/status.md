@@ -15,13 +15,13 @@ slug: status
 
 ## How to tell what you have
 
-1. **Gosuslugi, Yandex and marketplaces open, but Telegram and YouTube don't, and the VPN won't connect** — most likely a whitelist mode. More: [what whitelists are](/en/blog/belye-spiski-chto-eto/).
-2. **Nothing opens at all, not even whitelisted sites** — mobile internet is fully shut down. No VPN helps here: switch to Wi-Fi or home internet.
-3. **Internet works, the VPN says "connected", but pages don't load** — the server or protocol is blocked. See: [VPN connected but no internet](/en/blog/vpn-podklyuchen-no-net-interneta/).
+1. **Gosuslugi, Yandex and marketplaces open, but Telegram and YouTube don't, and the VPN won't connect** - most likely a whitelist mode. More: [what whitelists are](/en/blog/belye-spiski-chto-eto/).
+2. **Nothing opens at all, not even whitelisted sites** - mobile internet is fully shut down. No VPN helps here: switch to Wi-Fi or home internet.
+3. **Internet works, the VPN says "connected", but pages don't load** - the server or protocol is blocked. See: [VPN connected but no internet](/en/blog/vpn-podklyuchen-no-net-interneta/).
 
 ## Quick checklist
 
-- Switch from mobile data to Wi-Fi — home internet isn't restricted by whitelists.
+- Switch from mobile data to Wi-Fi - home internet isn't restricted by whitelists.
 - Change the server (country) in your VPN app.
 - Refresh the subscription or configuration in the app.
 - Restart the app and toggle airplane mode.

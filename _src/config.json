@@ -6,7 +6,7 @@
   "trial": "3 дня бесплатно",
   "indexnow_key": "de04fac64d7e4c9f9a518f1fa7be3176",
   "price_from": "от 210 ₽/мес при оплате за год",
-  "whitelist_option": "Есть опция обхода белых списков на мобильном — +100 ₽ в месяц",
+  "whitelist_option": "Есть опция обхода белых списков на мобильном: +100 ₽ в месяц",
   "vpnstatus_url": "https://vpnstatus.site/vpn/thuggervpn",
   "support_url": "https://t.me/ThuggerVPN_supp",
   "channel_url": "https://t.me/ThuggerVPN",
@@ -41,11 +41,11 @@
       "label_en": "12 months"
     }
   ],
-  "devices": "2 устройства в тарифе, до 6 — по +60 ₽ за каждое",
+  "devices": "2 устройства в тарифе, до 6 по +60 ₽ за каждое",
   "whitelist_detail": "+100 ₽ в месяц, 100 ГБ на отдельных LTE-серверах",
   "en": {
     "trial": "3 days free",
-    "devices": "2 devices included, up to 6 — +60 ₽ each",
+    "devices": "2 devices included, up to 6 at +60 ₽ each",
     "whitelist_detail": "+100 ₽ per month, 100 GB on dedicated LTE servers"
   },
   "bot_ref_url": "https://t.me/ThuggerVPN_bot?start=309006619",

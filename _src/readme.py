@@ -1,4 +1,4 @@
-"""README.md — витрина репозитория на GitHub. Пересобирается при каждой сборке сайта:
+"""README.md - витрина репозитория на GitHub. Пересобирается при каждой сборке сайта:
 свежие события, цифры vpnstatus и статьи обновляются сами."""
 import json
 from urllib.parse import quote
@@ -50,7 +50,7 @@ def build(ST, posts, posts_en):
     vs_block = ""
     if vs:
         def frac(w, t):
-            return "—" if not t else f"{w}/{t} ✅" if w == t else f"{w}/{t}"
+            return "-" if not t else f"{w}/{t} ✅" if w == t else f"{w}/{t}"
         ops = "\n".join(f"| {o['name']} | {frac(o['works'], o['total'])} | {frac(o.get('wl_works'), o.get('wl_total'))} |"
                         for o in vs.get("mobile", []))
         vs_block = f"""
@@ -61,9 +61,9 @@ def build(ST, posts, posts_en):
 | Оператор | Работает | Обход белых списков |
 |---|---|---|
 {ops}
-| Домашний интернет | {frac(vs.get('home_works'), vs.get('home_total'))} | — |
+| Домашний интернет | {frac(vs.get('home_works'), vs.get('home_total'))} | - |
 
-Пользовались ThuggerVPN? [Отметьте своего оператора]({B.VPNSTATUS}) — это помогает другим выбрать.
+Пользовались ThuggerVPN? [Отметьте своего оператора]({B.VPNSTATUS}) - это помогает другим выбрать.
 """
 
     plans = CFG.get("plans", [])
@@ -75,7 +75,7 @@ def build(ST, posts, posts_en):
 
     md = f"""<div align="center">
 
-<a href="{S}/"><img src="assets/readme/showcase.png" alt="ThuggerVPN — сайт на компьютере и телефоне" width="100%"></a>
+<a href="{S}/"><img src="assets/readme/showcase.png" alt="Сайт ThuggerVPN на компьютере и телефоне" width="100%"></a>
 
 # ThuggerVPN
 
@@ -92,7 +92,7 @@ def build(ST, posts, posts_en):
 
 ## 📡 Сводка блокировок
 
-Обновляется каждый день. Последнее обновление: **{upd}**. Полная картина — на странице [статуса]({S}/status/) и в [индексе блокировок]({S}/index-blokirovok/).
+Обновляется каждый день. Последнее обновление: **{upd}**. Полная картина - на странице [статуса]({S}/status/) и в [индексе блокировок]({S}/index-blokirovok/).
 
 | Дата | Где | Что случилось | Источник |
 |---|---|---|---|
@@ -107,19 +107,19 @@ def build(ST, posts, posts_en):
 <td width="50%" valign="top">
 <a href="{S}/check/"><img src="assets/readme/check.png" alt="Проверка интернета"></a>
 <h3><a href="{S}/check/">Проверка интернета за 5 секунд</a></h3>
-Белые списки, отключение или проблема с VPN — страница проверяет прямо в браузере и говорит, что делать. Ничего не сохраняет.
+Белые списки, отключение или проблема с VPN - страница проверяет прямо в браузере и говорит, что делать. Ничего не сохраняет.
 </td>
 <td width="50%" valign="top">
 <a href="{S}/status/"><img src="assets/readme/status.png" alt="Статус блокировок"></a>
 <h3><a href="{S}/status/">Статус блокировок сегодня</a></h3>
-Ежедневная сводка сбоев мобильного интернета по регионам и операторам: <a href="{S}/operator/mts/">МТС</a>, <a href="{S}/operator/beeline/">Билайн</a>, <a href="{S}/operator/megafon/">МегаФон</a>, <a href="{S}/operator/t2/">Т2</a>. Каждое событие — со ссылкой на источник.
+Ежедневная сводка сбоев мобильного интернета по регионам и операторам: <a href="{S}/operator/mts/">МТС</a>, <a href="{S}/operator/beeline/">Билайн</a>, <a href="{S}/operator/megafon/">МегаФон</a>, <a href="{S}/operator/t2/">Т2</a>. Каждое событие - со ссылкой на источник.
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 <a href="{S}/podklyuchenie/"><img src="assets/readme/setup.png" alt="Инструкция по подключению"></a>
 <h3><a href="{S}/podklyuchenie/">Как подключить VPN</a></h3>
-iPhone, Android, Windows, macOS и телевизор — по шагам. Отдельно: что делать, если у вас российский Apple ID.
+iPhone, Android, Windows, macOS и телевизор - по шагам. Отдельно: что делать, если у вас российский Apple ID.
 </td>
 <td width="50%" valign="top">
 <p align="center">
@@ -135,11 +135,11 @@ iPhone, Android, Windows, macOS и телевизор — по шагам. От�
 
 ## 📊 Открытые данные
 
-База событий открыта и обновляется ежедневно — для журналистов, исследователей и разработчиков. Используйте со ссылкой на источник.
+База событий открыта и обновляется ежедневно - для журналистов, исследователей и разработчиков. Используйте со ссылкой на источник.
 
 - JSON: [`/data/blocking-events.json`]({S}/data/blocking-events.json)
-- [Индекс блокировок]({S}/index-blokirovok/) — события за 7 и 30 дней по типам
-- [Информер для вашего сайта]({S}/informer/) — сводка блокировок одной строкой кода
+- [Индекс блокировок]({S}/index-blokirovok/) - события за 7 и 30 дней по типам
+- [Информер для вашего сайта]({S}/informer/) - сводка блокировок одной строкой кода
 - RSS: [русский]({S}/feed.xml) · [English]({S}/en/feed.xml)
 
 ## 📝 Свежие статьи
@@ -176,7 +176,7 @@ VPN для мобильного и домашнего интернета с оп
 
 ## 🌍 English
 
-**Daily status of mobile internet shutdowns, whitelist mode and VPN blocking in Russia** — with sources, a 5-second internet check and setup guides. Useful if you live in Russia, travel there or have family there.
+**Daily status of mobile internet shutdowns, whitelist mode and VPN blocking in Russia** - with sources, a 5-second internet check and setup guides. Useful if you live in Russia, travel there or have family there.
 
 - [Blocking status today]({S}/en/status/) · [Internet check]({S}/en/check/) · [Setup guide]({S}/en/podklyuchenie/) · [Blocking index]({S}/en/index-blokirovok/)
 - Open data: [`blocking-events.json`]({S}/data/blocking-events.json) · RSS: [`/en/feed.xml`]({S}/en/feed.xml)
@@ -185,10 +185,10 @@ VPN для мобильного и домашнего интернета с оп
 
 {arts_en}
 
-ThuggerVPN: {CFG.get('en', {}).get('trial', '3 days free')}, then from {min_price} ₽/month — [Telegram bot]({B.BOT_PLAIN}) · reviews on [vpnstatus.site]({B.VPNSTATUS}).
+ThuggerVPN: {CFG.get('en', {}).get('trial', '3 days free')}, then from {min_price} ₽/month - [Telegram bot]({B.BOT_PLAIN}) · reviews on [vpnstatus.site]({B.VPNSTATUS}).
 
 ---
 
-<sub>Сайт собирается автоматически: статьи — `_src/articles/` и `_src/articles_en/`, база событий — `_src/data/status.json`, сборка — `python3 _src/build.py`. Эта страница обновляется вместе с сайтом.</sub>
+<sub>Сайт собирается автоматически: статьи - `_src/articles/` и `_src/articles_en/`, база событий - `_src/data/status.json`, сборка - `python3 _src/build.py`. Эта страница обновляется вместе с сайтом.</sub>
 """
-    (B.ROOT / "README.md").write_text(md, encoding="utf-8")
+    (B.ROOT / "README.md").write_text(B.humanize(md), encoding="utf-8")

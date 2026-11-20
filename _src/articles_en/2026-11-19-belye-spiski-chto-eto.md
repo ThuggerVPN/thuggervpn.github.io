@@ -26,7 +26,7 @@ If three or four match, it's a whitelist.
 ## What you can do
 
 - **Switch to Wi-Fi.** The most reliable option: home internet isn't restricted by this mode.
-- **Wait.** The mode is usually temporary — from a few hours to a day.
+- **Wait.** The mode is usually temporary - from a few hours to a day.
 - **Use a VPN with whitelist bypass.** It's a rare and expensive technology: it needs special servers, and such setups get shut down regularly. If a service promises a bypass, test it during the free trial before paying.
 
 The current picture by region is on the [blocking status page](/en/status/).
@@ -34,7 +34,7 @@ The current picture by region is on the [blocking status page](/en/status/).
 ## FAQ
 
 ### Are whitelists applied to home internet too?
-According to the Ministry and carriers — no, the mechanism concerns mobile internet. So during restrictions, connect to Wi-Fi first.
+According to the Ministry and carriers - no, the mechanism concerns mobile internet. So during restrictions, connect to Wi-Fi first.
 
 ### Why does Yandex work but my VPN doesn't?
 Specific services are added to the whitelist. VPN servers aren't on it, so a regular VPN can't establish a connection while the mode is on.

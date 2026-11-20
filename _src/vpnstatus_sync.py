@@ -1,8 +1,8 @@
 """Подтягивает свежие цифры карточки vpnstatus.site в _src/data/vpnstatus.json.
 
 Меняет только цифры (рейтинг, голоса, операторы, домашний интернет).
-Пересказы отзывов не трогает — их обновляет ежедневная задача.
-Код выхода: 0 — цифры изменились, 3 — без изменений, 1 — ошибка (файл не трогаем).
+Пересказы отзывов не трогает - их обновляет ежедневная задача.
+Код выхода: 0 - цифры изменились, 3 - без изменений, 1 - ошибка (файл не трогаем).
 """
 import json
 import re
@@ -41,13 +41,13 @@ def main():
     try:
         html = urllib.request.urlopen(req, timeout=30).read().decode("utf-8")
         agg, byp, rating = grab(html, "aggregate"), grab(html, "bypassAggregate"), grab(html, "rating")
-    except Exception as e:  # сеть или вёрстка поменялась — оставляем файл как есть
+    except Exception as e:  # сеть или вёрстка поменялась - оставляем файл как есть
         print(f"Не удалось получить данные: {e}")
         return 1
 
     total = agg["totalVotes"]
     if not total:
-        print("Пустые данные — пропускаю")
+        print("Пустые данные - пропускаю")
         return 1
     before = json.dumps({k: v for k, v in data.items() if k not in ("checked",)}, sort_keys=True, ensure_ascii=False)
 

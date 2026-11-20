@@ -3,7 +3,7 @@
 
 Запуск: python3 _src/build.py
 Формат статьи: блок метаданных между строками '---' (title, description, date, slug,
-updated — необязательно), затем Markdown. Раздел '## Вопросы и ответы' с подзаголовками
+updated - необязательно), затем Markdown. Раздел '## Вопросы и ответы' с подзаголовками
 '###' превращается в разметку FAQ для поисковиков и ИИ-ассистентов.
 Главная показывает первые 3 строки таблицы из status.md (колонки: что | где | ... | что значит).
 """
@@ -23,7 +23,7 @@ CFG = json.loads((SRC / "config.json").read_text(encoding="utf-8"))
 SITE = CFG["site_url"].rstrip("/")
 BRAND = CFG["brand"]
 BOT_PLAIN = CFG["bot_url"]
-BOT = CFG.get("bot_ref_url", BOT_PLAIN)  # реферальная ссылка — для подсчёта пришедших с сайта
+BOT = CFG.get("bot_ref_url", BOT_PLAIN)  # реферальная ссылка - для подсчёта пришедших с сайта
 BOT_NAME = "@" + BOT_PLAIN.rsplit("/", 1)[-1]
 GC = CFG.get("goatcounter", "")
 VPNSTATUS = CFG.get("vpnstatus_url", "https://vpnstatus.site")
@@ -243,7 +243,7 @@ details.acc,details.acc-q{border-radius:18px;background:var(--card);border:1px s
 details.acc>summary,details.acc-q>summary{cursor:pointer;list-style:none;padding:18px 32px 18px 0;font-weight:700;font-size:17px;position:relative;min-height:44px}
 details.acc>summary::-webkit-details-marker,details.acc-q>summary::-webkit-details-marker{display:none}
 details.acc>summary::after,details.acc-q>summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:24px;color:var(--accent2);font-weight:500}
-details[open].acc>summary::after,details[open].acc-q>summary::after{content:"–"}
+details[open].acc>summary::after,details[open].acc-q>summary::after{content:"−"}
 details.acc[open],details.acc-q[open]{padding-bottom:18px}
 details.acc-q p{margin:0;color:var(--soft)}
 .stars{display:flex;gap:4px;margin-bottom:10px}
@@ -330,7 +330,7 @@ def price_line():
 
 def cta_block():
     return (f'<div class="cta"><div><b>VPN снова отвалился?</b>'
-            f'<p>{CFG["trial"].capitalize()} — проверьте на своём операторе. Дальше от '
+            f'<p>{CFG["trial"].capitalize()} - проверьте на своём операторе. Дальше от '
             f'{min([p["per_month"] for p in CFG.get("plans", [])] or [210])} ₽ в месяц.</p></div>'
             f'<div class="links"><a class="btn" href="{BOT}" rel="nofollow">'
             f'Попробовать {CFG["trial"]}</a>'
@@ -343,7 +343,7 @@ def trust_block():
     d = json.loads(vp.read_text(encoding="utf-8")) if vp.exists() else None
     link = (d or {}).get("url", VPNSTATUS)
     if not d:
-        return (f'<div class="trust"><div><h2>Честные отзывы — в независимом каталоге</h2></div>'
+        return (f'<div class="trust"><div><h2>Честные отзывы - в независимом каталоге</h2></div>'
                 f'<a class="btn-ghost" href="{link}" target="_blank" rel="noopener">Смотреть отзывы ↗</a></div>')
 
     def cell(w, t):
@@ -354,8 +354,8 @@ def trust_block():
                    f'<small>Клиент · {esc(r["period"])}</small></div>' for r in d["reviews"][:3])
     return f"""<div class="trust2">
 <div class="tr-head"><div><div class="stars">{STAR * 5}</div>
-<h2>Отзывы клиентов — в независимом каталоге</h2>
-<p>Голоса и отзывы оставляют сами пользователи на vpnstatus.site. Каталог не продаёт места в подборках. Ниже — кратко, полная карточка по ссылке.</p></div>
+<h2>Отзывы клиентов - в независимом каталоге</h2>
+<p>Голоса и отзывы оставляют сами пользователи на vpnstatus.site. Каталог не продаёт места в подборках. Ниже - кратко, полная карточка по ссылке.</p></div>
 <a class="btn-ghost" href="{link}" target="_blank" rel="noopener">Все отзывы на vpnstatus.site ↗</a></div>
 <div class="tr-grid">
 <div class="tr-score"><div class="big">{esc(d["rating"])}<span>/5</span></div>
@@ -433,7 +433,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <style>{CSS}</style>
 {ld}</head>
 <body>
-<header><div class="wrap"><span class="hl"><a class="logo" href="{pre}/" aria-label="{BRAND} — {home_label}"><i><b></b></i>{BRAND}</a>{sw}</span>
+<header><div class="wrap"><span class="hl"><a class="logo" href="{pre}/" aria-label="{BRAND}, {home_label}"><i><b></b></i>{BRAND}</a>{sw}</span>
 <nav aria-label="{menu_label}">{nav}</nav></div></header>
 <main><div class="wrap">
 {body}
@@ -466,7 +466,7 @@ def assistant_html(lang="ru"):
     data = json.loads(ap.read_text(encoding="utf-8"))
     subs = {"{BOT}": BOT, "{PRICE}": CFG["price"], "{PRICE_FROM}": CFG.get("price_from", ""),
             "{TRIAL}": CFG["trial"], "{WL}": (CFG["en"]["whitelist_detail"] if en else
-                                                 CFG.get("whitelist_option", "").split("—")[-1].strip()), "{VPNSTATUS}": VPNSTATUS, "{SUPPORT}": SUPPORT}
+                                                 CFG.get("whitelist_option", "").split(":")[-1].strip()), "{VPNSTATUS}": VPNSTATUS, "{SUPPORT}": SUPPORT}
 
     def sub(t):
         for k, v in subs.items():
@@ -554,9 +554,18 @@ def article_jsonld(a, path, crumbs):
     return objs
 
 
+def humanize(text):
+    """Никаких длинных тире в публичных текстах: они выдают автоматический текст."""
+    text = text.replace(" \u2014 ", " - ").replace(" \u2013 ", " - ")
+    text = re.sub(r"(\d)[\u2013\u2014](\d)", r"\1-\2", text)
+    return text.replace("\u2014", "-").replace("\u2013", "-")
+
+
 def write(rel, content):
     out = ROOT / rel
     out.parent.mkdir(parents=True, exist_ok=True)
+    if isinstance(content, str):
+        content = humanize(content)
     out.write_text(content, encoding="utf-8")
 
 
@@ -568,7 +577,7 @@ def related_html(a, posts):
                     f'<span>{esc(p["description"])}</span></a></li>' for p in rel)
     return (f'<h2>Читайте также</h2><ul class="list">{items}'
             f'<li><a href="/check/"><b>Проверить свой интернет за 5 секунд</b>'
-            f'<span>Белые списки, отключение или не работает VPN — узнайте сразу</span></a></li></ul>')
+            f'<span>Белые списки, отключение или не работает VPN - узнайте сразу</span></a></li></ul>')
 
 
 def crumbs_html(crumbs):
@@ -657,7 +666,7 @@ def telegram_post(st):
     lines = [f"<b>Статус блокировок · {upd_label(st, year=False)}</b>", ""]
     if fresh:
         for e in fresh[:5]:
-            lines.append(f"• <b>{html.escape(e['region'])}</b> — {html.escape(e['title'])}")
+            lines.append(f"• <b>{html.escape(e['region'])}:</b> {html.escape(e['title'])}")
             lines.append(f"  → {html.escape(e['meaning'])}")
     else:
         lines.append("За сутки новых крупных сбоев в открытых источниках не найдено.")
@@ -686,10 +695,10 @@ var t=document.createElement('span');t.textContent=p.name;li.appendChild(t);var 
 s.textContent=r?(r.ok?(r.ms>3000?'медленно':'открывается'):'не открывается'):'проверяем…';li.appendChild(s);return li;}
 function verdict(R){var ru=R.ru.ok,g=R.g.ok,blk=R.tg.ok||R.ig.ok;
 if(!ru&&!g&&!blk)return['Похоже, интернета нет вообще','Не открываются даже российские сайты. Так бывает при полном отключении мобильного интернета или слабом сигнале. VPN тут не поможет: подключитесь к Wi-Fi или домашнему интернету.','/status/','Что отключают сегодня'];
-if(ru&&!g&&!blk)return['Похоже на режим белых списков','Российские сервисы открываются, а обычные зарубежные сайты — нет. Это белые списки на мобильном интернете. Подключитесь к Wi-Fi или используйте VPN с обходом белых списков.','/blog/belye-spiski-chto-eto/','Что такое белые списки'];
-if(g&&!blk)return['Интернет есть, но заблокированные сервисы не открываются','Скорее всего, VPN выключен или его сервер заблокирован. Включите VPN, смените сервер или обновите подписку. Если не помогает — пора сменить сервис.','/blog/vpn-podklyuchen-no-net-interneta/','Что делать по шагам'];
+if(ru&&!g&&!blk)return['Похоже на режим белых списков','Российские сервисы открываются, а обычные зарубежные сайты - нет. Это белые списки на мобильном интернете. Подключитесь к Wi-Fi или используйте VPN с обходом белых списков.','/blog/belye-spiski-chto-eto/','Что такое белые списки'];
+if(g&&!blk)return['Интернет есть, но заблокированные сервисы не открываются','Скорее всего, VPN выключен или его сервер заблокирован. Включите VPN, смените сервер или обновите подписку. Если не помогает - пора сменить сервис.','/blog/vpn-podklyuchen-no-net-interneta/','Что делать по шагам'];
 var slow=R.yt.ok&&R.yt.ms>3000;
-return['VPN работает: заблокированные сервисы открываются',slow?'Доступ есть, но YouTube отвечает медленно. Попробуйте сервер в более близкой стране.':'Всё в порядке. Если какое-то приложение всё равно не работает — перезапустите его.','/blog/','Полезные инструкции'];}
+return['VPN работает: заблокированные сервисы открываются',slow?'Доступ есть, но YouTube отвечает медленно. Попробуйте сервер в более близкой стране.':'Всё в порядке. Если какое-то приложение всё равно не работает - перезапустите его.','/blog/','Полезные инструкции'];}
 btn.addEventListener('click',function(){btn.disabled=true;btn.textContent='Проверяем…';out.hidden=true;list.textContent='';
 probes.forEach(function(p){list.appendChild(row(p,null));});
 Promise.all(probes.map(probe)).then(function(rs){var R={};list.textContent='';
@@ -790,7 +799,7 @@ def write_feed(rel, title, home, lang, posts, prefix, ST):
 
 def read_embed_template():
     return ("""<!DOCTYPE html><html lang="{{LANG}}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex"><title>{{TITLE}} — """ + BRAND + """</title><style>
+<meta name="robots" content="noindex"><title>{{TITLE}} - """ + BRAND + """</title><style>
 @font-face{font-family:Manrope;font-weight:200 800;src:url(/assets/fonts/manrope-cyrillic-wght-normal.woff2) format('woff2');unicode-range:U+0400-045F}
 @font-face{font-family:Manrope;font-weight:200 800;src:url(/assets/fonts/manrope-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
 body{margin:0;background:#12131b;color:#edeff5;font:15px/1.5 Manrope,system-ui,sans-serif}
@@ -821,15 +830,15 @@ def build_setup_page(urls, UPD):
                    + (f'<p class="note" style="margin:14px 0 0">Не открывается магазин или нужно другое приложение:</p>'
                       f'<div class="app-alt">{alts}</div>' if alts else "")
                    + ('<p class="note" style="margin:14px 0 0"><b>Российский Apple ID?</b> Incy, HAPP и V2RayTun удалены из российского '
-                      'App Store — ссылки откроются, но скачать с российского аккаунта не получится. Если приложение уже установлено, оно '
-                      'продолжит работать. Для новой установки нужен Apple ID другой страны — '
+                      'App Store - ссылки откроются, но скачать с российского аккаунта не получится. Если приложение уже установлено, оно '
+                      'продолжит работать. Для новой установки нужен Apple ID другой страны - '
                       '<a href="#apple-id">как это сделать</a>.</p>'
                       if d["id"] in ("ios", "mac") else "") + '</div>')
     troubles = [
-        ("Подписка активна?", f"Откройте {bot_name} → кнопка <span class='kbd'>🌍 Мой VPN</span> → посмотрите строку <span class='kbd'>📆 Оплачен до</span>. Если срок закончился — продлите подписку в боте."),
-        ("В подписке есть локации?", f"В {bot_name} → <span class='kbd'>🌍 Мой VPN</span> проверьте строку <span class='kbd'>🌎 Локации в подписке</span>. Если там пусто — нажмите <span class='kbd'>🔄 Обновить подписку</span>."),
+        ("Подписка активна?", f"Откройте {bot_name} → кнопка <span class='kbd'>🌍 Мой VPN</span> → посмотрите строку <span class='kbd'>📆 Оплачен до</span>. Если срок закончился - продлите подписку в боте."),
+        ("В подписке есть локации?", f"В {bot_name} → <span class='kbd'>🌍 Мой VPN</span> проверьте строку <span class='kbd'>🌎 Локации в подписке</span>. Если там пусто - нажмите <span class='kbd'>🔄 Обновить подписку</span>."),
         ("Обновите ключи", f"В {bot_name} → <span class='kbd'>🌍 Мой VPN</span> → <span class='kbd'>🔄 Обновить подписку</span> и следуйте подсказкам в боте. Затем снова вставьте ссылку в приложение."),
-        ("Возможно, это белые списки", "Операторы могут временно ограничивать мобильный интернет: работают только разрешённые сайты — Госуслуги, банки, крупные российские сервисы. Если VPN не подключается или страницы не грузятся — подключитесь к Wi-Fi. Проверить, что у вас, можно за 5 секунд на странице проверки."),
+        ("Возможно, это белые списки", "Операторы могут временно ограничивать мобильный интернет: работают только разрешённые сайты - Госуслуги, банки, крупные российские сервисы. Если VPN не подключается или страницы не грузятся - подключитесь к Wi-Fi. Проверить, что у вас, можно за 5 секунд на странице проверки."),
     ]
     tr_html = "".join(f'<details class="acc-q"><summary>{i + 1}. {esc(q)}</summary><p>{a}</p></details>'
                       for i, (q, a) in enumerate(troubles))
@@ -837,15 +846,15 @@ def build_setup_page(urls, UPD):
     crumbs = [("Главная", "/"), ("Как подключить", path)]
     title = "Как подключить ThuggerVPN: iPhone, Android, Windows, Mac, ТВ"
     faq = [
-        ("Какое приложение выбрать?", "Рекомендуем Incy — оно есть для iPhone, Android, Windows, macOS и телевизоров. "
+        ("Какое приложение выбрать?", "Рекомендуем Incy - оно есть для iPhone, Android, Windows, macOS и телевизоров. "
          "Если не получается установить, подойдут HAPP или V2RayTun: ссылка подписки работает в любом из них."),
-        ("Где взять ссылку подписки?", f"В Telegram-боте {bot_name}. Нажмите на ссылку один раз — она скопируется автоматически."),
+        ("Где взять ссылку подписки?", f"В Telegram-боте {bot_name}. Нажмите на ссылку один раз - она скопируется автоматически."),
         ("Сколько устройств можно подключить?", CFG.get("devices", "")),
         ("Как скачать приложение на iPhone с российским Apple ID?", "Incy, HAPP и V2RayTun удалены из российского App Store. "
-         "Если приложение уже стоит — не удаляйте его. Если нет — нужен Apple ID другой страны: в App Store выйдите только из "
+         "Если приложение уже стоит - не удаляйте его. Если нет - нужен Apple ID другой страны: в App Store выйдите только из "
          "«Медиаматериалы и покупки», войдите в другой аккаунт, скачайте приложение и вернитесь в свой."),
-        ("VPN не работает — что делать?", "Проверьте, что подписка активна и в ней есть локации, обновите подписку в боте. "
-         "Если открываются только российские сайты — это белые списки, подключитесь к Wi-Fi. Не помогло — напишите в поддержку."),
+        ("VPN не работает - что делать?", "Проверьте, что подписка активна и в ней есть локации, обновите подписку в боте. "
+         "Если открываются только российские сайты - это белые списки, подключитесь к Wi-Fi. Не помогло - напишите в поддержку."),
     ]
     faq_html = "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq if a)
     script = SETUP_SCRIPT
@@ -853,35 +862,35 @@ def build_setup_page(urls, UPD):
             f'<p class="lead"><b>Коротко:</b> 4 шага и 2 минуты. Скачайте приложение, возьмите ссылку подписки в боте, '
             f'вставьте её в приложение и нажмите «Подключиться».</p>'
             f'<div class="st4">'
-            f'<div><div class="n">1</div><div><h3>Скачайте приложение</h3><p>Выберите своё устройство — мы определили его автоматически.</p></div></div></div>'
+            f'<div><div class="n">1</div><div><h3>Скачайте приложение</h3><p>Выберите своё устройство - мы определили его автоматически.</p></div></div></div>'
             f'<div class="dev-tabs" role="tablist" aria-label="Устройство">{tabs}</div>{panels}'
             f'<div class="st4">'
             f'<div><div class="n">2</div><div><h3>Скопируйте ссылку подписки</h3><p>Откройте <a href="{BOT}" rel="nofollow">{bot_name}</a> '
-            f'и получите персональную ссылку. Нажмите на неё один раз — она скопируется автоматически. '
+            f'и получите персональную ссылку. Нажмите на неё один раз - она скопируется автоматически. '
             f'Ещё нет подписки? Возьмите {CFG["trial"]}.</p></div></div>'
             f'<div><div class="n">3</div><div><h3>Вставьте ссылку в приложение</h3><p>Откройте скачанное приложение и нажмите '
             f'<span class="kbd">Из буфера</span>.</p></div></div>'
             f'<div><div class="n">4</div><div><h3>Подключитесь</h3><p>Появится список серверов. Выберите локацию и нажмите '
             f'<span class="kbd">Подключиться</span>.</p></div></div></div>'
-            f'<div class="done">✓ Готово — интернет работает через {esc(BRAND)}.</div>'
+            f'<div class="done">✓ Готово - интернет работает через {esc(BRAND)}.</div>'
             f'<p style="margin:18px 0"><a class="btn" href="{BOT}" rel="nofollow">Получить ссылку в {bot_name}</a></p>'
 f'<h2 id="apple-id">iPhone с российским Apple ID</h2>'
             f'<p>Apple удалила Incy, HAPP и V2RayTun из российского App Store. Других способов поставить приложение на iPhone в России нет: '
-            f'установка в обход App Store разрешена только в Евросоюзе. Что делать — зависит от ситуации:</p>'
-            f'<details class="acc-q" open><summary>Приложение уже установлено</summary><p>Не удаляйте его — оно продолжит работать. '
+            f'установка в обход App Store разрешена только в Евросоюзе. Что делать - зависит от ситуации:</p>'
+            f'<details class="acc-q" open><summary>Приложение уже установлено</summary><p>Не удаляйте его - оно продолжит работать. '
             f'Просто обновите подписку: {bot_name} → <span class="kbd">🌍 Мой VPN</span> → <span class="kbd">🔄 Обновить подписку</span>, '
             f'затем снова вставьте ссылку в приложение.</p></details>'
             f'<details class="acc-q"><summary>Приложения нет: Apple ID другой страны</summary><p>'
-            f'1. Откройте App Store → нажмите на свой аватар → выйдите только из «Медиаматериалы и покупки». iCloud не трогайте — фото и контакты останутся.<br>'
+            f'1. Откройте App Store → нажмите на свой аватар → выйдите только из «Медиаматериалы и покупки». iCloud не трогайте - фото и контакты останутся.<br>'
             f'2. Создайте новый Apple ID другой страны (например, Казахстан, Турция, США) или войдите в уже существующий.<br>'
             f'3. Скачайте Incy (или HAPP, V2RayTun).<br>'
-            f'4. Выйдите и вернитесь в свой Apple ID — приложение останется на телефоне.<br>'
+            f'4. Выйдите и вернитесь в свой Apple ID - приложение останется на телефоне.<br>'
             f'<b>Важно:</b> Apple просит адрес в выбранной стране, а обновлять приложение потом нужно будет под тем же аккаунтом.</p></details>'
             f'<details class="acc-q"><summary>Apple ID знакомого за границей</summary><p>Можно скачать приложение под аккаунтом человека, '
             f'которому вы доверяете: так же войдите только в «Медиаматериалы и покупки», скачайте приложение и выйдите. '
             f'Пароль от чужого аккаунта не сохраняйте и не входите им в iCloud.</p></details>'
-            f'<p>Подписка из бота подходит к любому из трёх приложений — ставьте то, что получилось скачать. Застряли на каком-то шаге? '
-            f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Напишите в поддержку</a> — подскажем.</p>'
+            f'<p>Подписка из бота подходит к любому из трёх приложений - ставьте то, что получилось скачать. Застряли на каком-то шаге? '
+            f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Напишите в поддержку</a> - подскажем.</p>'
             f'<h2>Если VPN не работает</h2>{tr_html}'
             f'<p>Не помогло? <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Напишите в поддержку</a> или '
             f'<a href="/check/">проверьте свой интернет за 5 секунд</a>.</p>'
@@ -895,7 +904,7 @@ f'<h2 id="apple-id">iPhone с российским Apple ID</h2>'
                  ("Вставьте ссылку в приложение", "Откройте приложение и нажмите «Из буфера»."),
                  ("Подключитесь", "Выберите локацию и нажмите «Подключиться»."),
              ])]}
-    write("podklyuchenie/index.html", page(f"{title} — {BRAND}", meta["description"], path, body,
+    write("podklyuchenie/index.html", page(f"{title} | {BRAND}", meta["description"], path, body,
                                            article_jsonld(meta, path, crumbs) + [howto]))
     urls.append((path, UPD))
 
@@ -922,7 +931,7 @@ def main():
                 f'<div class="meta">{ru_date(a["date"])}{upd}</div>'
                 f'{a["body_html"]}{cta_block()}{related_html(a, posts)}</article>')
         write(f"blog/{a['slug']}/index.html",
-              page(f'{a["title"]} — {BRAND}', a["description"], path, body,
+              page(f'{a["title"]} | {BRAND}', a["description"], path, body,
                    article_jsonld(a, path, crumbs), "article"))
         urls.append((path, a["updated"]))
 
@@ -937,7 +946,7 @@ def main():
                 f'<div class="meta">Обновлено {upd_label(ST)}</div>'
                 f'{body_html}{cta_block()}</article>')
         write("status/index.html",
-              page(f'{status["title"]} — {BRAND}', status["description"], path, body,
+              page(f'{status["title"]} | {BRAND}', status["description"], path, body,
                    article_jsonld(status, path, crumbs)))
         urls.append((path, UPD))
 
@@ -949,13 +958,13 @@ def main():
          "обычного зарубежного сайта и заблокированных сервисов. По тому, что открылось, а что нет, "
          "видно, что у вас: белые списки, полное отключение или не работает VPN."),
         ("Вы сохраняете мои данные?", "Нет. Проверка идёт целиком в вашем браузере, на наш сервер ничего не отправляется."),
-        ("Насколько точен результат?", "Это быстрая приблизительная проверка. Если результат кажется странным — "
+        ("Насколько точен результат?", "Это быстрая приблизительная проверка. Если результат кажется странным - "
          "запустите её ещё раз или сравните мобильный интернет и Wi-Fi."),
     ]
     faq_html = "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in check_faq)
     body = (f'{CHECK_CSS}<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
             f'<h1>Что с моим интернетом? Проверка за 5 секунд</h1>'
-            f'<p class="lead"><b>Коротко:</b> нажмите кнопку — страница проверит, открываются ли российские '
+            f'<p class="lead"><b>Коротко:</b> нажмите кнопку - страница проверит, открываются ли российские '
             f'сервисы, обычные зарубежные сайты и заблокированные Telegram, Instagram, YouTube, и скажет, что делать.</p>'
             f'<div class="ck"><button id="ck-run" type="button">Проверить мой интернет</button>'
             f'<ul id="ck-list" aria-live="polite"></ul>'
@@ -975,7 +984,7 @@ def main():
     check_meta = {"title": "Что с моим интернетом? Проверка за 5 секунд",
                   "description": "Бесплатная проверка: белые списки, отключение мобильного интернета или не работает VPN. В браузере, без сохранения данных.",
                   "date": "2026-11-19", "updated": UPD, "faq": check_faq}
-    write("check/index.html", page(f'{check_meta["title"]} — {BRAND}', check_meta["description"], path, body,
+    write("check/index.html", page(f'{check_meta["title"]} | {BRAND}', check_meta["description"], path, body,
                                    article_jsonld(check_meta, path, crumbs)))
     urls.append((path, UPD))
 
@@ -989,15 +998,15 @@ def main():
                if "all" in e["operators"] or slug in e["operators"]]
         own = [e for e in evs if slug in e["operators"]]
         crumbs = [("Главная", "/"), ("Статус", "/status/"), (name, path)]
-        summary = (f"За последние 14 дней — событий, которые касаются абонентов {name}: {len(evs)}"
+        summary = (f"За последние 14 дней - событий, которые касаются абонентов {name}: {len(evs)}"
                    + (f", из них отдельно по {name}: {len(own)}." if own else
-                      f". Отдельных сообщений именно по {name} нет — ниже общие ограничения для всех операторов в регионах."))
+                      f". Отдельных сообщений именно по {name} нет - ниже общие ограничения для всех операторов в регионах."))
         faq = [
             (f"Почему VPN не работает на {name_loc}, а на Wi-Fi работает?",
              "Ограничения с белыми списками и отключения вводятся на мобильном интернете. Домашний интернет и Wi-Fi "
              "под них не попадают, поэтому там тот же VPN продолжает работать."),
             (f"Работает ли {BRAND} на {name_loc}?",
-             f"Голоса пользователей по {name} — работает ли сервис и обходит ли белые списки — смотрите в независимом "
+             f"Голоса пользователей по {name} - работает ли сервис и обходит ли белые списки - смотрите в независимом "
              f"каталоге vpnstatus.site. Проверить на своём телефоне можно бесплатно: {CFG['trial']}."),
             ("Что делать прямо сейчас?",
              "Запустите проверку интернета на нашем сайте: она за 5 секунд покажет, белые списки у вас, отключение "
@@ -1012,17 +1021,17 @@ def main():
                 f'<h2>События за 14 дней</h2>'
                 + (events_table(evs) if evs else "<p>Сообщений о сбоях за 14 дней в открытых источниках не найдено.</p>") +
                 f'<h2>Что делать, если VPN не работает на {esc(name_loc)}</h2><ol>'
-                f'<li><b>Включите и выключите авиарежим</b> — телефон заново зарегистрируется в сети.</li>'
-                f'<li><b>Смените сервер в VPN</b> — блокируют конкретные адреса, а не весь сервис.</li>'
+                f'<li><b>Включите и выключите авиарежим</b> - телефон заново зарегистрируется в сети.</li>'
+                f'<li><b>Смените сервер в VPN</b> - блокируют конкретные адреса, а не весь сервис.</li>'
                 f'<li><b>Обновите подписку или конфигурацию</b> в приложении.</li>'
-                f'<li><b>Проверьте на Wi-Fi.</b> Если там работает — это ограничения на мобильной сети.</li>'
+                f'<li><b>Проверьте на Wi-Fi.</b> Если там работает - это ограничения на мобильной сети.</li>'
                 f'<li><b>Открываются только Госуслуги и Яндекс?</b> Это белые списки: нужен Wi-Fi или VPN с обходом белых списков.</li></ol>'
                 f'<p>Голоса пользователей {esc(BRAND)} по {esc(name)}: '
                 f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">vpnstatus.site ↗</a></p>'
                 f'<h2>Вопросы и ответы</h2>{faq_html}<p>Другие операторы: {others}</p>{cta_block()}</article>')
         meta = {"title": title, "description": f"Статус VPN и мобильного интернета на {name_loc}: сбои и белые списки за 14 дней, что делать по шагам. Обновляется каждый день.",
                 "date": "2026-11-19", "updated": UPD, "faq": faq}
-        write(f"operator/{slug}/index.html", page(f"{title} — {BRAND}", meta["description"], path, body,
+        write(f"operator/{slug}/index.html", page(f"{title} | {BRAND}", meta["description"], path, body,
                                                   article_jsonld(meta, path, crumbs)))
         urls.append((path, UPD))
 
@@ -1039,7 +1048,7 @@ def main():
     for e in last30:
         regions[e["region"]] = regions.get(e["region"], 0) + 1
     top_regions = sorted(regions.items(), key=lambda x: -x[1])[:8]
-    reg_html = "".join(f"<li>{esc(r)} — {n}</li>" for r, n in top_regions)
+    reg_html = "".join(f"<li>{esc(r)} - {n}</li>" for r, n in top_regions)
     crumbs = [("Главная", "/"), ("Индекс блокировок", path)]
     idx_faq = [("Откуда данные?", "Из открытых источников: сообщения СМИ и профильных изданий о сбоях, отключениях, "
                 "белых списках и блокировках. Каждое событие в таблице со ссылкой на источник."),
@@ -1048,14 +1057,14 @@ def main():
     body = (f'{CHECK_CSS}<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
             f'<h1>Индекс блокировок: неделя по {ru_date(UPD)}</h1>'
             f'<div class="meta">Обновляется каждый день · данные из открытых источников</div>'
-            f'<p class="lead"><b>Коротко:</b> за 7 дней зафиксировано событий: <b>{len(last7)}</b> — это {trend}, '
-            f'чем неделей раньше ({len(prev7)}). За 30 дней — <b>{len(last30)}</b>.</p>'
+            f'<p class="lead"><b>Коротко:</b> за 7 дней зафиксировано событий: <b>{len(last7)}</b> - это {trend}, '
+            f'чем неделей раньше ({len(prev7)}). За 30 дней - <b>{len(last30)}</b>.</p>'
             f'<h2>За 7 дней по типам</h2>{bars(c7, max([*c7.values(), 1]))}'
             f'<h2>За 30 дней по типам</h2>{bars(c30, mx)}'
             f'<h2>Где чаще всего (30 дней)</h2><ul>{reg_html or "<li>Нет данных</li>"}</ul>'
             f'<h2>Все события за 30 дней</h2>{events_table(last30) or "<p>Нет данных.</p>"}'
             f'<h2>Методика</h2><p>Мы ежедневно собираем сообщения о сбоях мобильного интернета, режимах белых списков, '
-            f'блокировках VPN и сбоях сервисов из открытых источников. Одно событие — одно сообщение о конкретном регионе '
+            f'блокировках VPN и сбоях сервисов из открытых источников. Одно событие - одно сообщение о конкретном регионе '
             f'и дне. Это не полная статистика всех сбоев в стране, а индикатор того, о чём сообщают.</p>'
             f'<h2>Вопросы и ответы</h2>' + "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in idx_faq) +
             f'{cta_block()}</article>')
@@ -1070,7 +1079,7 @@ def main():
         "creator": {"@type": "Organization", "name": BRAND, "url": SITE},
         "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json",
                           "contentUrl": f"{SITE}/data/blocking-events.json"}]}]
-    write("index-blokirovok/index.html", page(f'{idx_meta["title"]} — неделя по {ru_date(UPD)} — {BRAND}',
+    write("index-blokirovok/index.html", page(f'{idx_meta["title"]} - неделя по {ru_date(UPD)} | {BRAND}',
                                               idx_meta["description"], path, body, ld))
     urls.append((path, UPD))
     write("data/blocking-events.json", json.dumps(
@@ -1085,25 +1094,25 @@ def main():
         for e in latest3)
     embed = read_embed_template().replace("{{LANG}}", "ru").replace("{{TITLE}}", "Статус блокировок").replace(
         "{{DATE}}", ru_date(UPD, year=False)).replace("{{ROWS}}", emb_rows).replace("{{LINK}}", f"{SITE}/status/").replace(
-        "{{LINKTEXT}}", f"Полная сводка и что делать — {BRAND} →")
+        "{{LINKTEXT}}", f"Полная сводка и что делать | {BRAND} →")
     write("embed/status/index.html", embed)
     code = (f'<iframe src="{SITE}/embed/status/" width="100%" height="360" style="border:0;max-width:420px" '
-            f'loading="lazy" title="Статус блокировок — {BRAND}"></iframe>')
+            f'loading="lazy" title="Статус блокировок | {BRAND}"></iframe>')
     path = "/informer/"
     crumbs = [("Главная", "/"), ("Информер", path)]
     body = (f'{CHECK_CSS}<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
             f'<h1>Информер «Статус блокировок» для вашего сайта</h1>'
             f'<p class="lead"><b>Коротко:</b> бесплатная карточка со свежими сбоями интернета. '
-            f'Обновляется сама каждый день — вставьте код один раз.</p>'
+            f'Обновляется сама каждый день - вставьте код один раз.</p>'
             f'<h2>Как выглядит</h2><iframe src="/embed/status/" width="100%" height="360" '
             f'style="border:0;max-width:420px" title="Пример информера"></iframe>'
             f'<h2>Код для вставки</h2><textarea class="codebox" id="emb-code" readonly>{esc(code)}</textarea>'
             f'<p><button class="btn" type="button" id="emb-copy" style="border:0;cursor:pointer">Скопировать код</button></p>'
-            f'<p class="note">Для Telegram-каналов: делитесь ссылкой {SITE}/status/ — превью подтянется автоматически.</p>'
+            f'<p class="note">Для Telegram-каналов: делитесь ссылкой {SITE}/status/ - превью подтянется автоматически.</p>'
             f'</article><script>document.getElementById("emb-copy").addEventListener("click",function(){{'
             f'var t=document.getElementById("emb-code");t.select();try{{navigator.clipboard.writeText(t.value)}}catch(e){{document.execCommand("copy")}}'
             f'this.textContent="Скопировано";}});</script>')
-    write("informer/index.html", page(f"Информер «Статус блокировок» — {BRAND}",
+    write("informer/index.html", page(f"Информер «Статус блокировок» | {BRAND}",
                                       "Бесплатный информер со свежими сбоями интернета для сайтов и блогов. Обновляется автоматически.",
                                       path, body))
     urls.append((path, UPD))
@@ -1116,7 +1125,7 @@ def main():
         f'<li><a href="/blog/{a["slug"]}/"><b>{esc(a["title"])}</b>'
         f'<span>{esc(a["description"])}</span></a></li>' for a in posts)
     write("blog/index.html",
-          page(f"Статьи — {BRAND}", "Инструкции: что делать, если не работает VPN, "
+          page(f"Статьи | {BRAND}", "Инструкции: что делать, если не работает VPN, "
                "белые списки, сбои мобильного интернета.", "/blog/",
                f'<div class="narrow" style="margin:0 auto"><h1 style="font-size:40px">Статьи</h1>'
                f"<ul class='list'>{items}</ul></div>"))
@@ -1164,9 +1173,9 @@ def main():
         ("Есть бесплатный пробный период?", f"Да, {CFG['trial']}. Проверьте на мобильном интернете своего оператора и дома, прежде чем платить."),
         ("Сколько устройств можно подключить?", CFG.get("devices", "")),
         ("Что такое обход белых списков?", "Когда мобильный интернет переводят в режим белых списков, обычные VPN перестают работать. "
-         f"Опция обхода — {CFG.get('whitelist_detail', '')}."),
-        ("Что нужно установить?", "Приложение Incy (или HAPP, V2RayTun) для вашего устройства и ссылку подписки из Telegram-бота. Пошаговая инструкция — на странице «Как подключить»."),
-        ("Что делать, если не заработает?", "Напишите в поддержку @ThuggerVPN_supp — ответит живой человек и поможет подобрать рабочий сервер."),
+         f"Опция обхода - {CFG.get('whitelist_detail', '')}."),
+        ("Что нужно установить?", "Приложение Incy (или HAPP, V2RayTun) для вашего устройства и ссылку подписки из Telegram-бота. Пошаговая инструкция - на странице «Как подключить»."),
+        ("Что делать, если не заработает?", "Напишите в поддержку @ThuggerVPN_supp - ответит живой человек и поможет подобрать рабочий сервер."),
     ]
     faq_html = "".join(f'<details class="acc-q"><summary>{esc(q)}</summary><p>{esc(a)}</p></details>'
                        for q, a in faq if a)
@@ -1195,19 +1204,19 @@ def main():
 
 <section class="sec" id="prices"><h2>Тарифы</h2>
 <div class="plans">{plan_cards}</div>
-<p class="note">{esc(CFG.get("devices", ""))}. Обход белых списков — {esc(CFG.get("whitelist_detail", ""))}. Сначала {CFG["trial"]}.</p>
+<p class="note">{esc(CFG.get("devices", ""))}. Обход белых списков - {esc(CFG.get("whitelist_detail", ""))}. Сначала {CFG["trial"]}.</p>
 <p><a class="btn" href="{BOT}" rel="nofollow">Начать с {CFG["trial"]}</a></p>
 </section>
 
 <section class="sec" id="how"><h2>Как подключить</h2><div class="steps3">
 <div><span>1</span><b>Скачайте Incy</b><small>iPhone, Android, Windows, Mac, ТВ</small></div>
-<div><span>2</span><b>Возьмите ссылку в боте</b><small>{CFG["trial"]} — без оплаты</small></div>
+<div><span>2</span><b>Возьмите ссылку в боте</b><small>{CFG["trial"]} - без оплаты</small></div>
 <div><span>3</span><b>Вставьте и подключитесь</b><small>«Из буфера» → «Подключиться»</small></div>
 </div><p style="margin-top:16px"><a href="/podklyuchenie/">Подробная инструкция для вашего устройства →</a></p></section>
 
 <section class="sec" id="reviews"><div class="trust2">
 <div class="tr-head"><div><h2>Что говорят клиенты</h2>
-<p>Оценки и отзывы — в независимом каталоге vpnstatus.site{(" · " + esc(vpd["rating"]) + "/5, " + ocenok(vpd["votes"])) if vpd else ""}</p></div>
+<p>Оценки и отзывы - в независимом каталоге vpnstatus.site{(" · " + esc(vpd["rating"]) + "/5, " + ocenok(vpd["votes"])) if vpd else ""}</p></div>
 <a class="btn-ghost" href="{vlink}" target="_blank" rel="noopener">Все отзывы ↗</a></div>
 <div class="tr-revs">{revs}</div>
 <details class="acc" style="margin-top:14px"><summary>Голоса по операторам</summary>
@@ -1235,7 +1244,7 @@ def main():
                 "sameAs": [x for x in (BOT_PLAIN, VPNSTATUS, CHANNEL) if x]},
                {"@context": "https://schema.org", "@type": "WebSite",
                 "name": BRAND, "url": SITE, "inLanguage": "ru"}, home_ld_faq]
-    write("index.html", page(f"{BRAND} — VPN для мобильного и домашнего интернета",
+    write("index.html", page(f"{BRAND}: VPN для мобильного и домашнего интернета",
                              "Проверка блокировок за 5 секунд, статус по операторам, что делать, если VPN не работает. "
                              f"{BRAND}: {CFG['trial']}.", "/", home, home_ld))
 
@@ -1246,8 +1255,8 @@ def main():
     import readme
     readme.build(ST, posts, posts_en)
 
-    write_feed("feed.xml", f"{BRAND} — статус блокировок и инструкции", f"{SITE}/", "ru", posts, "/blog/", ST)
-    write_feed("en/feed.xml", f"{BRAND} — Russia blocking status and VPN guides", f"{SITE}/en/", "en", posts_en, "/en/blog/", ST)
+    write_feed("feed.xml", f"{BRAND}: статус блокировок и инструкции", f"{SITE}/", "ru", posts, "/blog/", ST)
+    write_feed("en/feed.xml", f"{BRAND}: Russia blocking status and VPN guides", f"{SITE}/en/", "en", posts_en, "/en/blog/", ST)
 
     sm = "".join(f"<url><loc>{SITE}{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1257,7 +1266,7 @@ def main():
         ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "ClaudeBot",
          "Google-Extended", "Bingbot"]) + f"Sitemap: {SITE}/sitemap.xml\n")
     llms = [f"# {BRAND}", "",
-            f"> {BRAND} — VPN-сервис для пользователей из России с подключением через "
+            f"> {BRAND}: VPN-сервис для пользователей из России с подключением через "
             f"Telegram-бота ({BOT_PLAIN}). {price_line()}. Работает на мобильном и домашнем интернете"
             + (f"; {CFG['whitelist_option'].lower()}" if CFG.get("whitelist_option") else "")
             + f". Поддержка: {SUPPORT}. Отзывы и голоса пользователей по операторам: {VPNSTATUS}. "
@@ -1283,7 +1292,7 @@ def main():
           '<rect x="5" y="5" width="22" height="22" rx="6" transform="rotate(45 16 16)" '
           'fill="#8b5cf6"/><rect x="12" y="12" width="8" height="8" rx="2" '
           'transform="rotate(45 16 16)" fill="#0a0b10"/></svg>')
-    write("404.html", page(f"Страница не найдена — {BRAND}", "Страница не найдена.",
+    write("404.html", page(f"Страница не найдена | {BRAND}", "Страница не найдена.",
                            "/404.html", "<h1>Страница не найдена</h1>"
                            "<p><a href='/'>На главную</a> · <a href='/check/'>Проверить интернет</a></p>"))
     print(f"Готово: {len(posts)} статей RU, {len(posts_en)} EN, {len(ST['events'])} событий в базе, "

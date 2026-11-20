@@ -8,15 +8,15 @@ slug: vpn-podklyuchen-no-net-interneta
 
 ## Cause 1. The server's IP address is blocked
 
-The most common case. Specific addresses get blocked, not the whole service — sometimes entire subnets of a hosting provider. Symptom: "connected but no traffic" on all servers in one country.
+The most common case. Specific addresses get blocked, not the whole service - sometimes entire subnets of a hosting provider. Symptom: "connected but no traffic" on all servers in one country.
 
-**Fix:** change the server. If switching countries within the same service doesn't help, the problem is its hosting — you need a different VPN.
+**Fix:** change the server. If switching countries within the same service doesn't help, the problem is its hosting - you need a different VPN.
 
 ## Cause 2. The protocol is blocked
 
 WireGuard and OpenVPN practically don't work in Russia now, and other protocols get restricted too.
 
-**Fix:** if the app lets you choose a protocol, try another one. If not, refresh the configuration or subscription — the service may already have released working settings.
+**Fix:** if the app lets you choose a protocol, try another one. If not, refresh the configuration or subscription - the service may already have released working settings.
 
 ## Cause 3. Whitelist mode is on
 
@@ -28,7 +28,7 @@ During restrictions, mobile internet only allows approved services. VPNs aren't 
 
 Some protocols check the time. If the date is wrong or automatic time is off, the connection fails.
 
-**Fix:** in settings, turn on "Date & time — automatic".
+**Fix:** in settings, turn on "Date & time - automatic".
 
 ## Cause 5. Conflict with another VPN or proxy
 
@@ -52,4 +52,4 @@ If it still doesn't work, contact your VPN's support. If support is silent for m
 Most likely the server address or hosting subnet got blocked overnight. Change the server or refresh the configuration.
 
 ### Does restarting the phone help?
-Sometimes, if the problem is the network itself. But if the server is blocked, a restart changes nothing — you need another server.
+Sometimes, if the problem is the network itself. But if the server is blocked, a restart changes nothing - you need another server.

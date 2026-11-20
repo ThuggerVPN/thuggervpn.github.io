@@ -1,5 +1,5 @@
 {
-  "_comment": "Приложения для подключения (источник: star.ipworking.ru/api/instruction, ссылки обновлены 19.11.2026). Ссылки App Store — без страны (apps.apple.com/app/id…), открываются в магазине региона пользователя. Первое приложение — рекомендованное. ВАЖНО: в российском App Store Incy, HAPP и V2RayTun удалены — для iPhone с российским Apple ID нужен Apple ID другой страны.",
+  "_comment": "Приложения для подключения (источник: star.ipworking.ru/api/instruction, ссылки обновлены 19.11.2026). Ссылки App Store - без страны (apps.apple.com/app/id…), открываются в магазине региона пользователя. Первое приложение - рекомендованное. ВАЖНО: в российском App Store Incy, HAPP и V2RayTun удалены - для iPhone с российским Apple ID нужен Apple ID другой страны.",
   "devices": [
     {
       "id": "ios",
@@ -119,39 +119,39 @@
       "apps": [
         {
           "app": "Incy",
-          "label": "Android TV — Google Play",
+          "label": "Android TV - Google Play",
           "url": "https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru",
-          "label_en": "Android TV — Google Play"
+          "label_en": "Android TV - Google Play"
         },
         {
           "app": "Incy",
-          "label": "Android TV — .apk",
+          "label": "Android TV - .apk",
           "url": "https://github.com/INCY-DEV/incy-platforms/releases/download/latest/Incy.apk",
-          "label_en": "Android TV — .apk"
+          "label_en": "Android TV - .apk"
         },
         {
           "app": "Incy",
-          "label": "Apple TV — App Store",
+          "label": "Apple TV - App Store",
           "url": "https://apps.apple.com/app/id6756943388",
-          "label_en": "Apple TV — App Store"
+          "label_en": "Apple TV - App Store"
         },
         {
           "app": "HAPP",
-          "label": "Android TV — Google Play",
+          "label": "Android TV - Google Play",
           "url": "https://play.google.com/store/apps/details?id=com.happproxy",
-          "label_en": "Android TV — Google Play"
+          "label_en": "Android TV - Google Play"
         },
         {
           "app": "HAPP",
-          "label": "Apple TV — App Store",
+          "label": "Apple TV - App Store",
           "url": "https://apps.apple.com/app/id6748297274",
-          "label_en": "Apple TV — App Store"
+          "label_en": "Apple TV - App Store"
         },
         {
           "app": "V2RayTun",
-          "label": "Android TV — Google Play",
+          "label": "Android TV - Google Play",
           "url": "https://play.google.com/store/apps/details?id=com.v2raytun.android",
-          "label_en": "Android TV — Google Play"
+          "label_en": "Android TV - Google Play"
         }
       ],
       "name_en": "TV"

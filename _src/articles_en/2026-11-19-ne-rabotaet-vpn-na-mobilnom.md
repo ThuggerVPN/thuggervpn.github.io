@@ -4,7 +4,7 @@ description: Step by step: why VPNs drop on MTS, Beeline, MegaFon and T2, and ho
 date: 2026-11-19
 slug: ne-rabotaet-vpn-na-mobilnom
 ---
-<p class="lead"><b>In short:</b> it's usually not your phone or the app — it's restrictions on the mobile network. First figure out which case you have; that decides what will help.</p>
+<p class="lead"><b>In short:</b> it's usually not your phone or the app - it's restrictions on the mobile network. First figure out which case you have; that decides what will help.</p>
 
 ## Step 1. Find out what exactly broke
 
@@ -13,11 +13,11 @@ slug: ne-rabotaet-vpn-na-mobilnom
 | Nothing opens, not even Gosuslugi or Yandex | Mobile internet is fully shut down | Only Wi-Fi or home internet |
 | Gosuslugi and Yandex open, nothing else does, VPN won't connect | Whitelist mode | Wi-Fi or a VPN with whitelist bypass |
 | Everything opens except what you used the VPN for | Your VPN's server or protocol is blocked | Change server, protocol or service |
-| VPN "connected" but pages don't load | The hosting subnet is blocked | Change server — or better, the VPN provider |
+| VPN "connected" but pages don't load | The hosting subnet is blocked | Change server - or better, the VPN provider |
 
 ## Step 2. Quick fixes
 
-1. **Toggle airplane mode.** The phone re-registers on the network — sometimes that's enough.
+1. **Toggle airplane mode.** The phone re-registers on the network - sometimes that's enough.
 2. **Change the VPN server.** Specific addresses get blocked, not the whole VPN. Another country or server often works right away.
 3. **Refresh the configuration.** Update the subscription in the app. Good services push new settings within an hour of a new blocking wave.
 4. **Try Wi-Fi.** If it works on Wi-Fi but not on mobile, the problem is carrier restrictions, not the VPN.
@@ -30,7 +30,7 @@ Your service is probably not keeping up with the blocks. In 2026 WireGuard, Open
 - change servers and update configurations quickly;
 - have live support that replies within an hour.
 
-Keep two VPNs: a main one and a backup. How to choose — see [how to choose a VPN in 2026](/en/blog/kak-vybrat-vpn-2026/).
+Keep two VPNs: a main one and a backup. How to choose - see [how to choose a VPN in 2026](/en/blog/kak-vybrat-vpn-2026/).
 
 ## FAQ
 

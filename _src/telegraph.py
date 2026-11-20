@@ -1,6 +1,6 @@
 """Зеркало статей на telegra.ph: короткая версия (лид + вопросы и ответы + ссылка на полную статью).
 
-Запускается в GitHub Actions. Новые статьи публикуются, изменённые — обновляются.
+Запускается в GitHub Actions. Новые статьи публикуются, изменённые - обновляются.
 Токен аккаунта telegra.ph приходит в TELEGRAPH_TOKEN; если его нет, создаётся новый
 анонимный аккаунт, а токен пишется в файл из NEW_TOKEN_FILE (workflow его шифрует).
 """
@@ -114,8 +114,8 @@ def main():
             a = B.parse(f)
             if a["slug"] == "status":
                 continue
-            content = json.dumps(to_nodes(short_html(a, lang)), ensure_ascii=False)
-            title = a["title"][:256]
+            content = json.dumps(to_nodes(B.humanize(short_html(a, lang))), ensure_ascii=False)
+            title = B.humanize(a["title"])[:256]
             digest = hashlib.sha256((title + content).encode()).hexdigest()[:16]
             key = f"{lang}/{a['slug']}"
             rec = state.get(key)

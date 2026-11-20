@@ -1,5 +1,5 @@
 {
-  "_comment": "Снимок карточки https://vpnstatus.site/vpn/thuggervpn для превью отзывов на сайте. Обновляется ежедневной задачей. checked — дата проверки по Москве. Отзывы — короткий пересказ своими словами, не цитаты. works/total — голоса «работает» из всех; null — голосов нет. Для английской версии: text_en, period_en, name_en.",
+  "_comment": "Снимок карточки https://vpnstatus.site/vpn/thuggervpn для превью отзывов на сайте. Обновляется ежедневной задачей. checked - дата проверки по Москве. Отзывы - короткий пересказ своими словами, не цитаты. works/total - голоса «работает» из всех; null - голосов нет. Для английской версии: text_en, period_en, name_en.",
   "url": "https://vpnstatus.site/vpn/thuggervpn",
   "checked": "2026-11-21",
   "rating": "5.0",
@@ -45,9 +45,9 @@
   "reviews": [
     {
       "period": "10 месяцев",
-      "text": "Перепробовал много VPN — этот самый стабильный, поддержка отвечает быстро.",
+      "text": "Перепробовал много VPN - этот самый стабильный, поддержка отвечает быстро.",
       "period_en": "10 months",
-      "text_en": "Tried many VPNs — this one is the most stable, and support replies fast."
+      "text_en": "Tried many VPNs - this one is the most stable, and support replies fast."
     },
     {
       "period": "3 года",
