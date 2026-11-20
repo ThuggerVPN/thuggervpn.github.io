@@ -1,7 +1,51 @@
 {
  "source": "https://thuggervpn.github.io/index-blokirovok/",
- "updated": "2026-11-19",
+ "updated": "2026-11-20",
  "events": [
+  {
+   "date": "2026-11-20",
+   "region": "Санкт-Петербург",
+   "operators": [
+    "all"
+   ],
+   "type": "whitelist",
+   "title": "Ночной сбой мобильного интернета: сайты не открывались, у части жителей работали только белые списки",
+   "source": "Телеканал «Санкт-Петербург»",
+   "url": "https://tvspb.ru/news/2026/11/20/v-noch-na-20-noyabrya-v-peterburge-proizoshel-sboj-mobilnogo-interneta"
+  },
+  {
+   "date": "2026-11-19",
+   "region": "Архангельск, Липецк",
+   "operators": [
+    "megafon"
+   ],
+   "type": "slow",
+   "title": "Жалобы на общий сбой мобильного интернета МегаФона",
+   "source": "Метарейтинг",
+   "url": "https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/"
+  },
+  {
+   "date": "2026-11-19",
+   "region": "Смоленская и Вологодская области",
+   "operators": [
+    "beeline"
+   ],
+   "type": "slow",
+   "title": "Жалобы на плохую работу мобильного интернета Билайна",
+   "source": "Метарейтинг",
+   "url": "https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/"
+  },
+  {
+   "date": "2026-11-19",
+   "region": "Татарстан, Ульяновская область",
+   "operators": [
+    "t2"
+   ],
+   "type": "slow",
+   "title": "Т2: жалобы на неработающий мобильный интернет, проблемы с личным кабинетом и приложением",
+   "source": "Метарейтинг",
+   "url": "https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/"
+  },
   {
    "date": "2026-11-16",
    "region": "Пермь",

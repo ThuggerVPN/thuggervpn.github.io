@@ -1,7 +1,67 @@
 {
   "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата — дата события по Москве. updated — момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ. Для английской версии сайта заполняйте region_en, title_en, meaning_en (перевод).",
-  "updated": "2026-11-19 23:10",
+  "updated": "2026-11-20 08:54",
   "events": [
+    {
+      "date": "2026-11-20",
+      "region": "Санкт-Петербург",
+      "operators": [
+        "all"
+      ],
+      "type": "whitelist",
+      "title": "Ночной сбой мобильного интернета: сайты не открывались, у части жителей работали только белые списки",
+      "meaning": "Пик жалоб — около часа ночи. При таком режиме VPN на мобильном может не подключиться — выручает домашний Wi-Fi",
+      "source": "Телеканал «Санкт-Петербург»",
+      "url": "https://tvspb.ru/news/2026/11/20/v-noch-na-20-noyabrya-v-peterburge-proizoshel-sboj-mobilnogo-interneta",
+      "region_en": "Saint Petersburg",
+      "title_en": "Overnight mobile internet outage: sites wouldn't load, some residents had only whitelisted services",
+      "meaning_en": "Complaints peaked around 1 a.m. In this mode a VPN on mobile data may not connect — home Wi-Fi is the fallback"
+    },
+    {
+      "date": "2026-11-19",
+      "region": "Архангельск, Липецк",
+      "operators": [
+        "megafon"
+      ],
+      "type": "slow",
+      "title": "Жалобы на общий сбой мобильного интернета МегаФона",
+      "meaning": "Перебои на стороне сети: если VPN не подключается, проверьте, грузится ли интернет без него",
+      "source": "Метарейтинг",
+      "url": "https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/",
+      "region_en": "Arkhangelsk, Lipetsk",
+      "title_en": "Complaints about a general MegaFon mobile internet outage",
+      "meaning_en": "Network-side disruption: if your VPN won't connect, check whether the internet loads without it"
+    },
+    {
+      "date": "2026-11-19",
+      "region": "Смоленская и Вологодская области",
+      "operators": [
+        "beeline"
+      ],
+      "type": "slow",
+      "title": "Жалобы на плохую работу мобильного интернета Билайна",
+      "meaning": "Сбой на стороне оператора — смена сервера VPN не поможет, пока сеть не восстановится",
+      "source": "Метарейтинг",
+      "url": "https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/",
+      "region_en": "Smolensk and Vologda regions",
+      "title_en": "Complaints about poor Beeline mobile internet",
+      "meaning_en": "Operator-side failure — switching VPN servers won't help until the network recovers"
+    },
+    {
+      "date": "2026-11-19",
+      "region": "Татарстан, Ульяновская область",
+      "operators": [
+        "t2"
+      ],
+      "type": "slow",
+      "title": "Т2: жалобы на неработающий мобильный интернет, проблемы с личным кабинетом и приложением",
+      "meaning": "Если пропал интернет целиком — дело в сети, а не в VPN; дождитесь восстановления или подключитесь к Wi-Fi",
+      "source": "Метарейтинг",
+      "url": "https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/",
+      "region_en": "Tatarstan, Ulyanovsk region",
+      "title_en": "T2: complaints of mobile internet not working, account and app problems",
+      "meaning_en": "If the internet is down entirely, it's the network, not the VPN; wait for recovery or use Wi-Fi"
+    },
     {
       "date": "2026-11-16",
       "region": "Пермь",

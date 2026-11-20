@@ -7,7 +7,7 @@
 **Статус блокировок в России, проверка интернета за 5 секунд и инструкции по VPN**<br>
 <sub>Russia internet blocking status, a 5-second connection check and VPN setup guides · <a href="#-english">English ↓</a></sub>
 
-<a href="https://thuggervpn.github.io/"><img src="https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-thuggervpn.github.io-8b5cf6?style=for-the-badge" alt="сайт: thuggervpn.github.io"></a> <a href="https://thuggervpn.github.io/en/"><img src="https://img.shields.io/badge/English-version-6d28d9?style=for-the-badge" alt="English: version"></a> <a href="https://t.me/ThuggerVPN_bot"><img src="https://img.shields.io/badge/%D0%B1%D0%BE%D1%82-3%20%D0%B4%D0%BD%D1%8F%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="бот: 3 дня бесплатно"></a> <a href="https://t.me/ThuggerVPN"><img src="https://img.shields.io/badge/%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB-%40ThuggerVPN-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="канал: @ThuggerVPN"></a> <a href="https://vpnstatus.site/vpn/thuggervpn"><img src="https://img.shields.io/badge/vpnstatus-%E2%98%85%205.0%20%C2%B7%209%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BE%D0%BA-f5b301?style=for-the-badge" alt="vpnstatus: ★ 5.0 · 9 оценок"></a> <a href="https://thuggervpn.github.io/status/"><img src="https://img.shields.io/badge/%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BE-2026--11--19-1f2937?style=for-the-badge" alt="обновлено: 2026-11-19"></a>
+<a href="https://thuggervpn.github.io/"><img src="https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-thuggervpn.github.io-8b5cf6?style=for-the-badge" alt="сайт: thuggervpn.github.io"></a> <a href="https://thuggervpn.github.io/en/"><img src="https://img.shields.io/badge/English-version-6d28d9?style=for-the-badge" alt="English: version"></a> <a href="https://t.me/ThuggerVPN_bot"><img src="https://img.shields.io/badge/%D0%B1%D0%BE%D1%82-3%20%D0%B4%D0%BD%D1%8F%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="бот: 3 дня бесплатно"></a> <a href="https://t.me/ThuggerVPN"><img src="https://img.shields.io/badge/%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB-%40ThuggerVPN-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="канал: @ThuggerVPN"></a> <a href="https://vpnstatus.site/vpn/thuggervpn"><img src="https://img.shields.io/badge/vpnstatus-%E2%98%85%205.0%20%C2%B7%209%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BE%D0%BA-f5b301?style=for-the-badge" alt="vpnstatus: ★ 5.0 · 9 оценок"></a> <a href="https://thuggervpn.github.io/status/"><img src="https://img.shields.io/badge/%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BE-2026--11--20-1f2937?style=for-the-badge" alt="обновлено: 2026-11-20"></a>
 
 <a href="https://thuggervpn.github.io/check/"><b>Проверить интернет</b></a> · <a href="https://thuggervpn.github.io/status/"><b>Статус сегодня</b></a> · <a href="https://thuggervpn.github.io/podklyuchenie/"><b>Как подключить</b></a> · <a href="https://t.me/ThuggerVPN_bot"><b>Попробовать бесплатно</b></a>
 
@@ -17,16 +17,16 @@
 
 ## 📡 Сводка блокировок
 
-Обновляется каждый день. Последнее обновление: **19 ноября 2026, 23:10 МСК**. Полная картина — на странице [статуса](https://thuggervpn.github.io/status/) и в [индексе блокировок](https://thuggervpn.github.io/index-blokirovok/).
+Обновляется каждый день. Последнее обновление: **20 ноября 2026, 08:54 МСК**. Полная картина — на странице [статуса](https://thuggervpn.github.io/status/) и в [индексе блокировок](https://thuggervpn.github.io/index-blokirovok/).
 
 | Дата | Где | Что случилось | Источник |
 |---|---|---|---|
+| 20 ноября | Санкт-Петербург | 🟥 Ночной сбой мобильного интернета: сайты не открывались, у части жителей работали только белые списки | [Телеканал «Санкт-Петербург»](https://tvspb.ru/news/2026/11/20/v-noch-na-20-noyabrya-v-peterburge-proizoshel-sboj-mobilnogo-interneta) |
+| 19 ноября | Архангельск, Липецк | 🟧 Жалобы на общий сбой мобильного интернета МегаФона | [Метарейтинг](https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/) |
+| 19 ноября | Смоленская и Вологодская обл… | 🟧 Жалобы на плохую работу мобильного интернета Билайна | [Метарейтинг](https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/) |
+| 19 ноября | Татарстан, Ульяновская область | 🟧 Т2: жалобы на неработающий мобильный интернет, проблемы с личным кабинетом и приложением | [Метарейтинг](https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/) |
 | 16 ноября | Пермь | 🟥 Пропадал мобильный интернет, работали только белые списки | [Techora](https://techora.ru/news/v-permi-propal-mobilnyy-internet-soobshchayut-2026-11-16) |
 | 16 ноября | Новосибирская область | 🟧 Перебои с загрузкой страниц, недоступны отдельные ресурсы | [Techora](https://techora.ru/news/v-permi-propal-mobilnyy-internet-soobshchayut-2026-11-16) |
-| 12 ноября | Вся Россия | 📜 Белый список мобильного интернета расширен примерно до 900 ресурсов (данные Минцифры) | [Techora со ссылкой на Минцифры](https://techora.ru/news/putin-svyazal-sboi-mobilnogo-interneta-v-2026-11-16) |
-| 31 октября | Более 30 регионов | 🟥 Сбои мобильного интернета, при ограничениях работал только белый список | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-31-oktyabrya-prichiny-sboi-v-rossii) |
-| 31 октября | Вся Россия | ⚠️ Перебои YouTube: сотни жалоб за сутки | [CyberMeta](https://cybersport.metaratings.ru/articles/chto-proishodit-s-youtube-segodnya/) |
-| 30 октября | Москва | 🟥 Массовые сбои мобильного интернета, при тревоге работали только сервисы из белого списка | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-30-oktyabrya-prichiny-sboi-v-rossii) |
 
 <sub>🟥 белые списки · ⛔ отключение · 🟧 замедление · 🔒 блокировка VPN · ⚠️ сбой сервиса · 📜 решения властей</sub>
 
@@ -74,6 +74,7 @@ iPhone, Android, Windows, macOS и телевизор — по шагам. От�
 
 ## 📝 Свежие статьи
 
+- [VPN и банковские приложения: почему Сбер и маркетплейсы не открываются](https://thuggervpn.github.io/blog/vpn-i-bankovskie-prilozheniya/)
 - [VPN подключён, но интернета нет: 5 причин и что делать](https://thuggervpn.github.io/blog/vpn-podklyuchen-no-net-interneta/)
 - [Не работает VPN на мобильном интернете: что делать в 2026 году](https://thuggervpn.github.io/blog/ne-rabotaet-vpn-na-mobilnom/)
 - [Как выбрать VPN в 2026 году: 7 критериев, которые реально важны](https://thuggervpn.github.io/blog/kak-vybrat-vpn-2026/)
@@ -130,6 +131,7 @@ VPN для мобильного и домашнего интернета с оп
 
 **Latest guides**
 
+- [Russian bank apps not working with VPN: Sber, T-Bank, Ozon fixes](https://thuggervpn.github.io/en/blog/vpn-i-bankovskie-prilozheniya/)
 - [VPN connected but no internet: 5 causes and fixes](https://thuggervpn.github.io/en/blog/vpn-podklyuchen-no-net-interneta/)
 - [Travelling to Russia in 2026: internet, SIM cards and VPN — what to set up before you fly](https://thuggervpn.github.io/en/blog/travel-russia-internet-vpn/)
 - [VPN not working on mobile data in Russia: what to do in 2026](https://thuggervpn.github.io/en/blog/ne-rabotaet-vpn-na-mobilnom/)
