@@ -37,7 +37,7 @@ def build(ST, posts, posts_en):
         badge("English", "version", "6d28d9", f"{S}/en/"),
         badge("бот", "3 дня бесплатно", "229ED9", B.BOT_PLAIN, "telegram"),
         badge("канал", "@ThuggerVPN", "229ED9", B.CHANNEL, "telegram"),
-    ] + ([badge("vpnstatus", f"★ {vs['rating']} · {vs['votes']} оценок", "f5b301", B.VPNSTATUS)] if vs else []) + [
+    ] + ([badge("vpnstatus", f"★ {vs['rating']} · {B.ocenok(vs['votes'])}", "f5b301", B.VPNSTATUS)] if vs else []) + [
         badge("обновлено", ST["updated"], "1f2937", f"{S}/status/"),
     ])
 
@@ -56,7 +56,7 @@ def build(ST, posts, posts_en):
         vs_block = f"""
 ## ⭐ Отзывы клиентов
 
-Независимый каталог [vpnstatus.site]({B.VPNSTATUS}): **{vs['rating']} из 5**, {vs['votes']} оценок, {vs['works_percent']}% отметили «работает». Данные на {B.ru_date(vs['checked'])}.
+Независимый каталог [vpnstatus.site]({B.VPNSTATUS}): **{vs['rating']} из 5**, {B.ocenok(vs['votes'])}, {vs['works_percent']}% отметили «работает». Данные на {B.ru_date(vs['checked'])}.
 
 | Оператор | Работает | Обход белых списков |
 |---|---|---|

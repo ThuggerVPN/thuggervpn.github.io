@@ -1,0 +1,46 @@
+name: vpnstatus sync
+
+# Каждые 2 часа подтягивает свежие оценки с vpnstatus.site и пересобирает сайт,
+# если цифры изменились. Пост в канал не публикуется ([no-post]).
+on:
+  schedule:
+    - cron: "23 */2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-write
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q markdown
+      - name: Sync and rebuild
+        id: sync
+        run: |
+          set +e
+          python3 _src/vpnstatus_sync.py
+          code=$?
+          set -e
+          if [ "$code" = "0" ]; then
+            python3 _src/build.py
+            echo "changed=1" >> "$GITHUB_OUTPUT"
+          elif [ "$code" = "3" ]; then
+            echo "Без изменений"
+          else
+            echo "::warning::Не удалось получить данные vpnstatus — сайт не тронут"
+          fi
+      - name: Commit
+        if: steps.sync.outputs.changed == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Оценки vpnstatus обновлены [no-post]"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0; sleep 5; done
+          exit 1

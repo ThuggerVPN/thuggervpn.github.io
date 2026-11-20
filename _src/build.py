@@ -78,6 +78,18 @@ def ru_date(iso, year=True):
     return f"{d.day} {MONTHS[d.month - 1]}" + (f" {d.year}" if year else "")
 
 
+def ocenok(n):
+    """«оценка / оценки / оценок» по числу."""
+    n = int(n)
+    if n % 10 == 1 and n % 100 != 11:
+        w = "оценка"
+    elif n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14):
+        w = "оценки"
+    else:
+        w = "оценок"
+    return f"{n} {w}"
+
+
 def esc(s):
     return html.escape(s, quote=True)
 
@@ -347,7 +359,7 @@ def trust_block():
 <a class="btn-ghost" href="{link}" target="_blank" rel="noopener">Все отзывы на vpnstatus.site ↗</a></div>
 <div class="tr-grid">
 <div class="tr-score"><div class="big">{esc(d["rating"])}<span>/5</span></div>
-<div class="t-sub" style="margin-top:6px">{d["votes"]} оценок · {d["works_percent"]}% «работает» · {d["reviews_count"]} отзывов</div>
+<div class="t-sub" style="margin-top:6px">{ocenok(d["votes"])} · {d["works_percent"]}% «работает» · {d["reviews_count"]} отзывов</div>
 <div class="t-sub" style="margin-top:4px">Домашний интернет: {d["home_works"]}/{d["home_total"]} «работает»</div></div>
 <div class="tbl" style="margin:0"><table class="tr-ops"><thead><tr><th>Мобильный</th><th>Работает</th><th>Обход белых списков</th></tr></thead><tbody>{ops}</tbody></table></div>
 </div>
@@ -1125,7 +1137,7 @@ def main():
         if (SRC / "data" / "vpnstatus.json").exists() else None
     vlink = (vpd or {}).get("url", VPNSTATUS)
     rating_line = (f'<a class="proof" href="{vlink}" target="_blank" rel="noopener">{STAR * 5}'
-                   f'<span><b>{esc(vpd["rating"])}</b> · {vpd["votes"]} оценок на vpnstatus.site</span></a>'
+                   f'<span><b>{esc(vpd["rating"])}</b> · {ocenok(vpd["votes"])} на vpnstatus.site</span></a>'
                    if vpd else "")
     plans = CFG.get("plans", [])
     plan_cards = ""
@@ -1195,7 +1207,7 @@ def main():
 
 <section class="sec" id="reviews"><div class="trust2">
 <div class="tr-head"><div><h2>Что говорят клиенты</h2>
-<p>Оценки и отзывы — в независимом каталоге vpnstatus.site{(" · " + esc(vpd["rating"]) + "/5, " + str(vpd["votes"]) + " оценок") if vpd else ""}</p></div>
+<p>Оценки и отзывы — в независимом каталоге vpnstatus.site{(" · " + esc(vpd["rating"]) + "/5, " + ocenok(vpd["votes"])) if vpd else ""}</p></div>
 <a class="btn-ghost" href="{vlink}" target="_blank" rel="noopener">Все отзывы ↗</a></div>
 <div class="tr-revs">{revs}</div>
 <details class="acc" style="margin-top:14px"><summary>Голоса по операторам</summary>
