@@ -21,8 +21,13 @@ jobs:
           if [ -z "$TG_BOT_TOKEN" ] || [ -z "$TG_CHANNEL" ]; then echo "Нет секретов"; exit 0; fi
           API="https://api.telegram.org/bot${TG_BOT_TOKEN}"
           D=_src/channel
+          if [ -s $D/delete_ids.txt ]; then
+            for id in $(cat $D/delete_ids.txt); do
+              echo "== Удаляю пост $id"; curl -sS --data-urlencode chat_id="$TG_CHANNEL" -d message_id="$id" "$API/deleteMessage"; echo
+            done
+          fi
           echo "== Описание"
-          curl -sS --data-urlencode chat_id="$TG_CHANNEL" --data-urlencode description@$D/description.txt "$API/setChatDescription"; echo
+          curl -sS --data-urlencode chat_id="$TG_CHANNEL" --data-urlencode description@$D/description.txt "$API/setChatDescription" || true; echo
           MID=$(curl -sS --data-urlencode chat_id="$TG_CHANNEL" "$API/getChat" | python3 -c "import sys,json;print(json.load(sys.stdin).get('result',{}).get('pinned_message',{}).get('message_id',''))")
           echo "Закреплённый пост: $MID"
           if [ -z "$MID" ]; then echo "Нет закреплённого поста"; exit 1; fi

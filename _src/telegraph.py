@@ -9,6 +9,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.parse
 import urllib.request
 from html.parser import HTMLParser
@@ -34,11 +35,17 @@ TXT = {
 
 def call(method, **params):
     data = urllib.parse.urlencode(params).encode()
-    with urllib.request.urlopen(urllib.request.Request(API + method, data=data), timeout=30) as r:
-        res = json.load(r)
-    if not res.get("ok"):
-        raise SystemExit(f"{method}: {res.get('error')}")
-    return res["result"]
+    for _ in range(5):
+        with urllib.request.urlopen(urllib.request.Request(API + method, data=data), timeout=30) as r:
+            res = json.load(r)
+        err = res.get("error", "")
+        if res.get("ok"):
+            return res["result"]
+        if err.startswith("FLOOD_WAIT_"):
+            time.sleep(int(err.rsplit("_", 1)[-1]) + 2)
+            continue
+        raise SystemExit(f"{method}: {err}")
+    raise SystemExit(f"{method}: слишком много повторов")
 
 
 class ToNodes(HTMLParser):
@@ -99,6 +106,11 @@ def short_html(a, lang):
     return "".join(parts)
 
 
+def save(state):
+    STATE.parent.mkdir(exist_ok=True)
+    STATE.write_text(json.dumps(state, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
+
 def main():
     token = os.environ.get("TELEGRAPH_TOKEN", "").strip()
     if not token:
@@ -130,9 +142,10 @@ def main():
             state[key] = {"path": res["path"], "url": res["url"], "hash": digest}
             changed += 1
             print(("обновлено " if rec else "создано ") + res["url"])
+            save(state)
+            time.sleep(1.5)
 
-    STATE.parent.mkdir(exist_ok=True)
-    STATE.write_text(json.dumps(state, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    save(state)
     print(f"Готово, изменений: {changed}")
 
 
