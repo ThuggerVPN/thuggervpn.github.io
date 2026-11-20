@@ -1,9 +1,9 @@
 {
   "_comment": "Снимок карточки https://vpnstatus.site/vpn/thuggervpn для превью отзывов на сайте. Обновляется ежедневной задачей. checked — дата проверки по Москве. Отзывы — короткий пересказ своими словами, не цитаты. works/total — голоса «работает» из всех; null — голосов нет. Для английской версии: text_en, period_en, name_en.",
   "url": "https://vpnstatus.site/vpn/thuggervpn",
-  "checked": "2026-11-20",
+  "checked": "2026-11-21",
   "rating": "5.0",
-  "votes": 11,
+  "votes": 13,
   "works_percent": 100,
   "reviews_count": 8,
   "mobile": [
@@ -25,10 +25,10 @@
     },
     {
       "name": "Билайн",
-      "works": 2,
-      "total": 2,
-      "wl_works": 2,
-      "wl_total": 2,
+      "works": 3,
+      "total": 3,
+      "wl_works": 3,
+      "wl_total": 3,
       "name_en": "Beeline"
     },
     {
@@ -40,8 +40,8 @@
       "name_en": "T2"
     }
   ],
-  "home_works": 5,
-  "home_total": 5,
+  "home_works": 6,
+  "home_total": 6,
   "reviews": [
     {
       "period": "10 месяцев",
