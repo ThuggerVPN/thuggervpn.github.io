@@ -3,14 +3,14 @@
   "url": "https://vpnstatus.site/vpn/thuggervpn",
   "checked": "2026-11-21",
   "rating": "5.0",
-  "votes": 13,
+  "votes": 15,
   "works_percent": 100,
-  "reviews_count": 8,
+  "reviews_count": 9,
   "mobile": [
     {
       "name": "МТС",
-      "works": 1,
-      "total": 1,
+      "works": 2,
+      "total": 2,
       "wl_works": null,
       "wl_total": null,
       "name_en": "MTS"
@@ -40,8 +40,8 @@
       "name_en": "T2"
     }
   ],
-  "home_works": 6,
-  "home_total": 6,
+  "home_works": 7,
+  "home_total": 7,
   "reviews": [
     {
       "period": "10 месяцев",
