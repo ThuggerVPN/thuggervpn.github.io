@@ -649,13 +649,13 @@ def assistant_html(lang="ru"):
     intents = [{"id": i["id"], "chip": i["chip"], "keys": i["keys"], "answer": sub(i["answer"]),
                 "link": sub(i["link"]), "link_text": i["link_text"]} for i in data["intents"]]
     L = ({"qa": "Quick answer", "close": "Close", "describe": "Describe the problem", "ph": "e.g. VPN connected but nothing loads",
-          "go": "Answer", "hint": "Answers are prepared in advance and shown instantly; nothing you type is sent to a server.",
+          "go": "Answer", "hint": "Quick answers are prepared in advance and shown instantly. What you type in the search box isn't sent anywhere.",
           "sup": "Message support →", "help": "Help", "call": "Ask a person", "msg_ph": "What doesn't work: device, carrier, what you already tried",
           "contact_ph": "Your Telegram for the reply (optional)", "send": "Send",
           "chat_hint": "A real person answers. The reply will appear here, even if you close the site and come back later. Don't send passwords or card details.",
           "sent": "Sent to a person. The reply will appear here.", "err": "Didn't send. Message us in Telegram:", "you": "You", "op": "ThuggerVPN"} if en else
          {"qa": "Быстрый ответ", "close": "Закрыть", "describe": "Опишите проблему", "ph": "Например: VPN подключён, но не грузит",
-          "go": "Ответ", "hint": "Ответы готовы заранее и показываются сразу, без отправки ваших слов на сервер.",
+          "go": "Ответ", "hint": "Быстрые ответы готовы заранее и показываются сразу. Что вы вводите в поиск, никуда не отправляется.",
           "sup": "Написать в поддержку →", "help": "Помощь", "call": "Позвать человека", "msg_ph": "Что не работает: устройство, оператор, что уже пробовали",
           "contact_ph": "Ваш Telegram для ответа (необязательно)", "send": "Отправить",
           "chat_hint": "Отвечает живой человек. Ответ появится здесь, даже если закроете сайт и вернётесь позже. Не пишите пароли и данные карт.",
