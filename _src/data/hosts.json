@@ -1,0 +1,16 @@
+{
+  "active": "https://thuggervpn.github.io",
+  "hosts": {
+    "https://thuggervpn.github.io": {
+      "ok": true,
+      "ru_ok": 3,
+      "ru_fail": 0
+    },
+    "https://thugger-vpn.github.io": {
+      "ok": true,
+      "ru_ok": 3,
+      "ru_fail": 0
+    }
+  },
+  "checked": "2026-11-21 19:13"
+}
