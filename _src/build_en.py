@@ -138,6 +138,7 @@ def build(ST):
              "and blocked services. What loads and what doesn't shows whether you have a whitelist, a full shutdown or a VPN problem."),
             ("How do I check for a whitelist?", "Open the Whitelist tab, turn off VPN and Wi-Fi, keep mobile data and press the button. "
              "If only Yandex, VK, Mail.ru and Avito open while Google and Wikipedia don't, whitelist mode is on."),
+            ("Why is the result sometimes different?", "Blocking is uneven and mobile networks can be unstable. So each service is checked up to 3 times in a row and the result counts every attempt. \"Unstable\" means the service opened only on a retry."),
             ("Do you store my data?", "No. The check runs entirely in your browser; nothing is sent to our server."),
             ("How accurate is it?", "It's a quick approximate check. If the result looks odd, run it again or compare mobile data and Wi-Fi.")]
     body = (f'{B.CHECK_CSS}<article class="narrow" style="margin:0 auto">{B.crumbs_html(crumbs)}'
@@ -370,6 +371,10 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
             ("What is whitelist bypass?", "When mobile internet is switched to whitelist mode, regular VPNs stop working. "
              f"The bypass option is {EN.get('whitelist_detail', '')}."),
             ("What do I need to install?", "The Incy app (or HAPP, V2RayTun) for your device and the subscription link from the Telegram bot. Step-by-step guide is on the setup page."),
+            ("Is it hard to set up?", "No. Download the app, get the link in the bot and tap Connect, usually 2 minutes. If something doesn't work, support will walk you through it."),
+            ("Do I need to turn on my VPN before the check?", "If you want to test your VPN, yes. Without a VPN the check shows what's blocked for you right now. For the whitelist check it's the other way round: turn VPN and Wi-Fi off."),
+            ("Why does the check sometimes show different results?", "Blocking is uneven: the mobile network sometimes lets a connection through and sometimes cuts it, especially in the evening and during restrictions. That's why each service is checked up to 3 times and you see the overall result. \"Unstable\" means the VPN isn't holding steady."),
+            ("What if ThuggerVPN stops working too?", "Blocking changes and no VPN is perfect. If something stops opening, change the server in the app or message support: we track blocking every day and will point you to a working option."),
             ("What if it doesn't work?", "Message support @ThuggerVPN_supp - a real person will reply and help pick a working server."),
             ("Who is ThuggerVPN for?", "People in Russia and anyone who needs stable access to blocked services from Russian mobile and home networks. The bot and support work in Russian; this site has an English guide.")]
     faqh = "".join(f'<details class="acc-q"><summary>{esc(q)}</summary><p>{esc(a)}</p></details>' for q, a in hfaq if a)

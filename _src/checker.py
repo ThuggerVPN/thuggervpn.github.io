@@ -12,8 +12,13 @@ T = {
         "btn_sites": "Проверить сайты", "btn_wl": "Проверить белые списки",
         "g_control": "Обычный интернет", "g_blocked": "Сервисы, которые блокируют в России",
         "g_white": "Сайты из белого списка", "g_open": "Обычные сайты вне белого списка",
-        "ok": "открывается", "slow": "медленно", "fail": "не открывается", "wait": "проверяем…",
+        "ok": "открывается", "slow": "медленно", "fail": "не открывается", "wait": "проверяем…", "flaky": "с перебоями",
         "running": "Проверяем…", "again": "Проверить ещё раз",
+        "retry": "Перепроверяем то, что не открылось ({n} из {m})…",
+        "how": "Каждый сервис проверяем до 3 раз подряд, чтобы случайный сбой сети не испортил результат.",
+        "v_flaky": ["VPN работает, но с перебоями", "С перебоями: {list}. Открывается не с первого раза: так бывает, когда сервер VPN частично блокируют или сеть нестабильна. Смените сервер в приложении и проверьте ещё раз.", "/blog/vpn-podklyuchen-no-net-interneta/", "Что делать по шагам"],
+        "one_retry": "Всё открывается. {list} открылся со второй попытки: при нестабильной сети это нормально.",
+        "chips": ["🎁 3 дня без оплаты", "⏱ Подключение за 2 минуты", "💬 Поможет живой человек"],
         "v_none": ["Похоже, интернета нет вообще", "Не открываются даже российские сайты. Так бывает при полном отключении мобильного интернета или слабом сигнале. VPN тут не поможет: подключитесь к Wi-Fi или домашнему интернету.", "/status/", "Что отключают сегодня"],
         "v_wl": ["Похоже на белые списки", "Российские сервисы открываются, а обычные зарубежные сайты нет. Проверьте во вкладке «Белые списки». Помогает Wi-Fi или VPN с обходом белых списков.", "#wl", "Проверить белые списки"],
         "v_off": ["Интернет есть, но заблокированные сервисы не открываются", "Скорее всего, VPN выключен или его сервер заблокирован. Включите VPN, смените сервер или обновите подписку в приложении.", "/blog/vpn-podklyuchen-no-net-interneta/", "Что делать по шагам"],
@@ -37,8 +42,13 @@ T = {
         "btn_sites": "Check sites", "btn_wl": "Check whitelist",
         "g_control": "Regular internet", "g_blocked": "Services blocked in Russia",
         "g_white": "Whitelisted sites", "g_open": "Regular sites outside the whitelist",
-        "ok": "opens", "slow": "slow", "fail": "blocked", "wait": "checking…",
+        "ok": "opens", "slow": "slow", "fail": "blocked", "wait": "checking…", "flaky": "unstable",
         "running": "Checking…", "again": "Check again",
+        "retry": "Rechecking what didn't open ({n} of {m})…",
+        "how": "We check each service up to 3 times in a row so a random network hiccup doesn't spoil the result.",
+        "v_flaky": ["VPN works, but it's unstable", "Unstable: {list}. Opens only on a retry: this happens when the VPN server is partly blocked or the network is shaky. Change the server in the app and check again.", "/en/blog/vpn-podklyuchen-no-net-interneta/", "What to do, step by step"],
+        "one_retry": "Everything opens. {list} opened on the second try: that's normal on a shaky network.",
+        "chips": ["🎁 3 days, no payment", "⏱ Set up in 2 minutes", "💬 A real person helps"],
         "v_none": ["Looks like there is no internet at all", "Even Russian sites don't open. This happens when mobile internet is fully shut down or the signal is weak. A VPN won't help: connect to Wi-Fi or home internet.", "/en/status/", "What is shut down today"],
         "v_wl": ["Looks like whitelist mode", "Russian services open but regular foreign sites don't. Check it in the Whitelist tab. Wi-Fi or a VPN with whitelist bypass helps.", "#wl", "Check whitelist"],
         "v_off": ["Internet works, but blocked services don't open", "Your VPN is probably off or its server is blocked. Turn the VPN on, change the server or refresh the subscription in the app.", "/en/blog/vpn-podklyuchen-no-net-interneta/", "What to do, step by step"],
@@ -68,7 +78,7 @@ CSS = """<style>
 @media(min-width:720px){#ck-list ul{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.ck{padding:18px!important}.ck-out{padding:16px!important}.ck-buy{align-items:stretch}.ck-buy .btn{justify-content:center;white-space:nowrap;font-size:17px;padding:16px 18px}}
 .ck-buy{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:4px 0 16px}
-.ck-buy .btn{font-size:18px}.ck-buy small{color:var(--violet-text);font-size:14px}
+.ck-buy .btn{font-size:18px}.ck-chips{display:flex;flex-wrap:wrap;gap:6px}.ck-chips span{font-size:13px;padding:6px 10px;border-radius:999px;background:var(--card2);border:1px solid var(--line2);color:var(--soft)}.ck-prog{font-size:14px;color:var(--muted);margin:10px 0 0}.ck-buy small{color:var(--violet-text);font-size:14px}
 </style>"""
 
 
@@ -87,48 +97,56 @@ def widget(lang, bot, brand, trial, support):
             f'<p class="ck-hint" id="ck-hint">{t["sites_hint"]}</p>'
             f'<button id="ck-run" type="button">{t["btn_sites"]}</button>'
             f'<div class="ck-out" id="ck-out" hidden><h2 id="ck-v"></h2><p id="ck-t"></p>'
-            f'<div class="ck-buy" id="ck-buy" hidden><a class="btn" id="ck-buy-a" href="{bot}" rel="nofollow">{t["buy"]}</a><small id="ck-buy-n"></small></div>'
+            f'<div class="ck-buy" id="ck-buy" hidden><a class="btn" id="ck-buy-a" href="{bot}" rel="nofollow">{t["buy"]}</a><small id="ck-buy-n"></small><div class="ck-chips" id="ck-chips"></div></div>'
             f'<div class="row"><a id="ck-a" href="{t["status"]}">{t["more"]} →</a>'
             f'<a id="ck-try" href="{bot}" rel="nofollow">{try_txt} →</a>'
             f'<a href="{support}" target="_blank" rel="noopener nofollow">{sup_txt} →</a></div></div>'
             f'<div id="ck-list" aria-live="polite"></div>'
-            f'<p class="note" style="margin:14px 0 0">{note}</p></div>')
+            f'<p class="note" style="margin:14px 0 0">{t["how"]} {note}</p></div>')
     js = JS.replace("__T__", json.dumps(t, ensure_ascii=False)).replace("__P__", json.dumps(probes, ensure_ascii=False))
     return html + f"<script>{js}</script>"
 
 
 JS = r"""
 (function(){
-var T=__T__,P=__P__,mode='sites';
+var T=__T__,P=__P__,mode='sites',busy=false;
 var $=function(id){return document.getElementById(id)};
-var btn=$('ck-run'),list=$('ck-list'),out=$('ck-out'),hint=$('ck-hint'),tS=$('ck-tab-sites'),tW=$('ck-tab-wl');
-function setMode(m){mode=m;tS.setAttribute('aria-selected',m==='sites');tW.setAttribute('aria-selected',m==='wl');
+var box=$('check'),btn=$('ck-run'),list=$('ck-list'),out=$('ck-out'),hint=$('ck-hint'),tS=$('ck-tab-sites'),tW=$('ck-tab-wl');
+var prog=document.createElement('p');prog.className='ck-prog';prog.hidden=true;btn.insertAdjacentElement('afterend',prog);
+function setMode(m){if(busy)return;mode=m;tS.setAttribute('aria-selected',m==='sites');tW.setAttribute('aria-selected',m==='wl');
  hint.textContent=m==='wl'?T.wl_hint:T.sites_hint;btn.textContent=m==='wl'?T.btn_wl:T.btn_sites;list.textContent='';out.hidden=true;}
 tS.onclick=function(){setMode('sites')};tW.onclick=function(){setMode('wl')};
-if(location.hash==='#wl')setMode('wl');
-window.addEventListener('hashchange',function(){if(location.hash==='#wl'){setMode('wl');$('check').scrollIntoView({behavior:'smooth'});}});
-function one(url){return new Promise(function(res){var t0=performance.now(),done=false,img=new Image();
- var to=setTimeout(function(){if(!done){done=true;img.src='';res({ok:false,ms:8000});}},8000);
+function goTo(run){var y=box.getBoundingClientRect().top+window.pageYOffset-Math.round(window.innerHeight*0.12);
+ window.scrollTo({top:Math.max(0,y),behavior:'smooth'});if(run&&!busy)setTimeout(start,350);}
+if(location.hash==='#wl'){setMode('wl');setTimeout(function(){goTo(false)},200);}
+window.addEventListener('hashchange',function(){if(location.hash==='#wl'){setMode('wl');goTo(false);}});
+document.querySelectorAll('a[href="#check"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();setMode('sites');goTo(true);});});
+function one(url,ms){return new Promise(function(res){var t0=performance.now(),done=false,img=new Image();
+ var to=setTimeout(function(){if(!done){done=true;img.src='';res({ok:false,ms:ms});}},ms);
  img.onload=function(){if(!done){done=true;clearTimeout(to);res({ok:true,ms:Math.round(performance.now()-t0)});}};
  img.onerror=function(){if(!done){done=true;clearTimeout(to);res({ok:false,ms:Math.round(performance.now()-t0)});}};
- img.src=url+(url.indexOf('?')<0?'?':'&')+'t='+Date.now();});}
-function probe(p){return new Promise(function(res){var left=p.urls.length,best=null;
- p.urls.forEach(function(u){one(u).then(function(r){left--;
+ img.src=url+(url.indexOf('?')<0?'?':'&')+'t='+Date.now()+Math.random().toString(36).slice(2,6);});}
+function probe(p,ms){return new Promise(function(res){var left=p.urls.length,best=null;
+ p.urls.forEach(function(u){one(u,ms).then(function(r){left--;
   if(r.ok&&!best){best=r;res(r);}else if(!left&&!best){res({ok:false,ms:r.ms});}});});});}
 function row(p,r){var li=document.createElement('li'),dot=document.createElement('span');dot.className='ck-dot';
- dot.style.background=r?(r.ok?(r.ms>3000?'#f59e0b':'#a3e635'):'#f87171'):'#3a3f52';li.appendChild(dot);
+ var st=!r?'wait':!r.ok?'fail':r.tries>1?'flaky':r.ms>3000?'slow':'ok';
+ dot.style.background={wait:'#3a3f52',fail:'#f87171',flaky:'#f59e0b',slow:'#f59e0b',ok:'#a3e635'}[st];li.appendChild(dot);
  var n=document.createElement('span');n.textContent=p.name;li.appendChild(n);var s=document.createElement('b');
- s.textContent=r?(r.ok?(r.ms>3000?T.slow:T.ok):T.fail):T.wait;li.appendChild(s);return li;}
+ s.textContent=T[st];li.appendChild(s);return li;}
 function groups(){return mode==='wl'?[['g_white','whitelist'],['g_open','open']]:[['g_control','control'],['g_blocked','blocked']];}
 function draw(R){list.textContent='';groups().forEach(function(g){var h=document.createElement('div');h.className='ck-g';h.textContent=T[g[0]];
  var ul=document.createElement('ul');P[g[1]].forEach(function(p){ul.appendChild(row(p,R?R[p.id]:null));});list.appendChild(h);list.appendChild(ul);});}
 function K(v,k){v=v.slice();v.k=k;return v;}
 function names(arr){return arr.map(function(p){return p.name}).join(', ');}
-function vSites(R){var ru=R.ru.ok,g=R.g.ok,b=P.blocked,okB=b.filter(function(p){return R[p.id].ok}),bad=b.filter(function(p){return !R[p.id].ok});
+function vSites(R){var ru=R.ru.ok,g=R.g.ok,b=P.blocked,okB=b.filter(function(p){return R[p.id].ok}),bad=b.filter(function(p){return !R[p.id].ok}),
+ fl=b.filter(function(p){return R[p.id].ok&&R[p.id].tries>1});
  if(!ru&&!g&&!okB.length)return K(T.v_none,'none');
  if(ru&&!g&&!okB.length)return K(T.v_wl,'wl');
  if(okB.length<=b.length/3)return K(T.v_off,'off');
  if(bad.length){var v=T.v_part.slice();v[1]=v[1].replace('{list}',names(bad));return K(v,'part');}
+ if(fl.length>1){var f=T.v_flaky.slice();f[1]=f[1].replace('{list}',names(fl));return K(f,'part');}
+ if(fl.length===1){var g1=T.v_good.slice();g1[1]=T.one_retry.replace('{list}',names(fl));return K(g1,'good');}
  var slow=b.filter(function(p){return R[p.id].ms>3000});var v2=T.v_good.slice();
  if(slow.length)v2[1]=T.v_slow.replace('{list}',names(slow));return K(v2,'good');}
 function vWl(R){var w=P.whitelist.filter(function(p){return R[p.id].ok}).length,o=P.open.filter(function(p){return R[p.id].ok}).length;
@@ -136,17 +154,26 @@ function vWl(R){var w=P.whitelist.filter(function(p){return R[p.id].ok}).length,
  if(w>=P.whitelist.length-1&&o===0)return K(T.w_on,'w_on');
  if(w>=P.whitelist.length-1&&o>=P.open.length-1)return K(T.w_off,'w_off');
  return K(T.w_mixed,'w_mixed');}
-btn.addEventListener('click',function(){var all=[];groups().forEach(function(g){all=all.concat(P[g[1]]);});
- btn.disabled=true;btn.textContent=T.running;out.hidden=true;draw(null);
- Promise.all(all.map(probe)).then(function(rs){var R={};all.forEach(function(p,i){R[p.id]=rs[i];});draw(R);
+function start(){if(busy)return;busy=true;var all=[];groups().forEach(function(g){all=all.concat(P[g[1]]);});
+ btn.disabled=true;btn.textContent=T.running;out.hidden=true;draw(null);var R={},round=0;
+ function pass(items,ms){return Promise.all(items.map(function(p){return probe(p,ms)})).then(function(rs){
+  items.forEach(function(p,i){var r=rs[i];r.tries=round;if(r.ok||!R[p.id]||!R[p.id].ok)R[p.id]=r;});});}
+ function loop(items){round++;return pass(items,round===1?5000:3500).then(function(){draw(R);
+  var failed=all.filter(function(p){return !R[p.id].ok});
+  var maxR=failed.length>=all.length*0.6?2:3;
+  if(failed.length&&round<maxR){prog.hidden=false;prog.textContent=T.retry.replace('{n}',round+1).replace('{m}',maxR);return loop(failed);}});}
+ loop(all).then(function(){prog.hidden=true;draw(R);
   var v=mode==='wl'?vWl(R):vSites(R);$('ck-v').textContent=v[0];$('ck-t').textContent=v[1];
   var a=$('ck-a');a.href=v[2];a.textContent=v[3]+' →';
   var need=['off','part','wl','w_on'].indexOf(v.k)>=0,buy=$('ck-buy');buy.hidden=!need;$('ck-try').hidden=need;
-  if(need){$('ck-buy-n').textContent=(v.k==='wl'||v.k==='w_on')?T.buy_wl:T.buy_n;$('ck-buy-a').onclick=function(){try{goatcounter.count({path:'check-cta/'+v.k,title:'trial from check',event:true})}catch(e){}};}
+  if(need){$('ck-buy-n').textContent=(v.k==='wl'||v.k==='w_on')?T.buy_wl:T.buy_n;
+   var ch=$('ck-chips');ch.textContent='';T.chips.forEach(function(c){var s=document.createElement('span');s.textContent=c;ch.appendChild(s);});
+   $('ck-buy-a').onclick=function(){try{goatcounter.count({path:'check-cta/'+v.k,title:'trial from check',event:true})}catch(e){}};}
   else if(v.k==='good'||v.k==='w_off'){$('ck-t').textContent=v[1]+' '+T.keep;}
-  out.hidden=false;
-  btn.disabled=false;btn.textContent=T.again;
+  out.hidden=false;busy=false;btn.disabled=false;btn.textContent=T.again;
+  var r=out.getBoundingClientRect();if(r.top<0||r.top>window.innerHeight*0.7)window.scrollTo({top:r.top+window.pageYOffset-Math.round(window.innerHeight*0.12),behavior:'smooth'});
   try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'check/'+mode+'/'+v.k,title:v[0],event:true});}catch(e){}
- });});
+ });}
+btn.addEventListener('click',start);
 })();
 """

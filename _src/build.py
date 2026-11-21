@@ -316,7 +316,7 @@ footer a{color:var(--link);text-decoration:none}
 .qa-hint{color:var(--muted);font-size:13px;margin:0}
 @media(max-width:560px){.qa-fab span{display:none}.qa-fab{padding:14px}.qa{right:12px;bottom:78px}}
 nav{flex-wrap:nowrap;max-width:100%}nav a{white-space:nowrap}
-@media(max-width:430px){nav{gap:2px;padding:4px}nav a{padding:8px 9px;font-size:13.5px;min-height:38px}}
+@media(max-width:430px){.hide-xs{display:none!important}nav{gap:2px;padding:4px}nav a{padding:8px 9px;font-size:13.5px;min-height:38px}}
 @media(max-width:360px){nav a{padding:7px 7px;font-size:12.5px}.logo{font-size:17px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """
@@ -408,7 +408,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
     pre = "/en" if en else ""
     if en:
         nav = (f'<a href="/en/check/">Check</a><a href="/en/#prices">Plans</a>'
-               f'<a href="/en/podklyuchenie/">Setup</a><a class="btn-s" href="{BOT}" rel="nofollow">Try free</a>')
+               f'<a class="hide-xs" href="/en/podklyuchenie/">Setup</a><a class="btn-s" href="{BOT}" rel="nofollow">Try free</a>')
         foot_l = f"© {today_msk().year} {BRAND}. Guides on stable internet access in Russia."
         foot_r = (f'<a href="/en/podklyuchenie/">How to connect</a> · <a href="/en/blog/">Articles</a> · '
                   f'<a href="/en/index-blokirovok/">Blocking index</a> · <a href="/en/informer/">Widget</a> · '
@@ -421,7 +421,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
         theme_label = "Light or dark theme"
     else:
         nav = (f'<a href="/check/">Проверка</a><a href="/#prices">Тарифы</a>'
-               f'<a href="/podklyuchenie/">Инструкция</a><a class="btn-s" href="{BOT}" rel="nofollow">Попробовать</a>')
+               f'<a class="hide-xs" href="/podklyuchenie/">Инструкция</a><a class="btn-s" href="{BOT}" rel="nofollow">Попробовать</a>')
         foot_l = f"© {today_msk().year} {BRAND}. Справочные материалы о стабильном доступе к интернету."
         foot_r = (f'<a href="/podklyuchenie/">Как подключить</a> · <a href="/blog/">Статьи</a> · '
                   f'<a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · '
@@ -958,6 +958,7 @@ def main():
         ("Как проверить белые списки?", "Откройте вкладку «Белые списки», выключите VPN и Wi-Fi, оставьте мобильный "
          "интернет и нажмите кнопку. Если открываются только Яндекс, VK, Mail.ru и Авито, а Google и Википедия нет, "
          "значит, белые списки включены."),
+        ("Почему результат иногда разный?", "Блокировки работают неравномерно, а мобильная сеть бывает нестабильной. Поэтому каждый сервис проверяется до 3 раз подряд, и итог учитывает все попытки. «С перебоями» значит, что сервис открылся не с первого раза."),
         ("Вы сохраняете мои данные?", "Нет. Проверка идёт целиком в вашем браузере, на наш сервер ничего не отправляется."),
         ("Насколько точен результат?", "Это быстрая приблизительная проверка. Если результат кажется странным - "
          "запустите её ещё раз или сравните мобильный интернет и Wi-Fi."),
@@ -1173,6 +1174,10 @@ def main():
          f"Опция обхода - {CFG.get('whitelist_detail', '')}."),
         ("Что нужно установить?", "Приложение Incy (или HAPP, V2RayTun) для вашего устройства и ссылку подписки из Telegram-бота. Пошаговая инструкция - на странице «Как подключить»."),
         ("Что делать, если не заработает?", "Напишите в поддержку @ThuggerVPN_supp - ответит живой человек и поможет подобрать рабочий сервер."),
+        ("Это сложно настроить?", "Нет. Скачать приложение, взять ссылку в боте и нажать «Подключиться», обычно это 2 минуты. Если что-то не получается, поддержка поможет по шагам."),
+        ("Нужно ли включать VPN перед проверкой?", "Если хотите проверить свой VPN, да. Без VPN проверка покажет, что заблокировано у вас прямо сейчас. Для проверки белых списков наоборот: VPN и Wi-Fi нужно выключить."),
+        ("Почему проверка иногда показывает разный результат?", "Блокировки работают неравномерно: мобильная сеть то пропускает соединение, то режет его, особенно вечером и во время ограничений. Поэтому проверка повторяет каждый сервис до 3 раз и показывает итог. Пометка «с перебоями» значит, что VPN держится нестабильно."),
+        ("А если ThuggerVPN тоже перестанет работать?", "Блокировки меняются, и идеального VPN не бывает. Если что-то перестало открываться, смените сервер в приложении или напишите в поддержку: мы каждый день следим за блокировками и подскажем рабочий вариант."),
     ]
     faq_html = "".join(f'<details class="acc-q"><summary>{esc(q)}</summary><p>{esc(a)}</p></details>'
                        for q, a in faq if a)
