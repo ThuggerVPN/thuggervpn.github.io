@@ -384,15 +384,26 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
 <section class="hero"><div class="hero-text">
 <h1>A VPN that works in Russia when others drop</h1>
 <p class="lead">Mobile and home internet, whitelist bypass. Set up in 2 minutes via Telegram.</p>
-<div class="row"><a class="btn" href="{BOT}" rel="nofollow">Try {TRIAL}</a><a class="btn-ghost" href="#prices">Plans from {min_price()} ₽</a></div>
+<div class="row"><a class="btn" href="{BOT}" rel="nofollow">Try {TRIAL}</a><a class="btn-ghost" href="#check">Check my VPN</a></div>
 {proof}</div>
 <div class="stage" aria-hidden="true"><div class="iso"><div class="grid"></div>
 <div class="plate p1">Mobile internet</div><div class="plate p2">Home Wi-Fi</div>
 <div class="plate p3">{B.SHIELD}<span>{BRAND}</span></div></div><div class="beam"></div></div></section>
+<section class="sec" id="check-sec"><h2>Check your VPN in 5 seconds</h2>
+<p class="lead" style="max-width:720px">Right in your browser, nothing to install. See which services open for you, whether whitelist mode is on, and what to do if something doesn't work.</p>
+{checker.widget('en', BOT, BRAND, TRIAL, SUPPORT)}
+</section>
 <section class="sec usp">
 <div class="u"><b>Mobile and home</b><span>MTS, MegaFon, Beeline, T2 and home internet</span></div>
 <div class="u"><b>Whitelist bypass</b><span>Mobile option: {esc(EN.get("whitelist_detail", ""))}</span></div>
 <div class="u"><b>Real support</b><span>A person answers in Telegram, not a bot</span></div></section>
+<section class="sec" id="reviews"><div class="trust2"><div class="tr-head"><div><h2>What customers say</h2>
+<p>Ratings and reviews are in the independent catalog vpnstatus.site{(" · " + esc(vpd["rating"]) + "/5, " + str(vpd["votes"]) + " ratings") if vpd else ""}. Reviews are in Russian; summaries translated.</p></div>
+<a class="btn-ghost" href="{vlink}" target="_blank" rel="noopener">All reviews ↗</a></div>
+<div class="tr-revs">{revs}</div>
+<details class="acc" style="margin-top:14px"><summary>Votes by carrier</summary>
+<div class="tbl" style="margin:12px 0 0"><table class="tr-ops"><thead><tr><th>Mobile</th><th>Works</th><th>Whitelist bypass</th></tr></thead><tbody>{ops_rows}</tbody></table></div>
+<p class="note">vpnstatus.site data as of {d(vpd["checked"]) if vpd else ""}.</p></details></div></section>
 <section class="sec" id="prices"><h2>Plans</h2><div class="plans">{pc}</div>
 <p class="note">{esc(EN.get("devices", ""))}. Whitelist bypass - {esc(EN.get("whitelist_detail", ""))}. Start with {TRIAL}.</p>
 <p><a class="btn" href="{BOT}" rel="nofollow">Start with {TRIAL}</a></p></section>
@@ -401,17 +412,9 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
 <div><span>2</span><b>Get the link in the bot</b><small>{TRIAL} - no payment</small></div>
 <div><span>3</span><b>Paste and connect</b><small>"From clipboard" → "Connect"</small></div></div>
 <p style="margin-top:16px"><a href="/en/podklyuchenie/">Detailed guide for your device →</a></p></section>
-<section class="sec" id="reviews"><div class="trust2"><div class="tr-head"><div><h2>What customers say</h2>
-<p>Ratings and reviews are in the independent catalog vpnstatus.site{(" · " + esc(vpd["rating"]) + "/5, " + str(vpd["votes"]) + " ratings") if vpd else ""}. Reviews are in Russian; summaries translated.</p></div>
-<a class="btn-ghost" href="{vlink}" target="_blank" rel="noopener">All reviews ↗</a></div>
-<div class="tr-revs">{revs}</div>
-<details class="acc" style="margin-top:14px"><summary>Votes by carrier</summary>
-<div class="tbl" style="margin:12px 0 0"><table class="tr-ops"><thead><tr><th>Mobile</th><th>Works</th><th>Whitelist bypass</th></tr></thead><tbody>{ops_rows}</tbody></table></div>
-<p class="note">vpnstatus.site data as of {d(vpd["checked"]) if vpd else ""}.</p></details></div></section>
 <section class="sec" id="more"><h2>Useful</h2>
 <details class="acc"><summary>Blocking status · {d(UPD, False)}</summary><div class="st-grid" style="margin-top:14px">{tiles}</div>
 <p style="margin:14px 0 0"><a href="/en/status/">Full summary →</a></p></details>
-<details class="acc"><summary>Check your internet in 5 seconds</summary><p style="margin:12px 0">Find out what you have: whitelist, shutdown or a VPN problem, and which services open.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin:0"><a class="btn" href="/en/check/">Check sites and VPN</a><a class="btn-ghost" href="/en/check/#wl">Check whitelist</a></p></details>
 <details class="acc"><summary>Status by carrier</summary><div class="chips" style="margin-top:14px">{chips}</div>
 <p style="margin:14px 0 0"><a href="/en/index-blokirovok/">Weekly blocking index →</a></p></details>
 <details class="acc"><summary>Guides if your VPN drops</summary><div class="bento" style="margin-top:14px">{cards}</div>

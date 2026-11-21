@@ -407,8 +407,8 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
               else f'<a class="lang" href="/en/" hreflang="en" lang="en">EN</a>')
     pre = "/en" if en else ""
     if en:
-        nav = (f'<a href="/en/podklyuchenie/">Setup</a><a href="/en/check/">Check</a>'
-               f'<a href="/en/status/">Status</a><a class="btn-s" href="{BOT}" rel="nofollow">Bot</a>')
+        nav = (f'<a href="/en/check/">Check</a><a href="/en/#prices">Plans</a>'
+               f'<a href="/en/podklyuchenie/">Setup</a><a class="btn-s" href="{BOT}" rel="nofollow">Try free</a>')
         foot_l = f"© {today_msk().year} {BRAND}. Guides on stable internet access in Russia."
         foot_r = (f'<a href="/en/podklyuchenie/">How to connect</a> · <a href="/en/blog/">Articles</a> · '
                   f'<a href="/en/index-blokirovok/">Blocking index</a> · <a href="/en/informer/">Widget</a> · '
@@ -420,8 +420,8 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
         home_label, menu_label, locale = "home", "Main menu", "en_US"
         theme_label = "Light or dark theme"
     else:
-        nav = (f'<a href="/podklyuchenie/">Инструкция</a><a href="/check/">Проверка</a>'
-               f'<a href="/status/">Статус</a><a class="btn-s" href="{BOT}" rel="nofollow">Бот</a>')
+        nav = (f'<a href="/check/">Проверка</a><a href="/#prices">Тарифы</a>'
+               f'<a href="/podklyuchenie/">Инструкция</a><a class="btn-s" href="{BOT}" rel="nofollow">Попробовать</a>')
         foot_l = f"© {today_msk().year} {BRAND}. Справочные материалы о стабильном доступе к интернету."
         foot_r = (f'<a href="/podklyuchenie/">Как подключить</a> · <a href="/blog/">Статьи</a> · '
                   f'<a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · '
@@ -1185,7 +1185,7 @@ def main():
 <h1>VPN, который работает, когда остальные отвалились</h1>
 <p class="lead">Мобильный и домашний интернет, обход белых списков. Подключение за 2 минуты в Telegram.</p>
 <div class="row"><a class="btn" href="{BOT}" rel="nofollow">Попробовать {CFG["trial"]}</a>
-<a class="btn-ghost" href="#prices">Тарифы от {min([p["per_month"] for p in plans] or [210])} ₽</a></div>
+<a class="btn-ghost" href="#check">Проверить мой VPN</a></div>
 {rating_line}
 </div>
 <div class="stage" aria-hidden="true"><div class="iso"><div class="grid"></div>
@@ -1193,24 +1193,19 @@ def main():
 <div class="plate p3">{SHIELD}<span>{BRAND}</span></div></div><div class="beam"></div></div>
 </section>
 
+
+
+
+
+<section class="sec" id="check-sec"><h2>Проверьте свой VPN за 5 секунд</h2>
+<p class="lead" style="max-width:720px">Прямо в браузере, без установки. Узнаете, какие сервисы у вас открываются, есть ли белые списки и что делать, если что-то не работает.</p>
+{checker.widget('ru', BOT, BRAND, CFG['trial'], SUPPORT)}
+</section>
 <section class="sec usp">
 <div class="u"><b>Мобильный и дома</b><span>МТС, МегаФон, Билайн, Т2 и домашний интернет</span></div>
 <div class="u"><b>Обход белых списков</b><span>Опция для мобильного: {esc(CFG.get("whitelist_detail", ""))}</span></div>
 <div class="u"><b>Живая поддержка</b><span>Отвечает человек в Telegram, а не робот</span></div>
 </section>
-
-<section class="sec" id="prices"><h2>Тарифы</h2>
-<div class="plans">{plan_cards}</div>
-<p class="note">{esc(CFG.get("devices", ""))}. Обход белых списков - {esc(CFG.get("whitelist_detail", ""))}. Сначала {CFG["trial"]}.</p>
-<p><a class="btn" href="{BOT}" rel="nofollow">Начать с {CFG["trial"]}</a></p>
-</section>
-
-<section class="sec" id="how"><h2>Как подключить</h2><div class="steps3">
-<div><span>1</span><b>Скачайте Incy</b><small>iPhone, Android, Windows, Mac, ТВ</small></div>
-<div><span>2</span><b>Возьмите ссылку в боте</b><small>{CFG["trial"]} - без оплаты</small></div>
-<div><span>3</span><b>Вставьте и подключитесь</b><small>«Из буфера» → «Подключиться»</small></div>
-</div><p style="margin-top:16px"><a href="/podklyuchenie/">Подробная инструкция для вашего устройства →</a></p></section>
-
 <section class="sec" id="reviews"><div class="trust2">
 <div class="tr-head"><div><h2>Что говорят клиенты</h2>
 <p>Оценки и отзывы - в независимом каталоге vpnstatus.site{(" · " + esc(vpd["rating"]) + "/5, " + ocenok(vpd["votes"])) if vpd else ""}</p></div>
@@ -1220,13 +1215,21 @@ def main():
 <div class="tbl" style="margin:12px 0 0"><table class="tr-ops"><thead><tr><th>Мобильный</th><th>Работает</th><th>Обход белых списков</th></tr></thead><tbody>{ops_rows}</tbody></table></div>
 <p class="note">По данным vpnstatus.site на {ru_date(vpd["checked"]) if vpd else ""}.</p></details>
 </div></section>
+<section class="sec" id="prices"><h2>Тарифы</h2>
+<div class="plans">{plan_cards}</div>
+<p class="note">{esc(CFG.get("devices", ""))}. Обход белых списков - {esc(CFG.get("whitelist_detail", ""))}. Сначала {CFG["trial"]}.</p>
+<p><a class="btn" href="{BOT}" rel="nofollow">Начать с {CFG["trial"]}</a></p>
+</section>
+<section class="sec" id="how"><h2>Как подключить</h2><div class="steps3">
+<div><span>1</span><b>Скачайте Incy</b><small>iPhone, Android, Windows, Mac, ТВ</small></div>
+<div><span>2</span><b>Возьмите ссылку в боте</b><small>{CFG["trial"]} - без оплаты</small></div>
+<div><span>3</span><b>Вставьте и подключитесь</b><small>«Из буфера» → «Подключиться»</small></div>
+</div><p style="margin-top:16px"><a href="/podklyuchenie/">Подробная инструкция для вашего устройства →</a></p></section>
 
 <section class="sec" id="more"><h2>Полезное</h2>
 <details class="acc"><summary>Статус блокировок · {ru_date(UPD, year=False)}</summary>
 <div class="st-grid" style="margin-top:14px">{st_tiles}</div>
 <p style="margin:14px 0 0"><a href="/status/">Вся сводка →</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Сводка каждое утро в Telegram</a></p></details>
-<details class="acc"><summary>Проверить свой интернет за 5 секунд</summary>
-<p style="margin:12px 0">Узнайте, что у вас: белые списки, отключение или не работает VPN, и какие сервисы открываются.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin:0"><a class="btn" href="/check/">Проверить сайты и VPN</a><a class="btn-ghost" href="/check/#wl">Проверить белые списки</a></p></details>
 <details class="acc"><summary>Статус по оператору</summary><div class="chips" style="margin-top:14px">{op_chips}</div>
 <p style="margin:14px 0 0"><a href="/index-blokirovok/">Индекс блокировок за неделю →</a></p></details>
 <details class="acc"><summary>Инструкции, если VPN отвалился</summary><div class="bento" style="margin-top:14px">{cards}</div>
