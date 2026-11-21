@@ -27,6 +27,7 @@ BOT_PLAIN = CFG["bot_url"]
 BOT = CFG.get("bot_ref_url", BOT_PLAIN)  # реферальная ссылка - для подсчёта пришедших с сайта
 BOT_NAME = "@" + BOT_PLAIN.rsplit("/", 1)[-1]
 GC = CFG.get("goatcounter", "")
+MIRRORS = [m.rstrip("/") for m in CFG.get("mirrors", [])]  # запасные адреса сайта
 VPNSTATUS = CFG.get("vpnstatus_url", "https://vpnstatus.site")
 ASSIST_PATH = SRC / "assistant.json"
 SUPPORT = CFG.get("support_url", BOT)
@@ -320,6 +321,36 @@ nav{flex-wrap:nowrap;max-width:100%}nav a{white-space:nowrap}
 @media(max-width:430px){.wrap{padding:0 16px}nav a{font-size:13.5px;padding:9px 4px}}
 @media(max-width:374px){.hide-xs{display:none!important}nav a{font-size:13px}.logo{font-size:17px}}
 .pwa-row{display:flex;gap:16px;align-items:center;margin-bottom:12px}.pwa-p{margin:0 0 18px;color:var(--soft);max-width:680px}button.btn{font-family:inherit;border:0;cursor:pointer}.pwa-row img{border-radius:16px;flex:0 0 auto}.pwa-row h2{margin:0;font-size:26px;line-height:1.2}.pwa ol{margin:14px 0 0;padding-left:22px;color:var(--soft)}.pwa ol li{margin:4px 0}#pwa-and,#pwa-done{margin:14px 0 0}@media(max-width:560px){.pwa-row h2{font-size:21px}.pwa-row img{width:52px;height:52px}}
+.ds-mark{}
+/* --- Единая система размеров: один масштаб шрифтов, отступов и скруглений для всех экранов --- */
+:root{--r-lg:22px;--r-md:16px;--r-sm:12px;--pad:clamp(20px,3.6vw,28px);--gap:clamp(12px,2vw,16px)}
+body{font-size:clamp(16px,1.1vw + 12px,17px);line-height:1.62}
+.hero{padding:clamp(20px,4vw,40px) 0 clamp(8px,2vw,16px);gap:clamp(16px,3vw,32px)}
+.hero h1{font-size:clamp(36px,5.6vw,60px);line-height:1.05;letter-spacing:-.025em;margin:0 0 18px}
+.lead,article .lead{font-size:clamp(17px,1.4vw + 11px,19px);line-height:1.6}
+.sec{padding:clamp(28px,4.4vw,52px) 0}
+.sec h2{font-size:clamp(26px,2.6vw + 14px,36px);line-height:1.15;letter-spacing:-.02em}
+.tr-head h2,.trust h2,.tile-head h2,.pwa-row h2{font-size:clamp(21px,1.4vw + 15px,28px)!important;line-height:1.2;letter-spacing:-.015em}
+.sec.usp{padding-top:0}#check-sec .ck{margin-bottom:0}#how .steps3+p{margin:14px 0 0}
+.sec h2{margin:0 0 14px}.sec>.lead{margin:0 0 22px}
+article h1{font-size:clamp(28px,3.4vw + 14px,40px);line-height:1.18;letter-spacing:-.02em}
+article h2{font-size:clamp(22px,1.6vw + 16px,28px);margin:clamp(28px,4vw,40px) 0 10px}
+article h3{font-size:clamp(18px,.6vw + 15px,20px)}
+.tile,.step,.usp .u,.plan,.steps3>div,.trust,.trust2,.cta,.ck{border-radius:var(--r-lg)}
+.tile,.step,.trust,.trust2,.cta,.ck{padding:var(--pad)}
+.usp .u{padding:18px 20px}.usp{gap:var(--gap)}.bento,.plans,.steps3,.steps,.tr-revs{gap:var(--gap)}
+.rv,.st,.tr-score,.ck-out,details.acc,details.acc-q,.list li a,.dev-panel,.app-rec{border-radius:var(--r-md)}
+.ck li,.chips a,code,.kbd{border-radius:var(--r-sm)}
+.btn,.btn-ghost,.ck button{min-height:52px;border-radius:14px;font-size:16.5px;padding:0 24px;line-height:1.2}
+.btn-ghost{padding:0 22px}
+nav a.btn-s{border-radius:10px}
+.ck .ck-tabs button{min-height:42px;padding:0 16px}
+.ck-out h2{font-size:clamp(19px,1vw + 14px,22px);line-height:1.3}
+.cta b{font-size:clamp(19px,1vw + 14px,22px)}
+.pl-price{font-size:clamp(26px,2vw + 14px,34px)}
+.note,.t-sub,.usp span,.steps3 small{font-size:14.5px}
+footer{font-size:14px}
+@media(max-width:600px){body .st4>div{grid-template-columns:40px 1fr;gap:12px;padding:16px}body .st4 .n{width:40px;height:40px;border-radius:12px;font-size:17px}body .st4 h3{font-size:17.5px}.btn,.btn-ghost{text-align:center}.usp .u{padding:14px 16px}.plans{gap:10px}.plan{padding:16px 14px}.btn,.btn-ghost{width:100%;justify-content:center}.row{gap:10px}.hero .row .btn-ghost{width:100%}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """
 
@@ -492,7 +523,8 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
                   f'<a href="/en/operator/megafon/">MegaFon</a> · <a href="/en/operator/t2/">T2</a> · '
                   f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">Reviews</a> · '
                   f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Support</a> · '
-                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram channel</a>')
+                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram channel</a>'
+                  + "".join(f' · <a href="{m}/en/">Backup address</a>' for m in MIRRORS[:1]))
         home_label, menu_label, locale = "home", "Main menu", "en_US"
         theme_label = "Light or dark theme"
     else:
@@ -505,7 +537,8 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
                   f'<a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · '
                   f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · '
                   f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · '
-                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a>')
+                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a>'
+                  + "".join(f' · <a href="{m}">Запасной адрес</a>' for m in MIRRORS[:1]))
         home_label, menu_label, locale = "на главную", "Основное меню", "ru_RU"
         theme_label = "Светлая или тёмная тема"
     ld = ""
@@ -839,7 +872,7 @@ SETUP_CSS = """<style>
 .app-alt a{padding:9px 13px;border-radius:12px;background:var(--card2);border:1px solid var(--line);text-decoration:none;color:var(--text);font-size:14px;font-weight:600;min-height:40px;display:inline-flex;align-items:center}
 .app-alt a:hover{border-color:var(--line-hi)}
 .st4{counter-reset:s;display:grid;gap:12px;margin:18px 0}
-.st4>div{display:grid;grid-template-columns:52px 1fr;gap:16px;padding:20px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.st4>div{display:grid;grid-template-columns:52px 1fr;gap:16px;padding:20px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line)}
 .st4 .n{width:52px;height:52px;border-radius:14px;background:var(--accent);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center}
 .st4 h3{margin:2px 0 6px;font-size:19px}.st4 p{margin:0;color:var(--soft)}
 .kbd{display:inline-block;padding:2px 8px;border-radius:8px;background:var(--card2);border:1px solid var(--line2);font-weight:700;font-size:15px;color:var(--text-hi);white-space:nowrap}
@@ -951,7 +984,7 @@ def build_setup_page(urls, UPD):
             f'<div><div class="n">4</div><div><h3>Подключитесь</h3><p>Появится список серверов. Выберите локацию и нажмите '
             f'<span class="kbd">Подключиться</span>.</p></div></div></div>'
             f'<div class="done">✓ Готово - интернет работает через {esc(BRAND)}.</div>'
-            f'<p style="margin:18px 0"><a class="btn" href="{BOT}" rel="nofollow">Получить ссылку в {bot_name}</a></p>'
+            f'<p style="margin:18px 0"><a class="btn" href="{BOT}" rel="nofollow">Получить ссылку в боте</a></p>'
 f'<h2 id="apple-id">iPhone с российским Apple ID</h2>'
             f'<p>Apple удалила Incy, HAPP и V2RayTun из российского App Store. Других способов поставить приложение на iPhone в России нет: '
             f'установка в обход App Store разрешена только в Евросоюзе. Что делать - зависит от ситуации:</p>'

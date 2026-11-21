@@ -210,7 +210,7 @@ def build(ST):
             f'(may be labelled «Из буфера»).</p></div></div>'
             f'<div><div class="n">4</div><div><h3>Connect</h3><p>A server list appears. Pick a location and tap <span class="kbd">Connect</span>.</p></div></div></div>'
             f'<div class="done">✓ Done - your internet now runs through {esc(BRAND)}.</div>'
-            f'<p style="margin:18px 0"><a class="btn" href="{BOT}" rel="nofollow">Get the link in {bot_name}</a></p>'
+            f'<p style="margin:18px 0"><a class="btn" href="{BOT}" rel="nofollow">Get the link in the bot</a></p>'
 f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
             f'<p>Apple removed Incy, HAPP and V2RayTun from the Russian App Store. There is no other way to install apps on an iPhone in Russia: '
             f'installing outside the App Store is only allowed in the EU. What to do depends on your situation:</p>'
