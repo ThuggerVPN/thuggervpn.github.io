@@ -407,6 +407,7 @@ def write_pwa():
                   for p in list((ROOT / "blog").glob("*/index.html")) + list((ROOT / "en" / "blog").glob("*/index.html")))
     sw = SW_JS.replace("__V__", version).replace("__PAGES__", json.dumps(PWA_PAGES + arts)).replace("__ASSETS__", json.dumps(assets))
     write("sw.js", sw)
+    write("ping.txt", "ok\n")
 
 
 SW_JS = r"""// ThuggerVPN: офлайн-копия главных страниц. Страницы: сначала сеть, без сети из кэша. Файлы: из кэша.
@@ -422,21 +423,24 @@ self.addEventListener('fetch',function(e){var r=e.request,u=new URL(r.url);
 """
 
 
+SHARE_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>'
+
+
 def pwa_block(lang="ru"):
     en = lang == "en"
     t = ({"h": "ThuggerVPN app on your phone's home screen",
           "p": "An icon on your home screen, like a regular app. VPN check and setup guides in one tap, and the guides open even without internet. Nothing to download from the App Store.",
-          "btn": "Add to home screen", "ios": ["Open this site in Safari.", "Tap Share (the square with an arrow).", "Choose “Add to Home Screen” and tap Add."],
+          "btn": "Add to home screen", "ios": ["If you opened the link from Telegram or another app, first tap the compass icon or “Open in Safari”.", "In Safari tap Share " + SHARE_ICON + " at the bottom of the screen.", "Scroll down, choose “Add to Home Screen” and tap Add. Done: the icon is on your screen."],
           "and": "In Chrome open the ⋮ menu and choose “Install app” or “Add to Home screen”.",
-          "note": "If the site stops opening because of blocking, the app still shows the saved guides, and the bot and support are always in Telegram." + (f" Backup address: {MIRRORS[0].split('//')[1]}." if MIRRORS else ""),
+          "note": "If the site gets blocked, the app opens the saved guides and switches you to a working backup address by itself. The bot and support are always in Telegram.",
           "done": "Done: the ThuggerVPN icon is on your home screen."} if en else
          {"h": "Приложение ThuggerVPN на экране телефона",
           "p": "Иконка на рабочем столе, как у обычного приложения. Проверка VPN и инструкции в одно касание, а инструкции открываются даже без интернета. Ничего не нужно скачивать из App Store.",
-          "btn": "Установить на телефон", "ios": ["Откройте этот сайт в Safari.", "Нажмите «Поделиться» (квадрат со стрелкой).", "Выберите «На экран Домой» и нажмите «Добавить»."],
+          "btn": "Установить на телефон", "ios": ["Если открыли ссылку из Telegram или другого приложения, сначала нажмите значок компаса или «Открыть в Safari».", "В Safari нажмите «Поделиться» " + SHARE_ICON + " внизу экрана.", "Пролистайте вниз, выберите «На экран Домой» и нажмите «Добавить». Готово: иконка на экране."],
           "and": "В Chrome откройте меню ⋮ и выберите «Установить приложение» или «Добавить на главный экран».",
-          "note": "Если сайт перестанет открываться из-за блокировок, приложение с экрана всё равно покажет сохранённые инструкции, а бот и поддержка всегда в Telegram." + (f" Запасной адрес сайта: {MIRRORS[0].split('//')[1]}." if MIRRORS else ""),
+          "note": "Если сайт заблокируют, приложение покажет сохранённые инструкции и само переключит на рабочий запасной адрес. Бот и поддержка всегда в Telegram.",
           "done": "Готово: иконка ThuggerVPN на экране телефона."})
-    steps = "".join(f"<li>{esc(x)}</li>" for x in t["ios"])
+    steps = "".join(f"<li>{x}</li>" for x in t["ios"])
     return (f'<section class="sec" id="app"><div class="trust2 pwa"><div class="pwa-row"><img src="/assets/app/icon-192.png" alt="" width="64" height="64">'
             f'<h2>{esc(t["h"])}</h2></div><p class="pwa-p">{esc(t["p"])}</p>'
             f'<button class="btn" type="button" id="pwa-btn">{esc(t["btn"])}</button>'
@@ -454,6 +458,26 @@ PWA_JS = ("(function(){var sec=document.getElementById('app');if(!sec)return;"
           "b.addEventListener('click',function(){try{goatcounter.count({path:'app/install-click',title:'install click',event:true})}catch(e){}"
           "if(dp){dp.prompt();dp.userChoice.then(function(){dp=null});return;}"
           "document.getElementById(ios?'pwa-ios':'pwa-and').hidden=false;});})();")
+
+
+def failover_js():
+    """Если текущий адрес сайта недоступен (страница открылась из офлайн-копии), ищем рабочий запасной адрес и переходим туда.
+    Список адресов закодирован, чтобы не лежать открытым текстом."""
+    import base64
+    hosts = [SITE] + MIRRORS
+    enc = base64.b64encode(json.dumps(hosts).encode()).decode()
+    return ("(function(){try{var H=JSON.parse(atob('" + enc + "')),me=location.origin;"
+            "if(sessionStorage.getItem('fo'))return;sessionStorage.setItem('fo','1');"
+            "function img(h,ms){return new Promise(function(r){var i=new Image(),t=setTimeout(function(){i.src='';r(false)},ms);"
+            "i.onload=function(){clearTimeout(t);r(true)};i.onerror=function(){clearTimeout(t);r(false)};i.src=h+'/favicon.svg?fo='+Date.now()})}"
+            "function go(h){var en=document.documentElement.lang==='en',d=document.createElement('div');"
+            "d.style.cssText='position:fixed;left:12px;right:12px;bottom:12px;z-index:99;padding:16px 18px;border-radius:16px;background:#7c3aed;color:#fff;font:600 15px/1.45 Manrope,sans-serif;box-shadow:0 20px 40px -10px rgba(0,0,0,.5)';"
+            "var u=h+location.pathname+location.search;d.innerHTML=(en?'The main address is unavailable right now. Switching to a working address… ':'Основной адрес сейчас недоступен. Переходим на рабочий адрес… ')+'<a style=\"color:#fff;text-decoration:underline\" href=\"'+u+'\">'+(en?'Go now':'Перейти')+'</a>';"
+            "document.body.appendChild(d);try{goatcounter.count({path:'failover/'+h.split('//')[1],title:'failover',event:true})}catch(e){}"
+            "setTimeout(function(){location.href=u},2500)}"
+            "addEventListener('load',function(){setTimeout(function(){var c=new AbortController(),t=setTimeout(function(){c.abort()},6000);"
+            "fetch('/ping.txt?'+Date.now(),{cache:'no-store',signal:c.signal}).then(function(r){clearTimeout(t);if(!r.ok)throw 0}).catch(function(){"
+            "var o=H.filter(function(h){return h!==me});(function n(i){if(i>=o.length)return;img(o[i],5000).then(function(ok){ok?go(o[i]):n(i+1)})})(0)})},1200)})}catch(e){}})();")
 
 def price_line():
     s = f'{CFG["trial"]}, дальше {CFG["price"]}'
@@ -523,8 +547,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
                   f'<a href="/en/operator/megafon/">MegaFon</a> · <a href="/en/operator/t2/">T2</a> · '
                   f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">Reviews</a> · '
                   f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Support</a> · '
-                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram channel</a>'
-                  + "".join(f' · <a href="{m}/en/">Backup address</a>' for m in MIRRORS[:1]))
+                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram channel</a>')
         home_label, menu_label, locale = "home", "Main menu", "en_US"
         theme_label = "Light or dark theme"
     else:
@@ -537,8 +560,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
                   f'<a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · '
                   f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · '
                   f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · '
-                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a>'
-                  + "".join(f' · <a href="{m}">Запасной адрес</a>' for m in MIRRORS[:1]))
+                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a>')
         home_label, menu_label, locale = "на главную", "Основное меню", "ru_RU"
         theme_label = "Светлая или тёмная тема"
     ld = ""
@@ -570,7 +592,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <meta property="og:locale" content="{locale}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0b10" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f5fa" media="(prefers-color-scheme: light)">
-<script>{THEME_JS}</script>
+<script>{THEME_JS}</script><script>{failover_js()}</script>
 {CFG.get("head_extra", "")}
 {f'<script data-goatcounter="https://{GC}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>' if GC else ""}
 <style>{CSS}</style>
