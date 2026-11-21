@@ -727,7 +727,7 @@ document.getElementById('qa-send').addEventListener('submit',function(e){{e.prev
   try{{goatcounter.count({{path:'chat/sent',title:'chat message',event:true}})}}catch(e){{}}
  }}).catch(function(){{T.push({{f:'sys',t:D.L.err+' '+D.support.replace('https://t.me/','@')}});render();save();}});}});
 function pull(){{if(!CU||!T.some(function(m){{return m.f==='me'}}))return;
- fetch(CU+'?sid='+encodeURIComponent(sid)+'&since='+last).then(function(r){{return r.json()}}).then(function(j){{
+ fetch(CU+'?u='+encodeURIComponent(sid)+'&since='+last).then(function(r){{return r.json()}}).then(function(j){{
   if(!j.ok||!j.msgs||!j.msgs.length)return;j.msgs.forEach(function(m){{T.push({{f:'op',t:m.text}});last=Math.max(last,m.ts);}});save();render();
   if(!box.classList.contains('open'))fab.classList.add('has-new');}}).catch(function(){{}});}}
 fab.addEventListener('click',function(){{fab.classList.remove('has-new');if(T.length&&CU)openChat();}});

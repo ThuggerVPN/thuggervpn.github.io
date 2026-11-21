@@ -52,5 +52,6 @@
   "goatcounter": "thuggervpn",
   "mirrors": [
     "https://thugger-vpn.github.io"
-  ]
+  ],
+  "chat_url": "https://script.google.com/macros/s/AKfycbxf8-5IjdfFqi5T6yYGprDJBqlxVGzJ1EZ4s6JL5qNA8XmqKu5u1BUJKZlL8NEwR17V/exec"
 }
