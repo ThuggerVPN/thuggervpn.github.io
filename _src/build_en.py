@@ -72,7 +72,7 @@ def table(events):
         return ""
     rows = ""
     for e in events:
-        src = (f' <a href="{esc(e["url"])}" target="_blank" rel="noopener nofollow">{esc(f(e, "source"))}</a> (in Russian)'
+        src = (f' <a href="{esc(e["url"])}" target="_blank" rel="noopener nofollow">{esc(src_en(e))}</a> (in Russian)'
                if e.get("url") else "")
         rows += (f'<tr><td style="white-space:nowrap">{d(e["date"], False)}</td><td>{esc(f(e, "region"))}</td>'
                  f'<td>{esc(f(e, "title"))}.<br><small style="color:var(--muted)">Source:{src}</small></td>'
@@ -87,6 +87,32 @@ def status_block(st):
         return table(fresh)
     return ('<p><b>No major new outages found in open sources in the last two days.</b> Latest known events:</p>'
             + table(st["events"][:3]))
+
+
+
+TRANSLIT = dict(zip("абвгдеёжзийклмнопрстуфхцчшщъыьэюя",
+                    ["a", "b", "v", "g", "d", "e", "e", "zh", "z", "i", "y", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f",
+                     "kh", "ts", "ch", "sh", "shch", "", "y", "", "e", "yu", "ya"]))
+SRC_WORDS = {"по данным": "citing", "со ссылкой на": "citing", "Минцифры": "Ministry of Digital Development",
+             "Метарейтинг": "Metaratings", "Коммерсант": "Kommersant", "Ведомости": "Vedomosti", "Известия": "Izvestia"}
+
+
+def src_en(e):
+    """Название источника на английском: source_en, иначе перевод известных слов и транслитерация."""
+    if e.get("source_en"):
+        return e["source_en"]
+    s = e.get("source", "")
+    for ru, en in SRC_WORDS.items():
+        s = s.replace(ru, en)
+    out = []
+    for ch in s:
+        low = ch.lower()
+        if low in TRANSLIT:
+            r = TRANSLIT[low]
+            out.append(r.capitalize() if ch != low and r else r)
+        else:
+            out.append(ch)
+    return "".join(out)
 
 
 def faq_html(faq):

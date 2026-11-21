@@ -110,8 +110,9 @@ def parse(path):
         if key not in meta:
             raise SystemExit(f"{path.name}: нет поля {key}")
     meta.setdefault("updated", meta["date"])
+    trial = CFG.get("en", {}).get("trial", "3 days free") if "articles_en" in str(path) else CFG["trial"]
     body = m.group(2).replace("{{BOT}}", BOT).replace("{{PRICE}}", CFG["price"]) \
-        .replace("{{TRIAL}}", CFG["trial"]).replace("{{BRAND}}", BRAND)
+        .replace("{{TRIAL}}", trial).replace("{{BRAND}}", BRAND)
     meta["body_md"] = body
     meta["body_html"] = markdown.markdown(body, extensions=["tables", "sane_lists"]) \
         .replace("<table>", '<div class="tbl"><table>').replace("</table>", "</table></div>")
@@ -353,6 +354,7 @@ footer{font-size:14px}
 @media(max-width:600px){body .st4>div{grid-template-columns:40px 1fr;gap:12px;padding:16px}body .st4 .n{width:40px;height:40px;border-radius:12px;font-size:17px}body .st4 h3{font-size:17.5px}.btn,.btn-ghost{text-align:center}.usp .u{padding:14px 16px}.plans{gap:10px}.plan{padding:16px 14px}.btn,.btn-ghost{width:100%;justify-content:center}.row{gap:10px}.hero .row .btn-ghost{width:100%}}
 .qa-dot{display:none;width:10px;height:10px;border-radius:50%;background:#a3e635;box-shadow:0 0 0 2px var(--accent)}.qa-fab.has-new .qa-dot{display:block}.qa-human{margin-top:14px;border-top:1px solid var(--line2);padding-top:14px}.qa-call{width:100%;min-height:46px;border-radius:12px;border:1px solid var(--line2);background:var(--card2);color:var(--text);font:700 15px Manrope,sans-serif;cursor:pointer}.qa-call:hover{border-color:var(--line-hi)}.qa-thread{max-height:220px;overflow:auto;display:flex;flex-direction:column;gap:8px;margin:0 0 10px}.qa-m{padding:10px 12px;border-radius:12px;font-size:14.5px;line-height:1.45;max-width:88%}.qa-m b{display:block;font-size:12px;opacity:.7;margin-bottom:2px}.qa-m.me{align-self:flex-end;background:var(--accent);color:#fff}.qa-m.op{align-self:flex-start;background:var(--card2);border:1px solid var(--line2)}.qa-m.sys{align-self:center;background:none;color:var(--muted);font-size:13px;text-align:center;padding:2px}#qa-send{display:flex;flex-direction:column;gap:8px}#qa-send textarea,#qa-send input{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line2);border-radius:12px;padding:11px 12px;font:15px Manrope,sans-serif;resize:vertical}#qa-send button{min-height:46px;border:0;border-radius:12px;background:var(--accent);color:#fff;font:700 15px Manrope,sans-serif;cursor:pointer}
 .totop{position:fixed;right:18px;bottom:84px;z-index:49;width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:var(--card);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 26px -10px var(--sh);opacity:0;transform:translateY(10px) scale(.9);pointer-events:none;transition:opacity .2s ease,transform .2s ease}.totop.on{opacity:1;transform:none;pointer-events:auto}.totop:hover{border-color:var(--line-hi)}@media(max-width:600px){.totop{right:12px;bottom:78px}}
+footer .wrap{display:block!important;padding-top:clamp(28px,4vw,44px);padding-bottom:22px}.f-top{display:grid;grid-template-columns:minmax(220px,1.2fr) 3fr;gap:clamp(24px,4vw,48px)}.f-brand .logo{font-size:18px}.f-brand p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.55;max-width:300px}.f-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.f-col b{display:block;color:var(--text);font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}.f-col ul{list-style:none;margin:0;padding:0}.f-col li{margin:0 0 8px}.f-col a{color:var(--muted);font-size:14.5px}.f-col a:hover{color:var(--text-hi)}.f-bot{display:flex;justify-content:flex-start;column-gap:24px;gap:12px;flex-wrap:wrap;margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}.f-bot a{color:var(--muted)}@media(max-width:860px){.f-top{grid-template-columns:1fr}.f-cols{grid-template-columns:repeat(2,1fr);gap:22px 16px}}@media(max-width:600px){footer .wrap{padding-bottom:90px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """
 
@@ -438,13 +440,13 @@ SHARE_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke
 def pwa_block(lang="ru"):
     en = lang == "en"
     t = ({"h": "ThuggerVPN app on your phone's home screen",
-          "p": "An icon on your home screen, like a regular app. VPN check and setup guides in one tap, and the guides open even without internet. Nothing to download from the App Store.",
+          "p": "An icon on your home screen, like a regular app. VPN check and setup guides in one tap, and the guides open even without internet.",
           "btn": "Add to home screen", "ios": ["If you opened the link from Telegram or another app, first tap the compass icon or “Open in Safari”.", "In Safari tap Share " + SHARE_ICON + " at the bottom of the screen.", "Scroll down, choose “Add to Home Screen” and tap Add. Done: the icon is on your screen."],
           "and": "In Chrome open the ⋮ menu and choose “Install app” or “Add to Home screen”.",
           "note": "If the site gets blocked, the app opens the saved guides and switches you to a working backup address by itself. The bot and support are always in Telegram.",
           "done": "Done: the ThuggerVPN icon is on your home screen."} if en else
          {"h": "Приложение ThuggerVPN на экране телефона",
-          "p": "Иконка на рабочем столе, как у обычного приложения. Проверка VPN и инструкции в одно касание, а инструкции открываются даже без интернета. Ничего не нужно скачивать из App Store.",
+          "p": "Иконка на рабочем столе, как у обычного приложения. Проверка VPN и инструкции в одно касание, а инструкции открываются даже без интернета.",
           "btn": "Установить на телефон", "ios": ["Если открыли ссылку из Telegram или другого приложения, сначала нажмите значок компаса или «Открыть в Safari».", "В Safari нажмите «Поделиться» " + SHARE_ICON + " внизу экрана.", "Пролистайте вниз, выберите «На экран Домой» и нажмите «Добавить». Готово: иконка на экране."],
           "and": "В Chrome откройте меню ⋮ и выберите «Установить приложение» или «Добавить на главный экран».",
           "note": "Если сайт заблокируют, приложение покажет сохранённые инструкции и само переключит на рабочий запасной адрес. Бот и поддержка всегда в Telegram.",
@@ -487,6 +489,16 @@ def failover_js():
             "addEventListener('load',function(){setTimeout(function(){var c=new AbortController(),t=setTimeout(function(){c.abort()},6000);"
             "fetch('/ping.txt?'+Date.now(),{cache:'no-store',signal:c.signal}).then(function(r){clearTimeout(t);if(!r.ok)throw 0}).catch(function(){"
             "var o=H.filter(function(h){return h!==me});(function n(i){if(i>=o.length)return;img(o[i],5000).then(function(ok){ok?go(o[i]):n(i+1)})})(0)})},1200)})}catch(e){}})();")
+
+
+def footer_cols(cols):
+    out = []
+    for title, links in cols:
+        items = "".join(
+            f'<li><a href="{u}"' + (' target="_blank" rel="noopener nofollow"' if u.startswith("http") else "") + f'>{esc(t)}</a></li>'
+            for t, u in links)
+        out.append(f'<div class="f-col"><b>{esc(title)}</b><ul>{items}</ul></div>')
+    return '<div class="f-cols">' + "".join(out) + "</div>"
 
 def price_line():
     s = f'{CFG["trial"]}, дальше {CFG["price"]}'
@@ -537,6 +549,9 @@ def trust_block():
 
 def page(title, description, path, body, jsonld=None, og_type="website", lang="ru"):
     url = f"{SITE}{path}"
+    suf = f" | {BRAND}"
+    if title.endswith(suf) and len(title) > 64:
+        title = title[:-len(suf)]
     en = lang == "en"
     rp = ru_path(path)
     if rp in EN_PAGES:
@@ -546,30 +561,30 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
         sw = (f'<a class="lang" href="/" hreflang="ru" lang="ru">RU</a>' if en
               else f'<a class="lang" href="/en/" hreflang="en" lang="en">EN</a>')
     pre = "/en" if en else ""
+    alt_lang_href = (rp if rp in EN_PAGES else "/") if en else (f"/en{rp}" if rp in EN_PAGES else "/en/")
+    alt_lang_label = "Русская версия" if en else "English version"
     if en:
         nav = (f'<a href="/en/check/">Check</a><a href="/en/#prices">Plans</a>'
                f'<a class="hide-xs" href="/en/podklyuchenie/">Setup</a><a class="btn-s" href="{BOT}" rel="nofollow">Try free</a>')
-        foot_l = f"© {today_msk().year} {BRAND}. Guides on stable internet access in Russia."
-        foot_r = (f'<a href="/en/podklyuchenie/">How to connect</a> · <a href="/en/blog/">Articles</a> · '
-                  f'<a href="/en/index-blokirovok/">Blocking index</a> · <a href="/en/informer/">Widget</a> · '
-                  f'<a href="/en/operator/mts/">MTS</a> · <a href="/en/operator/beeline/">Beeline</a> · '
-                  f'<a href="/en/operator/megafon/">MegaFon</a> · <a href="/en/operator/t2/">T2</a> · '
-                  f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">Reviews</a> · '
-                  f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Support</a> · '
-                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram channel</a>')
+        foot_l = "Guides on stable internet access in Russia: blocking status, internet check, setup."
+        foot_r = footer_cols([
+            ("Service", [("Try 3 days free", BOT), ("Plans", "/en/#prices"), ("How to connect", "/en/podklyuchenie/"), ("Support", SUPPORT)]),
+            ("Tools", [("Internet check", "/en/check/"), ("Whitelist check", "/en/check/#wl"), ("Blocking status", "/en/status/"), ("Blocking index", "/en/index-blokirovok/")]),
+            ("Carriers", [("MTS", "/en/operator/mts/"), ("Beeline", "/en/operator/beeline/"), ("MegaFon", "/en/operator/megafon/"), ("T2", "/en/operator/t2/")]),
+            ("More", [("Articles", "/en/blog/"), ("Reviews", VPNSTATUS), ("Telegram channel", CHANNEL), ("Site widget", "/en/informer/")]),
+        ])
         home_label, menu_label, locale = "home", "Main menu", "en_US"
         theme_label = "Light or dark theme"
     else:
         nav = (f'<a href="/check/">Проверка</a><a href="/#prices">Тарифы</a>'
                f'<a class="hide-xs" href="/podklyuchenie/">Инструкция</a><a class="btn-s" href="{BOT}" rel="nofollow">Попробовать</a>')
-        foot_l = f"© {today_msk().year} {BRAND}. Справочные материалы о стабильном доступе к интернету."
-        foot_r = (f'<a href="/podklyuchenie/">Как подключить</a> · <a href="/blog/">Статьи</a> · '
-                  f'<a href="/index-blokirovok/">Индекс блокировок</a> · <a href="/informer/">Информер</a> · '
-                  f'<a href="/operator/mts/">МТС</a> · <a href="/operator/beeline/">Билайн</a> · '
-                  f'<a href="/operator/megafon/">МегаФон</a> · <a href="/operator/t2/">Т2</a> · '
-                  f'<a href="{VPNSTATUS}" target="_blank" rel="noopener">Отзывы</a> · '
-                  f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Поддержка</a> · '
-                  f'<a href="{CHANNEL}" target="_blank" rel="noopener">Telegram-канал</a>')
+        foot_l = "Справочные материалы о стабильном доступе к интернету: статус блокировок, проверка, инструкции."
+        foot_r = footer_cols([
+            ("Сервис", [("Попробовать 3 дня", BOT), ("Тарифы", "/#prices"), ("Как подключить", "/podklyuchenie/"), ("Поддержка", SUPPORT)]),
+            ("Инструменты", [("Проверка интернета", "/check/"), ("Белые списки", "/check/#wl"), ("Статус блокировок", "/status/"), ("Индекс блокировок", "/index-blokirovok/")]),
+            ("Операторы", [("МТС", "/operator/mts/"), ("Билайн", "/operator/beeline/"), ("МегаФон", "/operator/megafon/"), ("Т2", "/operator/t2/")]),
+            ("Ещё", [("Статьи", "/blog/"), ("Отзывы", VPNSTATUS), ("Telegram-канал", CHANNEL), ("Информер для сайта", "/informer/")]),
+        ])
         home_label, menu_label, locale = "на главную", "Основное меню", "ru_RU"
         theme_label = "Светлая или тёмная тема"
     ld = ""
@@ -612,8 +627,8 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <main><div class="wrap">
 {body}
 </div></main>
-<footer><div class="wrap"><span>{foot_l}</span>
-<span>{foot_r}</span></div></footer>
+<footer><div class="wrap"><div class="f-top"><div class="f-brand"><a class="logo" href="{pre}/"><i><b></b></i>{BRAND}</a><p>{foot_l}</p></div>{foot_r}</div>
+<div class="f-bot"><span>© {today_msk().year} {BRAND}</span><a href="{alt_lang_href}">{alt_lang_label}</a></div></div></footer>
 {assistant_html(lang)}
 </body>
 </html>
