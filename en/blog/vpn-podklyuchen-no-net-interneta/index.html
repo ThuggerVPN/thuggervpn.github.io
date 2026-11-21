@@ -8,6 +8,10 @@
 <link rel="canonical" href="https://thuggervpn.github.io/en/blog/vpn-podklyuchen-no-net-interneta/">
 <link rel="alternate" hreflang="ru" href="https://thuggervpn.github.io/blog/vpn-podklyuchen-no-net-interneta/"><link rel="alternate" hreflang="en" href="https://thuggervpn.github.io/en/blog/vpn-podklyuchen-no-net-interneta/"><link rel="alternate" hreflang="x-default" href="https://thuggervpn.github.io/blog/vpn-podklyuchen-no-net-interneta/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/en/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/app/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ThuggerVPN"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="alternate" type="application/rss+xml" title="ThuggerVPN" href="https://thuggervpn.github.io/en/feed.xml">
 <link rel="preload" href="/assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="article">
@@ -20,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0b10" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f5fa" media="(prefers-color-scheme: light)">
-<script>(function(){var d=document.documentElement,k='theme',m=matchMedia('(prefers-color-scheme: light)');try{var t=localStorage.getItem(k);if(t)d.setAttribute('data-theme',t)}catch(e){}function cur(){return d.getAttribute('data-theme')||(m.matches?'light':'dark')}function meta(){var c=cur()==='light'?'#f5f5fa':'#0a0b10';document.querySelectorAll('meta[name=theme-color]').forEach(function(x){x.setAttribute('content',c)})}meta();m.addEventListener&&m.addEventListener('change',meta);document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#theme-t');if(!b)return;var n=cur()==='light'?'dark':'light',sys=m.matches?'light':'dark';try{if(n===sys){localStorage.removeItem(k);d.removeAttribute('data-theme')}else{localStorage.setItem(k,n);d.setAttribute('data-theme',n)}}catch(e){d.setAttribute('data-theme',n)}meta();try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:'theme/'+n,title:'theme '+n,event:true})}catch(e){}})})();</script>
+<script>(function(){var d=document.documentElement,k='theme',m=matchMedia('(prefers-color-scheme: light)');try{var t=localStorage.getItem(k);if(t)d.setAttribute('data-theme',t)}catch(e){}function cur(){return d.getAttribute('data-theme')||(m.matches?'light':'dark')}function meta(){var c=cur()==='light'?'#f5f5fa':'#0a0b10';document.querySelectorAll('meta[name=theme-color]').forEach(function(x){x.setAttribute('content',c)})}meta();m.addEventListener&&m.addEventListener('change',meta);document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#theme-t');if(!b)return;var n=cur()==='light'?'dark':'light',sys=m.matches?'light':'dark';try{if(n===sys){localStorage.removeItem(k);d.removeAttribute('data-theme')}else{localStorage.setItem(k,n);d.setAttribute('data-theme',n)}}catch(e){d.setAttribute('data-theme',n)}meta();try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:'theme/'+n,title:'theme '+n,event:true})}catch(e){}})})();if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});</script>
 
 <script data-goatcounter="https://thuggervpn.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <style>
@@ -185,8 +189,10 @@ footer a{color:var(--link);text-decoration:none}
 .qa-hint{color:var(--muted);font-size:13px;margin:0}
 @media(max-width:560px){.qa-fab span{display:none}.qa-fab{padding:14px}.qa{right:12px;bottom:78px}}
 nav{flex-wrap:nowrap;max-width:100%}nav a{white-space:nowrap}
-@media(max-width:430px){.hide-xs{display:none!important}nav{gap:2px;padding:4px}nav a{padding:8px 9px;font-size:13.5px;min-height:38px}}
-@media(max-width:360px){nav a{padding:7px 7px;font-size:12.5px}.logo{font-size:17px}}
+@media(max-width:600px){header .wrap{gap:12px;padding-top:14px;padding-bottom:12px}nav{width:100%;justify-content:space-between;gap:2px;padding:4px;border-radius:14px}nav a{flex:1 1 auto;justify-content:center;padding:9px 6px;font-size:14px;min-height:42px}nav a.btn-s{flex:1.25 1 auto}}
+@media(max-width:430px){.wrap{padding:0 16px}nav a{font-size:13.5px;padding:9px 4px}}
+@media(max-width:374px){.hide-xs{display:none!important}nav a{font-size:13px}.logo{font-size:17px}}
+.pwa-row{display:flex;gap:16px;align-items:center;margin-bottom:12px}.pwa-p{margin:0 0 18px;color:var(--soft);max-width:680px}button.btn{font-family:inherit;border:0;cursor:pointer}.pwa-row img{border-radius:16px;flex:0 0 auto}.pwa-row h2{margin:0;font-size:26px;line-height:1.2}.pwa ol{margin:14px 0 0;padding-left:22px;color:var(--soft)}.pwa ol li{margin:4px 0}#pwa-and,#pwa-done{margin:14px 0 0}@media(max-width:560px){.pwa-row h2{font-size:21px}.pwa-row img{width:52px;height:52px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "VPN connected but no internet: 5 causes and fixes", "description": "Why your VPN says \"connected\" but pages won't load, and how to fix it in five minutes.", "datePublished": "2026-11-19", "dateModified": "2026-11-19", "inLanguage": "en", "image": "https://thuggervpn.github.io/og2-en.png", "mainEntityOfPage": "https://thuggervpn.github.io/en/blog/vpn-podklyuchen-no-net-interneta/", "author": {"@type": "Organization", "name": "ThuggerVPN", "url": "https://thuggervpn.github.io"}, "publisher": {"@type": "Organization", "name": "ThuggerVPN", "url": "https://thuggervpn.github.io"}}</script>

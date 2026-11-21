@@ -417,6 +417,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
 <div><span>2</span><b>Get the link in the bot</b><small>{TRIAL} - no payment</small></div>
 <div><span>3</span><b>Paste and connect</b><small>"From clipboard" → "Connect"</small></div></div>
 <p style="margin-top:16px"><a href="/en/podklyuchenie/">Detailed guide for your device →</a></p></section>
+{B.pwa_block("en")}
 <section class="sec" id="more"><h2>Useful</h2>
 <details class="acc"><summary>Blocking status · {d(UPD, False)}</summary><div class="st-grid" style="margin-top:14px">{tiles}</div>
 <p style="margin:14px 0 0"><a href="/en/status/">Full summary →</a></p></details>

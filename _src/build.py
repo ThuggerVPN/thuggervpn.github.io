@@ -316,8 +316,10 @@ footer a{color:var(--link);text-decoration:none}
 .qa-hint{color:var(--muted);font-size:13px;margin:0}
 @media(max-width:560px){.qa-fab span{display:none}.qa-fab{padding:14px}.qa{right:12px;bottom:78px}}
 nav{flex-wrap:nowrap;max-width:100%}nav a{white-space:nowrap}
-@media(max-width:430px){.hide-xs{display:none!important}nav{gap:2px;padding:4px}nav a{padding:8px 9px;font-size:13.5px;min-height:38px}}
-@media(max-width:360px){nav a{padding:7px 7px;font-size:12.5px}.logo{font-size:17px}}
+@media(max-width:600px){header .wrap{gap:12px;padding-top:14px;padding-bottom:12px}nav{width:100%;justify-content:space-between;gap:2px;padding:4px;border-radius:14px}nav a{flex:1 1 auto;justify-content:center;padding:9px 6px;font-size:14px;min-height:42px}nav a.btn-s{flex:1.25 1 auto}}
+@media(max-width:430px){.wrap{padding:0 16px}nav a{font-size:13.5px;padding:9px 4px}}
+@media(max-width:374px){.hide-xs{display:none!important}nav a{font-size:13px}.logo{font-size:17px}}
+.pwa-row{display:flex;gap:16px;align-items:center;margin-bottom:12px}.pwa-p{margin:0 0 18px;color:var(--soft);max-width:680px}button.btn{font-family:inherit;border:0;cursor:pointer}.pwa-row img{border-radius:16px;flex:0 0 auto}.pwa-row h2{margin:0;font-size:26px;line-height:1.2}.pwa ol{margin:14px 0 0;padding-left:22px;color:var(--soft)}.pwa ol li{margin:4px 0}#pwa-and,#pwa-done{margin:14px 0 0}@media(max-width:560px){.pwa-row h2{font-size:21px}.pwa-row img{width:52px;height:52px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """
 
@@ -345,8 +347,82 @@ THEME_JS = ("(function(){var d=document.documentElement,k='theme',m=matchMedia('
             "var n=cur()==='light'?'dark':'light',sys=m.matches?'light':'dark';"
             "try{if(n===sys){localStorage.removeItem(k);d.removeAttribute('data-theme')}else{localStorage.setItem(k,n);d.setAttribute('data-theme',n)}}"
             "catch(e){d.setAttribute('data-theme',n)}meta();"
-            "try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:'theme/'+n,title:'theme '+n,event:true})}catch(e){}})})();")
+            "try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:'theme/'+n,title:'theme '+n,event:true})}catch(e){}})})();"
+            "if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});")
 
+
+
+PWA_PAGES = ["/", "/check/", "/podklyuchenie/", "/status/", "/en/", "/en/check/", "/en/podklyuchenie/", "/en/status/"]
+
+
+def write_pwa():
+    """Приложение на экран телефона: манифесты RU/EN и service worker с офлайн-копией главных страниц."""
+    icons = [{"src": "/assets/app/icon-192.png", "sizes": "192x192", "type": "image/png"},
+             {"src": "/assets/app/icon-512.png", "sizes": "512x512", "type": "image/png"},
+             {"src": "/assets/app/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]
+    for pre, lang, desc, sc in (("", "ru", "Проверка VPN, статус блокировок и инструкции", [
+            ("Проверить VPN", "/check/"), ("Как подключить", "/podklyuchenie/"), ("Статус блокировок", "/status/")]),
+            ("/en", "en", "VPN check, blocking status and setup guides", [
+            ("Check VPN", "/en/check/"), ("Setup guide", "/en/podklyuchenie/"), ("Blocking status", "/en/status/")])):
+        man = {"name": BRAND, "short_name": BRAND, "description": desc, "lang": lang,
+               "id": f"{pre}/", "start_url": f"{pre}/?source=app", "scope": "/", "display": "standalone",
+               "background_color": "#0a0b10", "theme_color": "#0a0b10", "icons": icons,
+               "shortcuts": [{"name": n, "url": u} for n, u in sc]}
+        write(f"{pre.strip('/') + '/' if pre else ''}manifest.webmanifest", json.dumps(man, ensure_ascii=False, indent=1))
+    version = datetime.now(MSK).strftime("%Y%m%d%H%M")
+    assets = ["/favicon.svg", "/assets/app/icon-192.png", "/assets/fonts/manrope-cyrillic-wght-normal.woff2",
+              "/assets/fonts/manrope-latin-wght-normal.woff2"]
+    arts = sorted("/" + str(p.parent.relative_to(ROOT)).replace("\\", "/") + "/"
+                  for p in list((ROOT / "blog").glob("*/index.html")) + list((ROOT / "en" / "blog").glob("*/index.html")))
+    sw = SW_JS.replace("__V__", version).replace("__PAGES__", json.dumps(PWA_PAGES + arts)).replace("__ASSETS__", json.dumps(assets))
+    write("sw.js", sw)
+
+
+SW_JS = r"""// ThuggerVPN: офлайн-копия главных страниц. Страницы: сначала сеть, без сети из кэша. Файлы: из кэша.
+var V='tvpn-__V__',PAGES=__PAGES__,ASSETS=__ASSETS__;
+self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return c.addAll(PAGES.concat(ASSETS))}).then(function(){return self.skipWaiting()}))});
+self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k!==V}).map(function(k){return caches.delete(k)}))}).then(function(){return self.clients.claim()}))});
+self.addEventListener('fetch',function(e){var r=e.request,u=new URL(r.url);
+ if(r.method!=='GET'||u.origin!==location.origin)return;
+ if(r.mode==='navigate'){e.respondWith(fetch(r).then(function(res){var cp=res.clone();caches.open(V).then(function(c){c.put(r,cp)});return res})
+  .catch(function(){return caches.match(r,{ignoreSearch:true}).then(function(m){return m||caches.match(u.pathname.indexOf('/en/')===0?'/en/':'/')})}));return;}
+ if(/\.(png|svg|woff2|ico|webp|jpg)$/.test(u.pathname)){e.respondWith(caches.match(r).then(function(m){return m||fetch(r).then(function(res){var cp=res.clone();caches.open(V).then(function(c){c.put(r,cp)});return res})}));}
+});
+"""
+
+
+def pwa_block(lang="ru"):
+    en = lang == "en"
+    t = ({"h": "ThuggerVPN app on your phone's home screen",
+          "p": "An icon on your home screen, like a regular app. VPN check and setup guides in one tap, and the guides open even without internet. Nothing to download from the App Store.",
+          "btn": "Add to home screen", "ios": ["Open this site in Safari.", "Tap Share (the square with an arrow).", "Choose “Add to Home Screen” and tap Add."],
+          "and": "In Chrome open the ⋮ menu and choose “Install app” or “Add to Home screen”.",
+          "note": "If the site stops opening because of blocking, the app still shows the saved guides, and the bot and support are always in Telegram.",
+          "done": "Done: the ThuggerVPN icon is on your home screen."} if en else
+         {"h": "Приложение ThuggerVPN на экране телефона",
+          "p": "Иконка на рабочем столе, как у обычного приложения. Проверка VPN и инструкции в одно касание, а инструкции открываются даже без интернета. Ничего не нужно скачивать из App Store.",
+          "btn": "Установить на телефон", "ios": ["Откройте этот сайт в Safari.", "Нажмите «Поделиться» (квадрат со стрелкой).", "Выберите «На экран Домой» и нажмите «Добавить»."],
+          "and": "В Chrome откройте меню ⋮ и выберите «Установить приложение» или «Добавить на главный экран».",
+          "note": "Если сайт перестанет открываться из-за блокировок, приложение с экрана всё равно покажет сохранённые инструкции, а бот и поддержка всегда в Telegram.",
+          "done": "Готово: иконка ThuggerVPN на экране телефона."})
+    steps = "".join(f"<li>{esc(x)}</li>" for x in t["ios"])
+    return (f'<section class="sec" id="app"><div class="trust2 pwa"><div class="pwa-row"><img src="/assets/app/icon-192.png" alt="" width="64" height="64">'
+            f'<h2>{esc(t["h"])}</h2></div><p class="pwa-p">{esc(t["p"])}</p>'
+            f'<button class="btn" type="button" id="pwa-btn">{esc(t["btn"])}</button>'
+            f'<div id="pwa-ios" hidden><ol>{steps}</ol></div><p id="pwa-and" hidden>{esc(t["and"])}</p><p id="pwa-done" hidden><b>{esc(t["done"])}</b></p>'
+            f'<p class="note">{esc(t["note"])}</p></div></section><script>{PWA_JS}</script>')
+
+
+PWA_JS = ("(function(){var sec=document.getElementById('app');if(!sec)return;"
+          "var st=matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(st){sec.hidden=true;"
+          "try{goatcounter.count({path:'app/open',title:'opened as app',event:true})}catch(e){}return;}"
+          "var dp=null,b=document.getElementById('pwa-btn'),ios=/iphone|ipad|ipod/i.test(navigator.userAgent);"
+          "addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;});"
+          "addEventListener('appinstalled',function(){document.getElementById('pwa-done').hidden=false;b.hidden=true;"
+          "try{goatcounter.count({path:'app/installed',title:'app installed',event:true})}catch(e){}});"
+          "b.addEventListener('click',function(){try{goatcounter.count({path:'app/install-click',title:'install click',event:true})}catch(e){}"
+          "if(dp){dp.prompt();dp.userChoice.then(function(){dp=null});return;}"
+          "document.getElementById(ios?'pwa-ios':'pwa-and').hidden=false;});})();")
 
 def price_line():
     s = f'{CFG["trial"]}, дальше {CFG["price"]}'
@@ -445,6 +521,10 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <link rel="canonical" href="{url}">
 {alt_links(path)}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="{pre}/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/app/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="{BRAND}"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="alternate" type="application/rss+xml" title="{BRAND}" href="{SITE}{pre}/feed.xml">
 <link rel="preload" href="/assets/fonts/manrope-{'latin' if en else 'cyrillic'}-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="{og_type}">
@@ -1231,6 +1311,7 @@ def main():
 <div><span>3</span><b>Вставьте и подключитесь</b><small>«Из буфера» → «Подключиться»</small></div>
 </div><p style="margin-top:16px"><a href="/podklyuchenie/">Подробная инструкция для вашего устройства →</a></p></section>
 
+{pwa_block("ru")}
 <section class="sec" id="more"><h2>Полезное</h2>
 <details class="acc"><summary>Статус блокировок · {ru_date(UPD, year=False)}</summary>
 <div class="st-grid" style="margin-top:14px">{st_tiles}</div>
@@ -1259,6 +1340,7 @@ def main():
 
     import readme
     readme.build(ST, posts, posts_en)
+    write_pwa()
 
     write_feed("feed.xml", f"{BRAND}: статус блокировок и инструкции", f"{SITE}/", "ru", posts, "/blog/", ST)
     write_feed("en/feed.xml", f"{BRAND}: Russia blocking status and VPN guides", f"{SITE}/en/", "en", posts_en, "/en/blog/", ST)
