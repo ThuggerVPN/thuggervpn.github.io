@@ -1,0 +1,19 @@
+name: Check page probes health
+
+# Каждый день проверяет в Chrome, что значки для проверки интернета на /check/ загружаются.
+# Если сервис «сломался» (сменился адрес значка), запуск падает и GitHub присылает письмо.
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  push:
+    branches: [main]
+    paths: ["_src/data/probes.json", "_src/probes_check.py"]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q playwright
+      - run: python3 _src/probes_check.py

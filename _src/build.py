@@ -16,6 +16,7 @@ from zoneinfo import ZoneInfo
 from pathlib import Path
 
 import markdown
+import checker
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "_src"
@@ -675,39 +676,7 @@ def telegram_post(st):
     return "\n".join(lines)
 
 
-PROBE_JS = r"""
-(function(){
-var probes=[
- {id:'ru',name:'Российский сервис (Яндекс)',url:'https://yandex.ru/favicon.ico'},
- {id:'g',name:'Обычный зарубежный сайт (Google)',url:'https://www.google.com/favicon.ico'},
- {id:'tg',name:'Telegram',url:'https://telegram.org/favicon.ico'},
- {id:'ig',name:'Instagram',url:'https://www.instagram.com/favicon.ico'},
- {id:'yt',name:'YouTube',url:'https://www.youtube.com/favicon.ico'}];
-var btn=document.getElementById('ck-run'),list=document.getElementById('ck-list'),out=document.getElementById('ck-out');
-function probe(p){return new Promise(function(res){var t0=performance.now(),done=false,img=new Image();
-var to=setTimeout(function(){if(!done){done=true;img.src='';res({ok:false,ms:7000});}},7000);
-img.onload=function(){if(!done){done=true;clearTimeout(to);res({ok:true,ms:Math.round(performance.now()-t0)});}};
-img.onerror=function(){if(!done){done=true;clearTimeout(to);res({ok:false,ms:Math.round(performance.now()-t0)});}};
-img.src=p.url+'?t='+Date.now();});}
-function row(p,r){var li=document.createElement('li');var dot=document.createElement('span');dot.className='ck-dot';
-dot.style.background=r?(r.ok?(r.ms>3000?'#f59e0b':'#a3e635'):'#f87171'):'#3a3f52';li.appendChild(dot);
-var t=document.createElement('span');t.textContent=p.name;li.appendChild(t);var s=document.createElement('b');
-s.textContent=r?(r.ok?(r.ms>3000?'медленно':'открывается'):'не открывается'):'проверяем…';li.appendChild(s);return li;}
-function verdict(R){var ru=R.ru.ok,g=R.g.ok,blk=R.tg.ok||R.ig.ok;
-if(!ru&&!g&&!blk)return['Похоже, интернета нет вообще','Не открываются даже российские сайты. Так бывает при полном отключении мобильного интернета или слабом сигнале. VPN тут не поможет: подключитесь к Wi-Fi или домашнему интернету.','/status/','Что отключают сегодня'];
-if(ru&&!g&&!blk)return['Похоже на режим белых списков','Российские сервисы открываются, а обычные зарубежные сайты - нет. Это белые списки на мобильном интернете. Подключитесь к Wi-Fi или используйте VPN с обходом белых списков.','/blog/belye-spiski-chto-eto/','Что такое белые списки'];
-if(g&&!blk)return['Интернет есть, но заблокированные сервисы не открываются','Скорее всего, VPN выключен или его сервер заблокирован. Включите VPN, смените сервер или обновите подписку. Если не помогает - пора сменить сервис.','/blog/vpn-podklyuchen-no-net-interneta/','Что делать по шагам'];
-var slow=R.yt.ok&&R.yt.ms>3000;
-return['VPN работает: заблокированные сервисы открываются',slow?'Доступ есть, но YouTube отвечает медленно. Попробуйте сервер в более близкой стране.':'Всё в порядке. Если какое-то приложение всё равно не работает - перезапустите его.','/blog/','Полезные инструкции'];}
-btn.addEventListener('click',function(){btn.disabled=true;btn.textContent='Проверяем…';out.hidden=true;list.textContent='';
-probes.forEach(function(p){list.appendChild(row(p,null));});
-Promise.all(probes.map(probe)).then(function(rs){var R={};list.textContent='';
-probes.forEach(function(p,i){R[p.id]=rs[i];list.appendChild(row(p,rs[i]));});
-var v=verdict(R);document.getElementById('ck-v').textContent=v[0];document.getElementById('ck-t').textContent=v[1];
-var a=document.getElementById('ck-a');a.href=v[2];a.textContent=v[3]+' →';out.hidden=false;
-btn.disabled=false;btn.textContent='Проверить ещё раз';});});
-})();
-"""
+
 
 CHECK_CSS = """<style>
 .ck{padding:28px;border-radius:24px;background:var(--card);border:1px solid var(--line);margin:22px 0}
@@ -954,9 +923,12 @@ def main():
     path = "/check/"
     crumbs = [("Главная", "/"), ("Проверка интернета", path)]
     check_faq = [
-        ("Как работает проверка?", "Страница пробует загрузить маленькие значки с российского сервиса, "
-         "обычного зарубежного сайта и заблокированных сервисов. По тому, что открылось, а что нет, "
-         "видно, что у вас: белые списки, полное отключение или не работает VPN."),
+        ("Как работает проверка?", "Страница пробует загрузить маленькие значки с сайтов: российских, обычных "
+         "зарубежных и заблокированных в России. По тому, что открылось, а что нет, видно, что у вас: белые списки, "
+         "полное отключение, не работает VPN или блокируют только часть сервисов."),
+        ("Как проверить белые списки?", "Откройте вкладку «Белые списки», выключите VPN и Wi-Fi, оставьте мобильный "
+         "интернет и нажмите кнопку. Если открываются только Яндекс, VK, Mail.ru и Авито, а Google и Википедия нет, "
+         "значит, белые списки включены."),
         ("Вы сохраняете мои данные?", "Нет. Проверка идёт целиком в вашем браузере, на наш сервер ничего не отправляется."),
         ("Насколько точен результат?", "Это быстрая приблизительная проверка. Если результат кажется странным - "
          "запустите её ещё раз или сравните мобильный интернет и Wi-Fi."),
@@ -964,23 +936,19 @@ def main():
     faq_html = "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in check_faq)
     body = (f'{CHECK_CSS}<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
             f'<h1>Что с моим интернетом? Проверка за 5 секунд</h1>'
-            f'<p class="lead"><b>Коротко:</b> нажмите кнопку - страница проверит, открываются ли российские '
-            f'сервисы, обычные зарубежные сайты и заблокированные Telegram, Instagram, YouTube, и скажет, что делать.</p>'
-            f'<div class="ck"><button id="ck-run" type="button">Проверить мой интернет</button>'
-            f'<ul id="ck-list" aria-live="polite"></ul>'
-            f'<div class="ck-out" id="ck-out" hidden><h2 id="ck-v"></h2><p id="ck-t"></p>'
-            f'<div class="row"><a id="ck-a" href="/status/">Подробнее →</a>'
-            f'<a href="{BOT}" rel="nofollow">Попробовать {BRAND} {CFG["trial"]} →</a>'
-            f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Написать в поддержку →</a></div></div>'
-            f'<p class="note" style="margin:14px 0 0">Проверка идёт в вашем браузере, мы ничего не сохраняем.</p></div>'
+            f'<p class="lead"><b>Коротко:</b> две проверки в одном месте. «Сайты и VPN» покажет, открываются ли '
+            f'Telegram, WhatsApp, YouTube, Instagram и другие сервисы, которые блокируют в России. «Белые списки» '
+            f'покажет, ограничили ли ваш мобильный интернет. Результат и что делать, за 5-10 секунд.</p>'
+            + checker.widget('ru', BOT, BRAND, CFG['trial'], SUPPORT) +
             f'<h2>Как читать результат</h2><div class="tbl"><table><thead><tr><th>Что видите</th><th>Что это</th><th>Что делать</th></tr></thead><tbody>'
             f'<tr><td>Ничего не открывается</td><td>Интернет отключён или нет сигнала</td><td>Wi-Fi или домашний интернет</td></tr>'
             f'<tr><td>Открывается только российский сервис</td><td>Белые списки</td><td>Wi-Fi или VPN с обходом белых списков</td></tr>'
-            f'<tr><td>Открываются российский и Google, но не Telegram и Instagram</td><td>VPN выключен или заблокирован</td><td>Включить VPN, сменить сервер</td></tr>'
+            f'<tr><td>Открываются Яндекс и Google, но не Telegram, WhatsApp, Instagram</td><td>VPN выключен или заблокирован</td><td>Включить VPN, сменить сервер</td></tr>'
+            f'<tr><td>Открывается большинство, но 1-2 сервиса нет</td><td>Сервер VPN частично блокируют</td><td>Сменить сервер в приложении</td></tr>'
             f'<tr><td>Открывается всё</td><td>VPN работает</td><td>Ничего не нужно</td></tr>'
+            f'<tr><td>«Белые списки»: открываются только Яндекс, VK, Авито</td><td>Белые списки на мобильном</td><td>Wi-Fi или VPN с обходом белых списков</td></tr>'
             f'</tbody></table></div>'
-            f'<h2>Вопросы и ответы</h2>{faq_html}{cta_block()}</article>'
-            f'<script>{PROBE_JS}</script>')
+            f'<h2>Вопросы и ответы</h2>{faq_html}{cta_block()}</article>')
     check_meta = {"title": "Что с моим интернетом? Проверка за 5 секунд",
                   "description": "Бесплатная проверка: белые списки, отключение мобильного интернета или не работает VPN. В браузере, без сохранения данных.",
                   "date": "2026-11-19", "updated": UPD, "faq": check_faq}
@@ -1229,7 +1197,7 @@ def main():
 <div class="st-grid" style="margin-top:14px">{st_tiles}</div>
 <p style="margin:14px 0 0"><a href="/status/">Вся сводка →</a> · <a href="{CHANNEL}" target="_blank" rel="noopener">Сводка каждое утро в Telegram</a></p></details>
 <details class="acc"><summary>Проверить свой интернет за 5 секунд</summary>
-<p style="margin:12px 0">Узнайте, что у вас: белые списки, отключение или не работает VPN.</p><a class="btn" href="/check/">Проверить интернет</a></details>
+<p style="margin:12px 0">Узнайте, что у вас: белые списки, отключение или не работает VPN, и какие сервисы открываются.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin:0"><a class="btn" href="/check/">Проверить сайты и VPN</a><a class="btn-ghost" href="/check/#wl">Проверить белые списки</a></p></details>
 <details class="acc"><summary>Статус по оператору</summary><div class="chips" style="margin-top:14px">{op_chips}</div>
 <p style="margin:14px 0 0"><a href="/index-blokirovok/">Индекс блокировок за неделю →</a></p></details>
 <details class="acc"><summary>Инструкции, если VPN отвалился</summary><div class="bento" style="margin-top:14px">{cards}</div>

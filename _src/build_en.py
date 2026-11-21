@@ -3,6 +3,7 @@ import json
 from datetime import date
 
 import build as B
+import checker
 
 esc = B.esc
 CFG, SITE, BRAND, BOT = B.CFG, B.SITE, B.BRAND, B.BOT
@@ -88,41 +89,6 @@ def status_block(st):
             + table(st["events"][:3]))
 
 
-PROBE_MAP = [
-    ("Российский сервис (Яндекс)", "Russian service (Yandex)"),
-    ("Обычный зарубежный сайт (Google)", "Regular foreign site (Google)"),
-    ("'медленно'", "'slow'"), ("'открывается'", "'opens'"), ("'не открывается'", "'blocked'"),
-    ("'проверяем…'", "'checking…'"),
-    ("'Похоже, интернета нет вообще'", "'Looks like there is no internet at all'"),
-    ("'Не открываются даже российские сайты. Так бывает при полном отключении мобильного интернета или слабом сигнале. VPN тут не поможет: подключитесь к Wi-Fi или домашнему интернету.'",
-     "'Even Russian sites don\\'t open. This happens when mobile internet is fully shut down or the signal is weak. A VPN won\\'t help: connect to Wi-Fi or home internet.'"),
-    ("'/status/','Что отключают сегодня'", "'/en/status/','What is shut down today'"),
-    ("'Похоже на режим белых списков'", "'Looks like whitelist mode'"),
-    ("'Российские сервисы открываются, а обычные зарубежные сайты - нет. Это белые списки на мобильном интернете. Подключитесь к Wi-Fi или используйте VPN с обходом белых списков.'",
-     "'Russian services open but regular foreign sites don\\'t. That\\'s a mobile internet whitelist. Connect to Wi-Fi or use a VPN with whitelist bypass.'"),
-    ("'/blog/belye-spiski-chto-eto/','Что такое белые списки'", "'/en/blog/belye-spiski-chto-eto/','What whitelists are'"),
-    ("'Интернет есть, но заблокированные сервисы не открываются'", "'Internet works, but blocked services don\\'t open'"),
-    ("'Скорее всего, VPN выключен или его сервер заблокирован. Включите VPN, смените сервер или обновите подписку. Если не помогает - пора сменить сервис.'",
-     "'Your VPN is probably off or its server is blocked. Turn the VPN on, change the server or refresh the subscription. If that doesn\\'t help, it\\'s time to switch services.'"),
-    ("'/blog/vpn-podklyuchen-no-net-interneta/','Что делать по шагам'", "'/en/blog/vpn-podklyuchen-no-net-interneta/','What to do, step by step'"),
-    ("'VPN работает: заблокированные сервисы открываются'", "'VPN works: blocked services open'"),
-    ("'Доступ есть, но YouTube отвечает медленно. Попробуйте сервер в более близкой стране.'",
-     "'Access works, but YouTube responds slowly. Try a server in a closer country.'"),
-    ("'Всё в порядке. Если какое-то приложение всё равно не работает - перезапустите его.'",
-     "'All good. If some app still doesn\\'t work, restart it.'"),
-    ("'/blog/','Полезные инструкции'", "'/en/blog/','Helpful guides'"),
-    ("'Проверяем…'", "'Checking…'"), ("'Проверить ещё раз'", "'Check again'"),
-]
-
-
-def probe_js():
-    js = B.PROBE_JS
-    for a, b in PROBE_MAP:
-        assert a in js, a
-        js = js.replace(a, b)
-    return js
-
-
 def faq_html(faq):
     return "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq if a)
 
@@ -170,23 +136,24 @@ def build(ST):
     crumbs = [home_c, ("Internet check", path)]
     cfaq = [("How does the check work?", "The page tries to load tiny icons from a Russian service, a regular foreign site "
              "and blocked services. What loads and what doesn't shows whether you have a whitelist, a full shutdown or a VPN problem."),
+            ("How do I check for a whitelist?", "Open the Whitelist tab, turn off VPN and Wi-Fi, keep mobile data and press the button. "
+             "If only Yandex, VK, Mail.ru and Avito open while Google and Wikipedia don't, whitelist mode is on."),
             ("Do you store my data?", "No. The check runs entirely in your browser; nothing is sent to our server."),
             ("How accurate is it?", "It's a quick approximate check. If the result looks odd, run it again or compare mobile data and Wi-Fi.")]
     body = (f'{B.CHECK_CSS}<article class="narrow" style="margin:0 auto">{B.crumbs_html(crumbs)}'
             f'<h1>What\'s wrong with my internet? 5-second check</h1>'
-            f'<p class="lead"><b>In short:</b> press the button - the page checks whether Russian services, regular foreign sites '
-            f'and blocked Telegram, Instagram and YouTube open, and tells you what to do.</p>'
-            f'<div class="ck"><button id="ck-run" type="button">Check my internet</button><ul id="ck-list" aria-live="polite"></ul>'
-            f'<div class="ck-out" id="ck-out" hidden><h2 id="ck-v"></h2><p id="ck-t"></p><div class="row">'
-            f'<a id="ck-a" href="/en/status/">More →</a><a href="{BOT}" rel="nofollow">Try {BRAND}, {TRIAL} →</a>'
-            f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Message support →</a></div></div>'
-            f'<p class="note" style="margin:14px 0 0">The check runs in your browser; we store nothing.</p></div>'
+            f'<p class="lead"><b>In short:</b> two checks in one place. "Sites and VPN" shows whether Telegram, WhatsApp, '
+            f'YouTube, Instagram and other services blocked in Russia open. "Whitelist" shows whether your mobile internet is restricted. '
+            f'Result and what to do in 5-10 seconds.</p>'
+            + checker.widget('en', BOT, BRAND, TRIAL, SUPPORT) +
             f'<h2>How to read the result</h2><div class="tbl"><table><thead><tr><th>What you see</th><th>What it is</th><th>What to do</th></tr></thead><tbody>'
             f'<tr><td>Nothing opens</td><td>Internet is shut down or no signal</td><td>Wi-Fi or home internet</td></tr>'
             f'<tr><td>Only the Russian service opens</td><td>Whitelist</td><td>Wi-Fi or a VPN with whitelist bypass</td></tr>'
-            f'<tr><td>Russian service and Google open, Telegram and Instagram don\'t</td><td>VPN off or blocked</td><td>Turn on the VPN, change server</td></tr>'
-            f'<tr><td>Everything opens</td><td>VPN works</td><td>Nothing needed</td></tr></tbody></table></div>'
-            f'<h2>FAQ</h2>{faq_html(cfaq)}{cta()}</article><script>{probe_js()}</script>')
+            f'<tr><td>Yandex and Google open, Telegram, WhatsApp, Instagram don\'t</td><td>VPN off or blocked</td><td>Turn on the VPN, change server</td></tr>'
+            f'<tr><td>Most open, but 1-2 services don\'t</td><td>The VPN server is partly blocked</td><td>Change server in the app</td></tr>'
+            f'<tr><td>Everything opens</td><td>VPN works</td><td>Nothing needed</td></tr>'
+            f'<tr><td>"Whitelist": only Yandex, VK, Avito open</td><td>Mobile whitelist mode</td><td>Wi-Fi or a VPN with whitelist bypass</td></tr></tbody></table></div>'
+            f'<h2>FAQ</h2>{faq_html(cfaq)}{cta()}</article>')
     meta = {"title": "What's wrong with my internet? 5-second check", "date": "2026-11-19", "updated": UPD, "faq": cfaq,
             "description": "Free check: whitelist, mobile internet shutdown or a VPN problem. Runs in your browser, no data stored."}
     B.write("en/check/index.html", page(f'{meta["title"]} | {BRAND}', meta["description"], path, body, jsonld(meta, path, crumbs)))
@@ -444,7 +411,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
 <section class="sec" id="more"><h2>Useful</h2>
 <details class="acc"><summary>Blocking status · {d(UPD, False)}</summary><div class="st-grid" style="margin-top:14px">{tiles}</div>
 <p style="margin:14px 0 0"><a href="/en/status/">Full summary →</a></p></details>
-<details class="acc"><summary>Check your internet in 5 seconds</summary><p style="margin:12px 0">Find out what you have: whitelist, shutdown or a VPN problem.</p><a class="btn" href="/en/check/">Check internet</a></details>
+<details class="acc"><summary>Check your internet in 5 seconds</summary><p style="margin:12px 0">Find out what you have: whitelist, shutdown or a VPN problem, and which services open.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin:0"><a class="btn" href="/en/check/">Check sites and VPN</a><a class="btn-ghost" href="/en/check/#wl">Check whitelist</a></p></details>
 <details class="acc"><summary>Status by carrier</summary><div class="chips" style="margin-top:14px">{chips}</div>
 <p style="margin:14px 0 0"><a href="/en/index-blokirovok/">Weekly blocking index →</a></p></details>
 <details class="acc"><summary>Guides if your VPN drops</summary><div class="bento" style="margin-top:14px">{cards}</div>

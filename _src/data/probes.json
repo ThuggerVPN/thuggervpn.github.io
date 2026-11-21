@@ -1,0 +1,165 @@
+{
+  "_note": "Адреса значков для проверки на /check/. Каждый должен отдавать картинку без заголовка Cross-Origin-Resource-Policy: same-origin, иначе браузер не загрузит её и сервис всегда будет «не открывается». Проверяет .github/workflows/probes-health.yml.",
+  "control": [
+    {
+      "id": "ru",
+      "name": "Яндекс",
+      "name_en": "Yandex",
+      "urls": [
+        "https://yandex.ru/favicon.ico",
+        "https://mail.ru/favicon.ico"
+      ]
+    },
+    {
+      "id": "g",
+      "name": "Google",
+      "name_en": "Google",
+      "urls": [
+        "https://www.google.com/favicon.ico",
+        "https://www.cloudflare.com/favicon.ico"
+      ]
+    }
+  ],
+  "blocked": [
+    {
+      "id": "tg",
+      "name": "Telegram",
+      "urls": [
+        "https://telegram.org/favicon.ico",
+        "https://web.telegram.org/favicon.ico"
+      ]
+    },
+    {
+      "id": "wa",
+      "name": "WhatsApp",
+      "urls": [
+        "https://static.whatsapp.net/rsrc.php/yd/r/PfkSLByWV8O.webp",
+        "https://static.whatsapp.net/rsrc.php/y1/r/FJbTMJqMap7.svg"
+      ]
+    },
+    {
+      "id": "yt",
+      "name": "YouTube",
+      "urls": [
+        "https://www.youtube.com/favicon.ico",
+        "https://i.ytimg.com/vi/dQw4w9WgXcQ/default.jpg"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "Instagram",
+      "urls": [
+        "https://static.cdninstagram.com/rsrc.php/y4/r/QaBlI0OZiks.ico"
+      ]
+    },
+    {
+      "id": "fb",
+      "name": "Facebook",
+      "urls": [
+        "https://www.facebook.com/favicon.ico",
+        "https://www.facebook.com/images/fb_icon_325x325.png"
+      ]
+    },
+    {
+      "id": "x",
+      "name": "X (Twitter)",
+      "urls": [
+        "https://x.com/favicon.ico",
+        "https://abs.twimg.com/favicons/twitter.3.ico"
+      ]
+    },
+    {
+      "id": "dc",
+      "name": "Discord",
+      "urls": [
+        "https://cdn.discordapp.com/embed/avatars/0.png"
+      ]
+    },
+    {
+      "id": "li",
+      "name": "LinkedIn",
+      "urls": [
+        "https://www.linkedin.com/favicon.ico"
+      ]
+    },
+    {
+      "id": "sg",
+      "name": "Signal",
+      "urls": [
+        "https://signal.org/favicon.ico"
+      ]
+    },
+    {
+      "id": "vb",
+      "name": "Viber",
+      "urls": [
+        "https://www.viber.com/app/themes/viber/assets/images/favicon-v2/favicon-32x32.png",
+        "https://www.viber.com/app/themes/viber/assets/images/favicon-v2/apple-icon-57x57.png"
+      ]
+    }
+  ],
+  "whitelist": [
+    {
+      "id": "w1",
+      "name": "Яндекс",
+      "name_en": "Yandex",
+      "urls": [
+        "https://yandex.ru/favicon.ico"
+      ]
+    },
+    {
+      "id": "w2",
+      "name": "ВКонтакте",
+      "name_en": "VK",
+      "urls": [
+        "https://vk.com/favicon.ico"
+      ]
+    },
+    {
+      "id": "w3",
+      "name": "Mail.ru",
+      "urls": [
+        "https://mail.ru/favicon.ico"
+      ]
+    },
+    {
+      "id": "w4",
+      "name": "Авито",
+      "urls": [
+        "https://www.avito.ru/favicon.ico"
+      ],
+      "name_en": "Avito"
+    }
+  ],
+  "open": [
+    {
+      "id": "o1",
+      "name": "Google",
+      "urls": [
+        "https://www.google.com/favicon.ico"
+      ]
+    },
+    {
+      "id": "o2",
+      "name": "Википедия",
+      "name_en": "Wikipedia",
+      "urls": [
+        "https://www.wikipedia.org/static/favicon/wikipedia.ico"
+      ]
+    },
+    {
+      "id": "o3",
+      "name": "Cloudflare",
+      "urls": [
+        "https://www.cloudflare.com/favicon.ico"
+      ]
+    },
+    {
+      "id": "o4",
+      "name": "Stack Overflow",
+      "urls": [
+        "https://stackoverflow.com/favicon.ico"
+      ]
+    }
+  ]
+}
