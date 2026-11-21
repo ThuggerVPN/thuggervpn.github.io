@@ -6,6 +6,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+import urllib.error
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -18,7 +19,13 @@ UA = {"Accept": "application/json", "User-Agent": "Mozilla/5.0 (ThuggerVPN site 
 
 
 def get(url):
-    return json.load(urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30))
+    for i in range(4):
+        try:
+            return json.load(urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30))
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or i == 3:
+                raise
+            time.sleep(20 * (i + 1))
 
 
 def ru_nodes():
@@ -74,6 +81,7 @@ def main():
         blocked = fail >= 2 and ok == 0
         status[h] = {"ok": not blocked, "ru_ok": ok, "ru_fail": fail}
         print(f"{h}: из России открывается {ok}, не открывается {fail}")
+        time.sleep(3)
     if not status:
         return 0
     prev = state.get("active", HOSTS[0])
