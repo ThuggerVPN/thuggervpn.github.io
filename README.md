@@ -7,7 +7,7 @@
 **Статус блокировок в России, проверка интернета за 5 секунд и инструкции по VPN**<br>
 <sub>Russia internet blocking status, a 5-second connection check and VPN setup guides · <a href="#-english">English ↓</a></sub>
 
-<a href="https://thuggervpn.github.io/"><img src="https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-thuggervpn.github.io-8b5cf6?style=for-the-badge" alt="сайт: thuggervpn.github.io"></a> <a href="https://thuggervpn.github.io/en/"><img src="https://img.shields.io/badge/English-version-6d28d9?style=for-the-badge" alt="English: version"></a> <a href="https://t.me/ThuggerVPN_bot"><img src="https://img.shields.io/badge/%D0%B1%D0%BE%D1%82-3%20%D0%B4%D0%BD%D1%8F%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="бот: 3 дня бесплатно"></a> <a href="https://t.me/ThuggerVPN"><img src="https://img.shields.io/badge/%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB-%40ThuggerVPN-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="канал: @ThuggerVPN"></a> <a href="https://vpnstatus.site/vpn/thuggervpn"><img src="https://img.shields.io/badge/vpnstatus-%E2%98%85%205.0%20%C2%B7%2017%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BE%D0%BA-f5b301?style=for-the-badge" alt="vpnstatus: ★ 5.0 · 17 оценок"></a> <a href="https://thuggervpn.github.io/status/"><img src="https://img.shields.io/badge/%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BE-2026--11--21-1f2937?style=for-the-badge" alt="обновлено: 2026-11-21"></a>
+<a href="https://thuggervpn.github.io/"><img src="https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-thuggervpn.github.io-8b5cf6?style=for-the-badge" alt="сайт: thuggervpn.github.io"></a> <a href="https://thuggervpn.github.io/en/"><img src="https://img.shields.io/badge/English-version-6d28d9?style=for-the-badge" alt="English: version"></a> <a href="https://t.me/ThuggerVPN_bot"><img src="https://img.shields.io/badge/%D0%B1%D0%BE%D1%82-3%20%D0%B4%D0%BD%D1%8F%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="бот: 3 дня бесплатно"></a> <a href="https://t.me/ThuggerVPN"><img src="https://img.shields.io/badge/%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB-%40ThuggerVPN-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="канал: @ThuggerVPN"></a> <a href="https://vpnstatus.site/vpn/thuggervpn"><img src="https://img.shields.io/badge/vpnstatus-%E2%98%85%205.0%20%C2%B7%2019%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BE%D0%BA-f5b301?style=for-the-badge" alt="vpnstatus: ★ 5.0 · 19 оценок"></a> <a href="https://thuggervpn.github.io/status/"><img src="https://img.shields.io/badge/%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BE-2026--11--21-1f2937?style=for-the-badge" alt="обновлено: 2026-11-21"></a>
 
 <a href="https://thuggervpn.github.io/check/"><b>Проверить интернет</b></a> · <a href="https://thuggervpn.github.io/status/"><b>Статус сегодня</b></a> · <a href="https://thuggervpn.github.io/podklyuchenie/"><b>Как подключить</b></a> · <a href="https://t.me/ThuggerVPN_bot"><b>Попробовать бесплатно</b></a>
 
@@ -85,15 +85,15 @@ iPhone, Android, Windows, macOS и телевизор - по шагам. Отд�
 
 ## ⭐ Отзывы клиентов
 
-Независимый каталог [vpnstatus.site](https://vpnstatus.site/vpn/thuggervpn): **5.0 из 5**, 17 оценок, 100% отметили «работает». Данные на 21 ноября 2026.
+Независимый каталог [vpnstatus.site](https://vpnstatus.site/vpn/thuggervpn): **5.0 из 5**, 19 оценок, 100% отметили «работает». Данные на 21 ноября 2026.
 
 | Оператор | Работает | Обход белых списков |
 |---|---|---|
 | МТС | 2/2 ✅ | 1/1 ✅ |
-| МегаФон | 2/2 ✅ | 1/1 ✅ |
+| МегаФон | 3/3 ✅ | 1/1 ✅ |
 | Билайн | 3/3 ✅ | 3/3 ✅ |
 | Т2 | 2/2 ✅ | 1/1 ✅ |
-| Домашний интернет | 8/8 ✅ | - |
+| Домашний интернет | 9/9 ✅ | - |
 
 Пользовались ThuggerVPN? [Отметьте своего оператора](https://vpnstatus.site/vpn/thuggervpn) - это помогает другим выбрать.
 
