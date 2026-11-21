@@ -1,5 +1,6 @@
 Статус блокировок от сервиса ThuggerVPN. Каждое утро: где отключили мобильный интернет, где белые списки и что делать.
 
 Проверить интернет: thuggervpn.github.io/check
+Запасной адрес: thugger-vpn.github.io
 VPN: @ThuggerVPN_bot
 Поддержка: @ThuggerVPN_supp

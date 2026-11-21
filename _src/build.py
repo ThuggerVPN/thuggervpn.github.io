@@ -428,13 +428,13 @@ def pwa_block(lang="ru"):
           "p": "An icon on your home screen, like a regular app. VPN check and setup guides in one tap, and the guides open even without internet. Nothing to download from the App Store.",
           "btn": "Add to home screen", "ios": ["Open this site in Safari.", "Tap Share (the square with an arrow).", "Choose “Add to Home Screen” and tap Add."],
           "and": "In Chrome open the ⋮ menu and choose “Install app” or “Add to Home screen”.",
-          "note": "If the site stops opening because of blocking, the app still shows the saved guides, and the bot and support are always in Telegram.",
+          "note": "If the site stops opening because of blocking, the app still shows the saved guides, and the bot and support are always in Telegram." + (f" Backup address: {MIRRORS[0].split('//')[1]}." if MIRRORS else ""),
           "done": "Done: the ThuggerVPN icon is on your home screen."} if en else
          {"h": "Приложение ThuggerVPN на экране телефона",
           "p": "Иконка на рабочем столе, как у обычного приложения. Проверка VPN и инструкции в одно касание, а инструкции открываются даже без интернета. Ничего не нужно скачивать из App Store.",
           "btn": "Установить на телефон", "ios": ["Откройте этот сайт в Safari.", "Нажмите «Поделиться» (квадрат со стрелкой).", "Выберите «На экран Домой» и нажмите «Добавить»."],
           "and": "В Chrome откройте меню ⋮ и выберите «Установить приложение» или «Добавить на главный экран».",
-          "note": "Если сайт перестанет открываться из-за блокировок, приложение с экрана всё равно покажет сохранённые инструкции, а бот и поддержка всегда в Telegram.",
+          "note": "Если сайт перестанет открываться из-за блокировок, приложение с экрана всё равно покажет сохранённые инструкции, а бот и поддержка всегда в Telegram." + (f" Запасной адрес сайта: {MIRRORS[0].split('//')[1]}." if MIRRORS else ""),
           "done": "Готово: иконка ThuggerVPN на экране телефона."})
     steps = "".join(f"<li>{esc(x)}</li>" for x in t["ios"])
     return (f'<section class="sec" id="app"><div class="trust2 pwa"><div class="pwa-row"><img src="/assets/app/icon-192.png" alt="" width="64" height="64">'

@@ -49,5 +49,8 @@
     "whitelist_detail": "+100 ₽ per month, 100 GB on dedicated LTE servers"
   },
   "bot_ref_url": "https://t.me/ThuggerVPN_bot?start=309006619",
-  "goatcounter": "thuggervpn"
+  "goatcounter": "thuggervpn",
+  "mirrors": [
+    "https://thugger-vpn.github.io"
+  ]
 }
