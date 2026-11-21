@@ -51,7 +51,7 @@ T = {
 
 CSS = """<style>
 .ck-tabs{display:flex;gap:8px;margin:0 0 16px;flex-wrap:wrap}
-.ck .ck-tabs button{background:var(--card2);color:var(--soft);border:1px solid #2b2f44;font-size:15px;padding:11px 18px;min-height:44px;border-radius:999px}
+.ck .ck-tabs button{background:var(--card2);color:var(--soft);border:1px solid var(--line2);font-size:15px;padding:11px 18px;min-height:44px;border-radius:999px}
 .ck .ck-tabs button[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:#fff}
 .ck-hint{color:var(--soft);margin:0 0 14px;font-size:15px}
 .ck-g{margin:16px 0 0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
