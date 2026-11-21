@@ -1,7 +1,40 @@
 {
  "source": "https://thuggervpn.github.io/index-blokirovok/",
- "updated": "2026-11-20",
+ "updated": "2026-11-21",
  "events": [
+  {
+   "date": "2026-11-21",
+   "region": "Удмуртия, Иркутская, Псковская, Тюменская и Новосибирская области, Красноярский край, Хакасия",
+   "operators": [
+    "all"
+   ],
+   "type": "outage",
+   "title": "Отключения и ограничения скорости мобильного интернета из-за угрозы БПЛА",
+   "source": "Метарейтинг",
+   "url": "https://cybersport.metaratings.ru/articles/gde-segodnya-19-iyunya-2025-goda-otklyuchili-mobilnyi-internet-v-rossii-aktualnaya-informaciya/"
+  },
+  {
+   "date": "2026-11-20",
+   "region": "Санкт-Петербург, Ленинградская область",
+   "operators": [
+    "all"
+   ],
+   "type": "slow",
+   "title": "Утром после ночного сбоя жалобы снова выросли: около 4,9 тысячи за сутки, у части пропадал и Wi-Fi",
+   "source": "Форпост Северо-Запад (по данным Downdetector)",
+   "url": "https://forpost-sz.ru/a/2026-11-20/peterburzhcy-vnov-pozhalovalis-na-sboi-mobilnogo-interneta"
+  },
+  {
+   "date": "2026-11-20",
+   "region": "Россия (больше всего жалоб: Иваново, Новосибирск, Челябинск)",
+   "operators": [
+    "all"
+   ],
+   "type": "service",
+   "title": "Сбой Telegram: с 7:15 не отправлялись сообщения, не грузились медиа и звонки",
+   "source": "Метарейтинг",
+   "url": "https://cybersport.metaratings.ru/articles/chto-proishodit-s-telegram-segodnya/"
+  },
   {
    "date": "2026-11-20",
    "region": "Санкт-Петербург",

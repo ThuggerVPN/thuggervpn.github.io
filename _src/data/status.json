@@ -1,7 +1,52 @@
 {
   "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата - дата события по Москве. updated - момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ. Для английской версии сайта заполняйте region_en, title_en, meaning_en (перевод).",
-  "updated": "2026-11-20 08:54",
+  "updated": "2026-11-21 08:55",
   "events": [
+    {
+      "date": "2026-11-21",
+      "region": "Удмуртия, Иркутская, Псковская, Тюменская и Новосибирская области, Красноярский край, Хакасия",
+      "operators": [
+        "all"
+      ],
+      "type": "outage",
+      "title": "Отключения и ограничения скорости мобильного интернета из-за угрозы БПЛА",
+      "meaning": "Интернет обычно отключают сразу после предупреждения о беспилотниках и возвращают после отбоя. В это время стабильнее всего домашний Wi-Fi",
+      "source": "Метарейтинг",
+      "url": "https://cybersport.metaratings.ru/articles/gde-segodnya-19-iyunya-2025-goda-otklyuchili-mobilnyi-internet-v-rossii-aktualnaya-informaciya/",
+      "region_en": "Udmurtia, Irkutsk, Pskov, Tyumen and Novosibirsk regions, Krasnoyarsk Krai, Khakassia",
+      "title_en": "Mobile internet shutdowns and speed limits over drone threats",
+      "meaning_en": "Internet is usually cut right after a drone warning and restored once it ends. Home Wi-Fi is the most stable option meanwhile"
+    },
+    {
+      "date": "2026-11-20",
+      "region": "Санкт-Петербург, Ленинградская область",
+      "operators": [
+        "all"
+      ],
+      "type": "slow",
+      "title": "Утром после ночного сбоя жалобы снова выросли: около 4,9 тысячи за сутки, у части пропадал и Wi-Fi",
+      "meaning": "Сайты не открывались, жаловались и на Ozon, Ozon Банк, «Честный знак». Если VPN не подключается, сначала проверьте, работает ли интернет без него",
+      "source": "Форпост Северо-Запад (по данным Downdetector)",
+      "url": "https://forpost-sz.ru/a/2026-11-20/peterburzhcy-vnov-pozhalovalis-na-sboi-mobilnogo-interneta",
+      "region_en": "Saint Petersburg, Leningrad Region",
+      "title_en": "Complaints rose again in the morning after the overnight outage: about 4,900 in a day, some also lost Wi-Fi",
+      "meaning_en": "Sites wouldn't load, people also reported problems with Ozon, Ozon Bank and Chestny Znak. If your VPN won't connect, first check whether the internet works without it"
+    },
+    {
+      "date": "2026-11-20",
+      "region": "Россия (больше всего жалоб: Иваново, Новосибирск, Челябинск)",
+      "operators": [
+        "all"
+      ],
+      "type": "service",
+      "title": "Сбой Telegram: с 7:15 не отправлялись сообщения, не грузились медиа и звонки",
+      "meaning": "Жалобы в основном на мобильное приложение. Официальной причины нет. Если Telegram не подключается, помогает переподключение VPN или смена сервера",
+      "source": "Метарейтинг",
+      "url": "https://cybersport.metaratings.ru/articles/chto-proishodit-s-telegram-segodnya/",
+      "region_en": "Russia (most complaints: Ivanovo, Novosibirsk, Chelyabinsk)",
+      "title_en": "Telegram disruption: from 7:15 a.m. messages wouldn't send, media and calls failed",
+      "meaning_en": "Complaints were mostly about the mobile app. No official cause. If Telegram won't connect, reconnecting the VPN or switching servers helps"
+    },
     {
       "date": "2026-11-20",
       "region": "Санкт-Петербург",
