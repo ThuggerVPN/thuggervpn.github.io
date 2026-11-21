@@ -351,6 +351,8 @@ nav a.btn-s{border-radius:10px}
 .note,.t-sub,.usp span,.steps3 small{font-size:14.5px}
 footer{font-size:14px}
 @media(max-width:600px){body .st4>div{grid-template-columns:40px 1fr;gap:12px;padding:16px}body .st4 .n{width:40px;height:40px;border-radius:12px;font-size:17px}body .st4 h3{font-size:17.5px}.btn,.btn-ghost{text-align:center}.usp .u{padding:14px 16px}.plans{gap:10px}.plan{padding:16px 14px}.btn,.btn-ghost{width:100%;justify-content:center}.row{gap:10px}.hero .row .btn-ghost{width:100%}}
+.qa-dot{display:none;width:10px;height:10px;border-radius:50%;background:#a3e635;box-shadow:0 0 0 2px var(--accent)}.qa-fab.has-new .qa-dot{display:block}.qa-human{margin-top:14px;border-top:1px solid var(--line2);padding-top:14px}.qa-call{width:100%;min-height:46px;border-radius:12px;border:1px solid var(--line2);background:var(--card2);color:var(--text);font:700 15px Manrope,sans-serif;cursor:pointer}.qa-call:hover{border-color:var(--line-hi)}.qa-thread{max-height:220px;overflow:auto;display:flex;flex-direction:column;gap:8px;margin:0 0 10px}.qa-m{padding:10px 12px;border-radius:12px;font-size:14.5px;line-height:1.45;max-width:88%}.qa-m b{display:block;font-size:12px;opacity:.7;margin-bottom:2px}.qa-m.me{align-self:flex-end;background:var(--accent);color:#fff}.qa-m.op{align-self:flex-start;background:var(--card2);border:1px solid var(--line2)}.qa-m.sys{align-self:center;background:none;color:var(--muted);font-size:13px;text-align:center;padding:2px}#qa-send{display:flex;flex-direction:column;gap:8px}#qa-send textarea,#qa-send input{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line2);border-radius:12px;padding:11px 12px;font:15px Manrope,sans-serif;resize:vertical}#qa-send button{min-height:46px;border:0;border-radius:12px;background:var(--accent);color:#fff;font:700 15px Manrope,sans-serif;cursor:pointer}
+.totop{position:fixed;right:18px;bottom:84px;z-index:49;width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:var(--card);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 26px -10px var(--sh);opacity:0;transform:translateY(10px) scale(.9);pointer-events:none;transition:opacity .2s ease,transform .2s ease}.totop.on{opacity:1;transform:none;pointer-events:auto}.totop:hover{border-color:var(--line-hi)}@media(max-width:600px){.totop{right:12px;bottom:78px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """
 
@@ -379,6 +381,13 @@ THEME_JS = ("(function(){var d=document.documentElement,k='theme',m=matchMedia('
             "try{if(n===sys){localStorage.removeItem(k);d.removeAttribute('data-theme')}else{localStorage.setItem(k,n);d.setAttribute('data-theme',n)}}"
             "catch(e){d.setAttribute('data-theme',n)}meta();"
             "try{window.goatcounter&&goatcounter.count&&goatcounter.count({path:'theme/'+n,title:'theme '+n,event:true})}catch(e){}})})();"
+            "document.addEventListener('DOMContentLoaded',function(){var t=document.createElement('button');t.type='button';t.className='totop';"
+            "t.setAttribute('aria-label',document.documentElement.lang==='en'?'Back to top':'Наверх');"
+            "t.innerHTML='<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 19V5M5 12l7-7 7 7\"/></svg>';"
+            "document.body.appendChild(t);var q=document.getElementById('qa');"
+            "function u(){var on=pageYOffset>innerHeight*1.2&&!(q&&q.classList.contains('open'));t.classList.toggle('on',on)}"
+            "addEventListener('scroll',u,{passive:true});addEventListener('click',function(){setTimeout(u,0)});u();"
+            "t.addEventListener('click',function(){scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})})});"
             "if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});")
 
 
@@ -641,18 +650,25 @@ def assistant_html(lang="ru"):
                 "link": sub(i["link"]), "link_text": i["link_text"]} for i in data["intents"]]
     L = ({"qa": "Quick answer", "close": "Close", "describe": "Describe the problem", "ph": "e.g. VPN connected but nothing loads",
           "go": "Answer", "hint": "Answers are prepared in advance and shown instantly; nothing you type is sent to a server.",
-          "sup": "Message support →"} if en else
+          "sup": "Message support →", "help": "Help", "call": "Ask a person", "msg_ph": "What doesn't work: device, carrier, what you already tried",
+          "contact_ph": "Your Telegram for the reply (optional)", "send": "Send",
+          "chat_hint": "A real person answers. The reply will appear here, even if you close the site and come back later. Don't send passwords or card details.",
+          "sent": "Sent to a person. The reply will appear here.", "err": "Didn't send. Message us in Telegram:", "you": "You", "op": "ThuggerVPN"} if en else
          {"qa": "Быстрый ответ", "close": "Закрыть", "describe": "Опишите проблему", "ph": "Например: VPN подключён, но не грузит",
           "go": "Ответ", "hint": "Ответы готовы заранее и показываются сразу, без отправки ваших слов на сервер.",
-          "sup": "Написать в поддержку →"})
-    payload = json.dumps({"intents": intents, "fallback": data["fallback"], "support": SUPPORT, "sup_label": L["sup"]},
+          "sup": "Написать в поддержку →", "help": "Помощь", "call": "Позвать человека", "msg_ph": "Что не работает: устройство, оператор, что уже пробовали",
+          "contact_ph": "Ваш Telegram для ответа (необязательно)", "send": "Отправить",
+          "chat_hint": "Отвечает живой человек. Ответ появится здесь, даже если закроете сайт и вернётесь позже. Не пишите пароли и данные карт.",
+          "sent": "Передали человеку. Ответ появится здесь.", "err": "Не отправилось. Напишите нам в Telegram:", "you": "Вы", "op": "ThuggerVPN"})
+    payload = json.dumps({"intents": intents, "fallback": data["fallback"], "support": SUPPORT, "sup_label": L["sup"],
+                          "chat": CFG.get("chat_url", ""), "L": {k: L[k] for k in ("sent", "err", "you", "op")}},
                          ensure_ascii=False).replace("</", "<\\/")
     chips = "".join(f'<button type="button" data-id="{esc(i["id"])}">{esc(i["chip"])}</button>'
                     for i in intents[:8])
     return f"""<button class="qa-fab" type="button" aria-expanded="false" aria-controls="qa" id="qa-fab">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span>{L['qa']}</span></button>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg><span>{L['help']}</span><i class="qa-dot" aria-hidden="true"></i></button>
 <div class="qa" id="qa" role="dialog" aria-modal="false" aria-labelledby="qa-title">
-<div class="qa-head"><b id="qa-title">{L['qa']}</b><button class="qa-x" type="button" aria-label="{L['close']}" id="qa-x">×</button></div>
+<div class="qa-head"><b id="qa-title">{L['help']}</b><button class="qa-x" type="button" aria-label="{L['close']}" id="qa-x">×</button></div>
 <div class="qa-body">
 <form class="qa-form" id="qa-form"><label for="qa-in">{L['describe']}</label>
 <input id="qa-in" type="text" autocomplete="off" placeholder="{L['ph']}">
@@ -660,6 +676,13 @@ def assistant_html(lang="ru"):
 <div class="qa-ans" id="qa-ans" aria-live="polite"></div>
 <div class="qa-chips" id="qa-chips">{chips}</div>
 <p class="qa-hint">{L['hint']}</p>
+<div class="qa-human"><button type="button" class="qa-call" id="qa-call">👤 {L['call']}</button>
+<div id="qa-chat" hidden><div class="qa-thread" id="qa-thread" aria-live="polite"></div>
+<form id="qa-send"><textarea id="qa-msg" rows="3" maxlength="1500" placeholder="{L['msg_ph']}"></textarea>
+<input id="qa-contact" type="text" maxlength="100" autocomplete="off" placeholder="{L['contact_ph']}">
+<input id="qa-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+<button type="submit">{L['send']}</button></form>
+<p class="qa-hint">{L['chat_hint']}</p></div></div>
 </div></div>
 <script id="qa-data" type="application/json">{payload}</script>
 <script>
@@ -685,6 +708,31 @@ var q=norm(inp.value);if(!q.trim())return;var best=null,bs=0;
 D.intents.forEach(function(it){{var s=score(q,it);if(s>bs){{bs=s;best=it;}}}});show(bs>=3?best:null);}});
 chips.addEventListener('click',function(e){{var id=e.target.getAttribute('data-id');if(!id)return;
 for(var i=0;i<D.intents.length;i++)if(D.intents[i].id===id){{inp.value=D.intents[i].chip;show(D.intents[i]);}}}});
+var CU=D.chat,call=document.getElementById('qa-call'),chat=document.getElementById('qa-chat'),th=document.getElementById('qa-thread');
+function ls(k,v){{try{{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}}catch(e){{}}}}
+var sid=ls('tvpn_sid');if(!sid){{sid=Math.random().toString(36).slice(2)+Date.now().toString(36);ls('tvpn_sid',sid);}}
+var T=[];try{{T=JSON.parse(ls('tvpn_thread')||'[]')}}catch(e){{}}var last=Number(ls('tvpn_last')||0);
+function save(){{ls('tvpn_thread',JSON.stringify(T.slice(-60)));ls('tvpn_last',String(last));}}
+function render(){{th.textContent='';T.forEach(function(m){{var d=document.createElement('div');d.className='qa-m '+m.f;
+ if(m.f!=='sys'){{var b=document.createElement('b');b.textContent=m.f==='me'?D.L.you:D.L.op;d.appendChild(b);}}
+ var p=document.createElement('span');p.textContent=m.t;d.appendChild(p);th.appendChild(d);}});th.scrollTop=th.scrollHeight;}}
+function openChat(){{chat.hidden=false;call.hidden=true;render();pull();setTimeout(function(){{document.getElementById('qa-msg').focus()}},30);}}
+call.addEventListener('click',function(){{if(!CU){{window.open(D.support,'_blank','noopener');return;}}openChat();
+ try{{goatcounter.count({{path:'chat/open',title:'chat open',event:true}})}}catch(e){{}}}});
+document.getElementById('qa-send').addEventListener('submit',function(e){{e.preventDefault();var ta=document.getElementById('qa-msg'),txt=ta.value.trim();if(!txt)return;
+ var body={{sid:sid,text:txt,contact:document.getElementById('qa-contact').value,page:location.pathname,hp:document.getElementById('qa-hp').value}};
+ T.push({{f:'me',t:txt}});ta.value='';render();save();
+ fetch(CU,{{method:'POST',headers:{{'Content-Type':'text/plain;charset=utf-8'}},body:JSON.stringify(body)}}).then(function(r){{return r.json()}}).then(function(j){{
+  if(!j.ok)throw 0;if(!T.some(function(m){{return m.f==='sys'}}))T.push({{f:'sys',t:D.L.sent}});render();save();
+  try{{goatcounter.count({{path:'chat/sent',title:'chat message',event:true}})}}catch(e){{}}
+ }}).catch(function(){{T.push({{f:'sys',t:D.L.err+' '+D.support.replace('https://t.me/','@')}});render();save();}});}});
+function pull(){{if(!CU||!T.some(function(m){{return m.f==='me'}}))return;
+ fetch(CU+'?sid='+encodeURIComponent(sid)+'&since='+last).then(function(r){{return r.json()}}).then(function(j){{
+  if(!j.ok||!j.msgs||!j.msgs.length)return;j.msgs.forEach(function(m){{T.push({{f:'op',t:m.text}});last=Math.max(last,m.ts);}});save();render();
+  if(!box.classList.contains('open'))fab.classList.add('has-new');}}).catch(function(){{}});}}
+fab.addEventListener('click',function(){{fab.classList.remove('has-new');if(T.length&&CU)openChat();}});
+if(CU&&T.length){{pull();setInterval(function(){{pull()}},box.classList.contains('open')?8000:45000);}}
+setInterval(function(){{if(box.classList.contains('open')&&!chat.hidden)pull();}},8000);
 }})();
 </script>"""
 
