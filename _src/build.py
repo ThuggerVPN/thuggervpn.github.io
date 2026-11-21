@@ -36,7 +36,7 @@ CHANNEL = CFG.get("channel_url", "")
 MSK = ZoneInfo("Europe/Moscow")
 
 # Страницы, у которых есть английская версия (/en + тот же путь)
-EN_STATIC = {"/", "/check/", "/podklyuchenie/", "/status/", "/index-blokirovok/", "/informer/", "/blog/",
+EN_STATIC = {"/", "/priglasit/", "/check/", "/podklyuchenie/", "/status/", "/index-blokirovok/", "/informer/", "/blog/",
              "/operator/mts/", "/operator/beeline/", "/operator/megafon/", "/operator/t2/"}
 
 
@@ -355,6 +355,7 @@ footer{font-size:14px}
 .qa-dot{display:none;width:10px;height:10px;border-radius:50%;background:#a3e635;box-shadow:0 0 0 2px var(--accent)}.qa-fab.has-new .qa-dot{display:block}.qa-human{margin-top:14px;border-top:1px solid var(--line2);padding-top:14px}.qa-call{width:100%;min-height:46px;border-radius:12px;border:1px solid var(--line2);background:var(--card2);color:var(--text);font:700 15px Manrope,sans-serif;cursor:pointer}.qa-call:hover{border-color:var(--line-hi)}.qa-thread{max-height:220px;overflow:auto;display:flex;flex-direction:column;gap:8px;margin:0 0 10px}.qa-m{padding:10px 12px;border-radius:12px;font-size:14.5px;line-height:1.45;max-width:88%}.qa-m b{display:block;font-size:12px;opacity:.7;margin-bottom:2px}.qa-m.me{align-self:flex-end;background:var(--accent);color:#fff}.qa-m.op{align-self:flex-start;background:var(--card2);border:1px solid var(--line2)}.qa-m.sys{align-self:center;background:none;color:var(--muted);font-size:13px;text-align:center;padding:2px}#qa-send{display:flex;flex-direction:column;gap:8px}#qa-send textarea,#qa-send input{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line2);border-radius:12px;padding:11px 12px;font:15px Manrope,sans-serif;resize:vertical}#qa-send button{min-height:46px;border:0;border-radius:12px;background:var(--accent);color:#fff;font:700 15px Manrope,sans-serif;cursor:pointer}
 .totop{position:fixed;right:18px;bottom:84px;z-index:49;width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:var(--card);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 26px -10px var(--sh);opacity:0;transform:translateY(10px) scale(.9);pointer-events:none;transition:opacity .2s ease,transform .2s ease}.totop.on{opacity:1;transform:none;pointer-events:auto}.totop:hover{border-color:var(--line-hi)}@media(max-width:600px){.totop{right:12px;bottom:78px}}
 footer .wrap{display:block!important;padding-top:clamp(28px,4vw,44px);padding-bottom:22px}.f-top{display:grid;grid-template-columns:minmax(220px,1.2fr) 3fr;gap:clamp(24px,4vw,48px)}.f-brand .logo{font-size:18px}.f-brand p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.55;max-width:300px}.f-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.f-col b{display:block;color:var(--text);font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}.f-col ul{list-style:none;margin:0;padding:0}.f-col li{margin:0 0 8px}.f-col a{color:var(--muted);font-size:14.5px}.f-col a:hover{color:var(--text-hi)}.f-bot{display:flex;justify-content:flex-start;column-gap:24px;gap:12px;flex-wrap:wrap;margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}.f-bot a{color:var(--muted)}@media(max-width:860px){.f-top{grid-template-columns:1fr}.f-cols{grid-template-columns:repeat(2,1fr);gap:22px 16px}}@media(max-width:600px){footer .wrap{padding-bottom:90px}}
+.fr-band{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--text)}.fr-band>span{font-size:30px}.fr-band b{display:block;font-size:clamp(17px,1vw + 12px,20px)}.fr-band small{color:var(--soft);font-size:14.5px}.fr-band i{margin-left:auto;font-style:normal;font-size:22px;color:var(--accent2)}.fr-band:hover{border-color:var(--line-hi)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """
 
@@ -568,7 +569,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
                f'<a class="hide-xs" href="/en/podklyuchenie/">Setup</a><a class="btn-s" href="{BOT}" rel="nofollow">Try free</a>')
         foot_l = "Guides on stable internet access in Russia: blocking status, internet check, setup."
         foot_r = footer_cols([
-            ("Service", [("Try 3 days free", BOT), ("Plans", "/en/#prices"), ("How to connect", "/en/podklyuchenie/"), ("Support", SUPPORT)]),
+            ("Service", [("Try 3 days free", BOT), ("Plans", "/en/#prices"), ("How to connect", "/en/podklyuchenie/"), ("Invite friends", "/en/priglasit/"), ("Support", SUPPORT)]),
             ("Tools", [("Internet check", "/en/check/"), ("Whitelist check", "/en/check/#wl"), ("Blocking status", "/en/status/"), ("Blocking index", "/en/index-blokirovok/")]),
             ("Carriers", [("MTS", "/en/operator/mts/"), ("Beeline", "/en/operator/beeline/"), ("MegaFon", "/en/operator/megafon/"), ("T2", "/en/operator/t2/")]),
             ("More", [("Articles", "/en/blog/"), ("Reviews", VPNSTATUS), ("Telegram channel", CHANNEL), ("Site widget", "/en/informer/")]),
@@ -580,7 +581,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
                f'<a class="hide-xs" href="/podklyuchenie/">Инструкция</a><a class="btn-s" href="{BOT}" rel="nofollow">Попробовать</a>')
         foot_l = "Справочные материалы о стабильном доступе к интернету: статус блокировок, проверка, инструкции."
         foot_r = footer_cols([
-            ("Сервис", [("Попробовать 3 дня", BOT), ("Тарифы", "/#prices"), ("Как подключить", "/podklyuchenie/"), ("Поддержка", SUPPORT)]),
+            ("Сервис", [("Попробовать 3 дня", BOT), ("Тарифы", "/#prices"), ("Как подключить", "/podklyuchenie/"), ("Приведи друга", "/priglasit/"), ("Поддержка", SUPPORT)]),
             ("Инструменты", [("Проверка интернета", "/check/"), ("Белые списки", "/check/#wl"), ("Статус блокировок", "/status/"), ("Индекс блокировок", "/index-blokirovok/")]),
             ("Операторы", [("МТС", "/operator/mts/"), ("Билайн", "/operator/beeline/"), ("МегаФон", "/operator/megafon/"), ("Т2", "/operator/t2/")]),
             ("Ещё", [("Статьи", "/blog/"), ("Отзывы", VPNSTATUS), ("Telegram-канал", CHANNEL), ("Информер для сайта", "/informer/")]),
@@ -1113,7 +1114,7 @@ def main():
     ST = load_status()
     UPD = ST["updated"]
 
-    for d in ("blog", "status", "check", "podklyuchenie", "operator", "index-blokirovok", "embed", "informer", "data", "en"):
+    for d in ("blog", "status", "check", "podklyuchenie", "priglasit", "operator", "index-blokirovok", "embed", "informer", "data", "en"):
         shutil.rmtree(ROOT / d, ignore_errors=True)
 
     urls = [("/", UPD)]
@@ -1185,6 +1186,8 @@ def main():
     urls.append((path, UPD))
 
     build_setup_page(urls, UPD)
+    import friends
+    friends.page('ru', urls, UPD)
 
     # --- страницы операторов ---
     for slug, (name, name_loc) in OPS.items():
@@ -1430,6 +1433,7 @@ def main():
 </div><p style="margin-top:16px"><a href="/podklyuchenie/">Подробная инструкция для вашего устройства →</a></p></section>
 
 {pwa_block("ru")}
+<section class="sec"><a class="trust2 fr-band" href="/priglasit/"><span>🎁</span><div><b>Приведи друга: 4 друга на подписке, и твой VPN бесплатный</b><small>25% с каждой оплаты друга на ваш баланс</small></div><i>→</i></a></section>
 <section class="sec" id="more"><h2>Полезное</h2>
 <details class="acc"><summary>Статус блокировок · {ru_date(UPD, year=False)}</summary>
 <div class="st-grid" style="margin-top:14px">{st_tiles}</div>

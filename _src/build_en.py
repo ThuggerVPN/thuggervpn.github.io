@@ -444,6 +444,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
 <div><span>3</span><b>Paste and connect</b><small>"From clipboard" → "Connect"</small></div></div>
 <p style="margin-top:16px"><a href="/en/podklyuchenie/">Detailed guide for your device →</a></p></section>
 {B.pwa_block("en")}
+<section class="sec"><a class="trust2 fr-band" href="/en/priglasit/"><span>🎁</span><div><b>Invite friends: 4 subscribed friends and your VPN is free</b><small>25% of every payment your friend makes goes to your balance</small></div><i>→</i></a></section>
 <section class="sec" id="more"><h2>Useful</h2>
 <details class="acc"><summary>Blocking status · {d(UPD, False)}</summary><div class="st-grid" style="margin-top:14px">{tiles}</div>
 <p style="margin:14px 0 0"><a href="/en/status/">Full summary →</a></p></details>
@@ -463,4 +464,6 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
                                   "VPN for Russia with whitelist bypass: 5-second internet check, status by carrier, setup guides. "
                                   f"{BRAND}: {TRIAL}.", "/en/", home, ld))
     urls.append(("/en/", UPD))
+    import friends
+    friends.page('en', urls, UPD)
     return urls, posts
