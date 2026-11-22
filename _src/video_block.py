@@ -4,13 +4,13 @@ import json
 SITE = "https://thuggervpn.github.io"
 V = {
     "ru": {"src": "/assets/video/guide-ru.mp4", "poster": "/assets/video/guide-ru.jpg", "dur": "PT1M18S",
-           "h": "Видео: весь сайт за минуту",
+           "h": "Видео: весь сайт за минуту", "chl": "Главы видео",
            "p": "Как проверить свой VPN, где смотреть статус блокировок и как поставить сайт на экран телефона. 78 секунд, со звуком.",
            "name": "Как пользоваться сайтом ThuggerVPN: проверка VPN, статус блокировок, инструкция",
            "ch": [(0, "Проверка VPN за 5 секунд"), (24, "Белые списки"), (29, "Статус блокировок"), (36, "Индекс блокировок"),
                   (43, "Страницы операторов"), (51, "Инструкция по подключению"), (58, "Приложение на экране"), (67, "Чат «Помощь»")]},
     "en": {"src": "/assets/video/guide-en.mp4", "poster": "/assets/video/guide-en.jpg", "dur": "PT1M6S",
-           "h": "Video: the whole site in a minute",
+           "h": "Video: the whole site in a minute", "chl": "Video chapters",
            "p": "How to check your VPN, where to see blocking status and how to add the site to your home screen. 66 seconds, with sound.",
            "name": "How to use the ThuggerVPN website: VPN check, blocking status, setup",
            "ch": [(0, "VPN check in 5 seconds"), (21, "Whitelist"), (26, "Blocking status"), (32, "Blocking index"),
@@ -18,7 +18,7 @@ V = {
 }
 CSS = """<style>.vg{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:28px;align-items:center}
 .vg video{width:100%;aspect-ratio:9/16;border-radius:var(--r-lg);border:1px solid var(--line);background:#0b0716;display:block}
-.vg ol{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px}
+.vg-ch{margin-top:14px}.vg ol{list-style:none;padding:0;margin:4px 0 14px;display:grid;gap:8px}
 .vg ol button{all:unset;cursor:pointer;display:flex;gap:12px;align-items:center;padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);width:100%;box-sizing:border-box;font-size:15.5px}
 .vg ol button:hover{border-color:var(--line-hi)}.vg ol b{color:var(--accent2);font-variant-numeric:tabular-nums;min-width:34px}
 @media(max-width:700px){.vg{grid-template-columns:1fr}.vg video{max-width:300px;margin:0 auto}}</style>"""
@@ -36,6 +36,6 @@ def block(lang, sec_id="video", wrap=True, upload="2026-11-22"):
           "inLanguage": lang,
           "hasPart": [{"@type": "Clip", "name": n, "startOffset": s, "url": f"{SITE}{'/en' if lang == 'en' else ''}/#t={s}"} for s, n in t["ch"]]}
     inner = (f'<div class="vg"><video controls playsinline preload="none" poster="{t["poster"]}"><source src="{t["src"]}" type="video/mp4"></video>'
-             f'<div><h2>{t["h"]}</h2><p class="lead" style="margin:0">{t["p"]}</p><ol>{ch}</ol></div></div>'
+             f'<div><h2>{t["h"]}</h2><details class="acc-q vg-ch"><summary>{t["chl"]}</summary><ol>{ch}</ol></details></div></div>'
              f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>')
     return CSS + (f'<section class="sec" id="{sec_id}">{inner}</section>' if wrap else inner) + JS
