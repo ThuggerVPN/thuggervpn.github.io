@@ -1,0 +1,21 @@
+Hi! This is Tugger V.P.N. Let me show you what's useful on our website, and how to use it.
+
+On the home page, there's a button: "Check my VPN". Tap it, and the site checks for you whether YouTube, Instagram, Telegram and other services open.
+
+In a couple of seconds, you see the result. If something doesn't work, you can get three days free, right there.
+
+The "Whitelist" tab shows whether your mobile operator has switched whitelists on.
+
+The "Status" page has a fresh summary every day: what's blocked, where the outages are, and what to do about it.
+
+The "Blocking index" counts every event over the week and the month, and shows where restrictions are heaviest.
+
+And for your operator, there are dedicated pages: MTS, Beeline, MegaFon and T2.
+
+Next, "Setup". Pick your device, and connect step by step, in two minutes.
+
+To keep the site at hand, add it to your phone's home screen, like an app. It opens even if the address gets blocked.
+
+Questions? Tap "Help" in the bottom right corner, and we'll answer right on the site.
+
+Tugger V.P.N. Always available.
