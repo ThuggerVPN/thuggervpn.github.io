@@ -20,7 +20,7 @@ jobs:
         run: |
           if [ -z "$TG_BOT_TOKEN" ] || [ -z "$TG_CHANNEL" ]; then echo "Нет секретов"; exit 1; fi
           curl -sS "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendVideo" \
-            -F chat_id="$TG_CHANNEL" -F video=@_src/video/guide_ru_tg.mp4 -F thumbnail=@_src/video/thumb_ru.jpg \
+            --form-string chat_id="$TG_CHANNEL" -F video=@_src/video/guide_ru_tg.mp4 -F thumbnail=@_src/video/thumb_ru.jpg \
             -F width=720 -F height=1280 -F duration=79 -F supports_streaming=true -F parse_mode=HTML \
             -F caption="<_src/video/post_ru.html" \
             | python3 -c "import sys,json;r=json.load(sys.stdin);print('ok, message', r['result']['message_id']) if r.get('ok') else (print(r), sys.exit(1))"
