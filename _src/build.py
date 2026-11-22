@@ -1091,6 +1091,7 @@ f'<h2 id="apple-id">iPhone с российским Apple ID</h2>'
             f'<h2>Если VPN не работает</h2>{tr_html}'
             f'<p>Не помогло? <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Напишите в поддержку</a> или '
             f'<a href="/check/">проверьте свой интернет за 5 секунд</a>.</p>'
+            f'<div style="margin:36px 0">' + __import__('video_block').block('ru', wrap=False) + '</div>'
             f'<h2>Вопросы и ответы</h2>{faq_html}{cta_block()}</article>{script}')
     meta = {"title": title, "description": "Пошаговая инструкция: приложения Incy, HAPP, V2RayTun для iPhone, Android, Windows, macOS и ТВ, ссылка подписки из бота, что делать, если VPN не работает.",
             "date": "2026-11-19", "updated": UPD, "faq": faq}
@@ -1407,6 +1408,7 @@ def main():
 <p class="lead" style="max-width:720px">Прямо в браузере, без установки. Узнаете, какие сервисы у вас открываются, есть ли белые списки и что делать, если что-то не работает.</p>
 {checker.widget('ru', BOT, BRAND, CFG['trial'], SUPPORT)}
 </section>
+{__import__('video_block').block('ru')}
 <section class="sec usp">
 <div class="u"><b>Мобильный и дома</b><span>МТС, МегаФон, Билайн, Т2 и домашний интернет</span></div>
 <div class="u"><b>Обход белых списков</b><span>Опция для мобильного: {esc(CFG.get("whitelist_detail", ""))}</span></div>

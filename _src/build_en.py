@@ -255,7 +255,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
             f'<a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Message support</a>.</p>'
             f'<h2>If the VPN doesn\'t work</h2>{tr_html}'
             f'<p>Still stuck? <a href="{SUPPORT}" target="_blank" rel="noopener nofollow">Message support</a> or '
-            f'<a href="/en/check/">check your internet in 5 seconds</a>.</p><h2>FAQ</h2>{faq_html(sfaq)}{cta()}</article>{script}')
+            f'<a href="/en/check/">check your internet in 5 seconds</a>.</p>' + '<div style="margin:36px 0">' + __import__('video_block').block('en', wrap=False) + '</div>' + f'<h2>FAQ</h2>{faq_html(sfaq)}{cta()}</article>{script}')
     meta = {"title": title, "date": "2026-11-19", "updated": UPD, "faq": sfaq,
             "description": "Step-by-step: Incy, HAPP and V2RayTun apps for iPhone, Android, Windows, macOS and TV, subscription link from the bot, troubleshooting."}
     howto = {"@context": "https://schema.org", "@type": "HowTo", "name": title, "totalTime": "PT2M", "inLanguage": "en",
@@ -424,6 +424,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
 <p class="lead" style="max-width:720px">Right in your browser, nothing to install. See which services open for you, whether whitelist mode is on, and what to do if something doesn't work.</p>
 {checker.widget('en', BOT, BRAND, TRIAL, SUPPORT)}
 </section>
+{__import__('video_block').block('en')}
 <section class="sec usp">
 <div class="u"><b>Mobile and home</b><span>MTS, MegaFon, Beeline, T2 and home internet</span></div>
 <div class="u"><b>Whitelist bypass</b><span>Mobile option: {esc(EN.get("whitelist_detail", ""))}</span></div>
