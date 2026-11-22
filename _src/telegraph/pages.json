@@ -39,6 +39,11 @@
   "path": "VPN-connected-but-no-internet-5-causes-and-fixes-11-19",
   "url": "https://telegra.ph/VPN-connected-but-no-internet-5-causes-and-fixes-11-19"
  },
+ "en/youtube-ne-rabotaet-s-vpn": {
+  "hash": "a41bed7ff70ef66b",
+  "path": "YouTube-not-working-in-Russia-even-with-a-VPN-causes-and-fixes-11-22",
+  "url": "https://telegra.ph/YouTube-not-working-in-Russia-even-with-a-VPN-causes-and-fixes-11-22"
+ },
  "ru/belye-spiski-chto-eto": {
   "hash": "6d1e27642931189b",
   "path": "Belye-spiski-na-mobilnom-internete-chto-ehto-i-kak-ponyat-chto-oni-vklyucheny-11-19",
@@ -68,5 +73,10 @@
   "hash": "3f7e6268ef4b87ed",
   "path": "VPN-podklyuchyon-no-interneta-net-5-prichin-i-chto-delat-11-19",
   "url": "https://telegra.ph/VPN-podklyuchyon-no-interneta-net-5-prichin-i-chto-delat-11-19"
+ },
+ "ru/youtube-ne-rabotaet-s-vpn": {
+  "hash": "5cb10dd474638a07",
+  "path": "Ne-gruzit-YouTube-s-VPN-pochemu-krutitsya-zagruzka-i-chto-delat-11-22",
+  "url": "https://telegra.ph/Ne-gruzit-YouTube-s-VPN-pochemu-krutitsya-zagruzka-i-chto-delat-11-22"
  }
 }
