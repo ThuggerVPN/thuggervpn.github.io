@@ -19,7 +19,7 @@ print("Голос:", pick["name"])
 text = open(os.path.join(D, "script.txt"), encoding="utf-8").read().strip()
 r = req(f"https://api.elevenlabs.io/v1/text-to-speech/{pick['voice_id']}/with-timestamps?output_format=mp3_44100_128",
         {"text": text, "model_id": "eleven_multilingual_v2",
-         "voice_settings": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.2, "use_speaker_boost": True}})
+         "voice_settings": {"stability": 0.6, "similarity_boost": 0.8, "style": 0.1, "use_speaker_boost": True}})
 open(os.path.join(D, "voice.mp3"), "wb").write(base64.b64decode(r["audio_base64"]))
 json.dump({"voice": pick["name"], "alignment": r.get("alignment")}, open(os.path.join(D, "alignment.json"), "w", encoding="utf-8"), ensure_ascii=False)
 print("Готово:", len(r["audio_base64"]) * 3 // 4, "байт")
