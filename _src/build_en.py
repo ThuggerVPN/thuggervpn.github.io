@@ -458,7 +458,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
 """
     ld = [{"@context": "https://schema.org", "@type": "Organization", "name": BRAND, "url": SITE, "logo": f"{SITE}/logo.png",
            "sameAs": [x for x in (B.BOT_PLAIN, VPNSTATUS, CHANNEL) if x]},
-          {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": f"{SITE}/en/", "inLanguage": "en"},
+          {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "alternateName": ["Thugger VPN", "thuggervpn.github.io"], "url": f"{SITE}/", "inLanguage": ["ru", "en"]},
           {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
               {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in hfaq if a]}]
     B.write("en/index.html", page(f"{BRAND}: VPN for Russia that works on mobile and home internet",

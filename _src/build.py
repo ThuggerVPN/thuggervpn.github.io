@@ -1453,7 +1453,9 @@ def main():
                 "name": BRAND, "url": SITE, "logo": f"{SITE}/logo.png",
                 "sameAs": [x for x in (BOT_PLAIN, VPNSTATUS, CHANNEL) if x]},
                {"@context": "https://schema.org", "@type": "WebSite",
-                "name": BRAND, "url": SITE, "inLanguage": "ru"}, home_ld_faq]
+                "name": BRAND, "alternateName": ["Thugger VPN", "thuggervpn.github.io"],
+                "url": SITE + "/", "inLanguage": ["ru", "en"],
+                "publisher": {"@type": "Organization", "name": BRAND, "logo": f"{SITE}/logo.png"}}, home_ld_faq]
     write("index.html", page(f"{BRAND}: VPN для мобильного и домашнего интернета",
                              "Проверка блокировок за 5 секунд, статус по операторам, что делать, если VPN не работает. "
                              f"{BRAND}: {CFG['trial']}.", "/", home, home_ld))
