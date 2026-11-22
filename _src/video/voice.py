@@ -2,7 +2,7 @@
 Сохраняет _src/video/voice.mp3 и alignment.json (тайминги букв для субтитров)."""
 import base64, json, os, sys, urllib.request
 KEY = os.environ.get("ELEVENLABS_API_KEY", "").strip()
-NAME = os.environ.get("VOICE_NAME", "фил,phil")
+NAME = os.environ.get("VOICE_NAME", "fil,фил,phil")
 D = os.path.dirname(os.path.abspath(__file__))
 if not KEY:
     print("Нет секрета ELEVENLABS_API_KEY"); sys.exit(0)
