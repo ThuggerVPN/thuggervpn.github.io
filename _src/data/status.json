@@ -1,7 +1,99 @@
 {
   "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата - дата события по Москве. updated - момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ. Для английской версии сайта заполняйте region_en, title_en, meaning_en (перевод).",
-  "updated": "2026-11-21 08:55",
+  "updated": "2026-11-22 08:56",
   "events": [
+    {
+      "date": "2026-11-22",
+      "region": "Архангельская, Липецкая, Смоленская, Вологодская, Ульяновская области, Татарстан",
+      "operators": [
+        "megafon",
+        "beeline",
+        "t2"
+      ],
+      "type": "slow",
+      "title": "Жалобы на мобильный интернет у МегаФона, Билайна и Т2 в шести регионах",
+      "meaning": "МегаФон: Архангельск и Липецк, Билайн: Смоленская и Вологодская области, Т2: Татарстан и Ульяновская область. Не открывались сайты, банки и игры. Официальных объяснений нет. Если пропал интернет, сначала проверьте, не включены ли белые списки",
+      "source": "Метарейтинг",
+      "url": "https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/",
+      "region_en": "Arkhangelsk, Lipetsk, Smolensk, Vologda, Ulyanovsk regions, Tatarstan",
+      "title_en": "Mobile internet complaints for MegaFon, Beeline and T2 in six regions",
+      "meaning_en": "MegaFon: Arkhangelsk and Lipetsk, Beeline: Smolensk and Vologda regions, T2: Tatarstan and Ulyanovsk region. Websites, banking apps and games failed. No official explanation. If mobile data drops, first check whether whitelist mode is on"
+    },
+    {
+      "date": "2026-11-21",
+      "region": "Вся Россия",
+      "operators": [
+        "all"
+      ],
+      "type": "service",
+      "title": "Перебои YouTube вечером: не открывался сайт, сбоило приложение и воспроизведение",
+      "meaning": "Больше всего жалоб из Хабаровского края, Новосибирской области, Москвы и Самарской области. Сбой точечный, официальной причины нет. Без VPN YouTube в России с февраля 2026 года фактически не работает",
+      "source": "Метарейтинг",
+      "url": "https://cybersport.metaratings.ru/articles/chto-proishodit-s-youtube-segodnya/",
+      "region_en": "All of Russia",
+      "title_en": "Evening YouTube disruptions: site not loading, app and playback failing",
+      "meaning_en": "Most complaints came from Khabarovsk Krai, Novosibirsk region, Moscow and Samara region. Patchy outage, no official cause. Since February 2026 YouTube in Russia barely works without a VPN"
+    },
+    {
+      "date": "2026-11-21",
+      "region": "Пермский край, Санкт-Петербург",
+      "operators": [
+        "mts"
+      ],
+      "type": "slow",
+      "title": "МТС: около 300 жалоб за сутки на пропавший мобильный интернет, SMS и звонки",
+      "meaning": "93% жалоб на общий сбой. Оператор причин не назвал, в 2026 году такие сбои чаще связаны с региональными ограничениями, а не с самой сетью",
+      "source": "Hi-Tech Mail",
+      "url": "https://hi-tech.mail.ru/news/145491-chto-segodnya-s-mts/",
+      "region_en": "Perm Krai, Saint Petersburg",
+      "title_en": "MTS: about 300 complaints in a day about lost mobile data, SMS and calls",
+      "meaning_en": "93% of complaints were about a general outage. The operator gave no reason. In 2026 such outages are more often caused by regional restrictions than by the network itself"
+    },
+    {
+      "date": "2026-11-21",
+      "region": "Кировская, Владимирская, Самарская области",
+      "operators": [
+        "beeline"
+      ],
+      "type": "slow",
+      "title": "Билайн: почти 500 жалоб за сутки на мобильный интернет, звонки и SMS",
+      "meaning": "Большинство жалоб на общий сбой. Официального заявления оператора нет",
+      "source": "Hi-Tech Mail",
+      "url": "https://hi-tech.mail.ru/news/145605-chto-segodnya-s-bilajn/",
+      "region_en": "Kirov, Vladimir, Samara regions",
+      "title_en": "Beeline: almost 500 complaints in a day about mobile data, calls and SMS",
+      "meaning_en": "Most complaints were about a general outage. No official statement from the operator"
+    },
+    {
+      "date": "2026-11-21",
+      "region": "Санкт-Петербург, Ленинградская область",
+      "operators": [
+        "all"
+      ],
+      "type": "outage",
+      "title": "Мобильный интернет отключали из-за угрозы беспилотников, жалобы шли также из Москвы и десятков регионов",
+      "meaning": "Губернатор Ленобласти сообщил о 73 сбитых за ночь беспилотниках. Во время таких отключений надёжнее домашний Wi-Fi",
+      "source": "News.ru",
+      "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-21-noyabrya-prichiny-sboi-v-rossii",
+      "region_en": "Saint Petersburg, Leningrad region",
+      "title_en": "Mobile internet cut over drone threats, complaints also from Moscow and dozens of regions",
+      "meaning_en": "The Leningrad region governor reported 73 drones shot down overnight. During such shutdowns home Wi-Fi is more reliable"
+    },
+    {
+      "date": "2026-11-21",
+      "region": "Санкт-Петербург",
+      "operators": [
+        "all"
+      ],
+      "type": "whitelist",
+      "title": "Утром в Петербурге открывались только сайты и приложения из белого списка",
+      "meaning": "Пики жалоб были около 3 часов ночи и после 10 утра. Без Wi-Fi работали в основном российские сервисы из белого списка",
+      "source": "Форпост Северо-Запад",
+      "url": "https://forpost-sz.ru/a/2026-11-21/peterburzhcy-pozhalovalis-na-sboj-mobilnogo-interneta-utrom-21-noyabrya",
+      "region_en": "Saint Petersburg",
+      "title_en": "Morning in St Petersburg: only whitelisted sites and apps opened",
+      "meaning_en": "Complaints peaked around 3 am and after 10 am. Without Wi-Fi mostly Russian whitelisted services worked"
+    },
     {
       "date": "2026-11-21",
       "region": "Удмуртия, Иркутская, Псковская, Тюменская и Новосибирская области, Красноярский край, Хакасия",
