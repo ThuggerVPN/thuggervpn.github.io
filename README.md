@@ -7,7 +7,7 @@
 **Статус блокировок в России, проверка интернета за 5 секунд и инструкции по VPN**<br>
 <sub>Russia internet blocking status, a 5-second connection check and VPN setup guides · <a href="#-english">English ↓</a></sub>
 
-<a href="https://thuggervpn.github.io/"><img src="https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-thuggervpn.github.io-8b5cf6?style=for-the-badge" alt="сайт: thuggervpn.github.io"></a> <a href="https://thuggervpn.github.io/en/"><img src="https://img.shields.io/badge/English-version-6d28d9?style=for-the-badge" alt="English: version"></a> <a href="https://t.me/ThuggerVPN_bot"><img src="https://img.shields.io/badge/%D0%B1%D0%BE%D1%82-3%20%D0%B4%D0%BD%D1%8F%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="бот: 3 дня бесплатно"></a> <a href="https://t.me/ThuggerVPN"><img src="https://img.shields.io/badge/%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB-%40ThuggerVPN-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="канал: @ThuggerVPN"></a> <a href="https://vpnstatus.site/vpn/thuggervpn"><img src="https://img.shields.io/badge/vpnstatus-%E2%98%85%205.0%20%C2%B7%2019%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BE%D0%BA-f5b301?style=for-the-badge" alt="vpnstatus: ★ 5.0 · 19 оценок"></a> <a href="https://thuggervpn.github.io/status/"><img src="https://img.shields.io/badge/%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BE-2026--11--22-1f2937?style=for-the-badge" alt="обновлено: 2026-11-22"></a>
+<a href="https://thuggervpn.github.io/"><img src="https://img.shields.io/badge/%D1%81%D0%B0%D0%B9%D1%82-thuggervpn.github.io-8b5cf6?style=for-the-badge" alt="сайт: thuggervpn.github.io"></a> <a href="https://thuggervpn.github.io/en/"><img src="https://img.shields.io/badge/English-version-6d28d9?style=for-the-badge" alt="English: version"></a> <a href="https://t.me/ThuggerVPN_bot"><img src="https://img.shields.io/badge/%D0%B1%D0%BE%D1%82-3%20%D0%B4%D0%BD%D1%8F%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="бот: 3 дня бесплатно"></a> <a href="https://t.me/ThuggerVPN"><img src="https://img.shields.io/badge/%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB-%40ThuggerVPN-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="канал: @ThuggerVPN"></a> <a href="https://vpnstatus.site/vpn/thuggervpn"><img src="https://img.shields.io/badge/vpnstatus-%E2%98%85%205.0%20%C2%B7%2019%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BE%D0%BA-f5b301?style=for-the-badge" alt="vpnstatus: ★ 5.0 · 19 оценок"></a> <a href="https://thuggervpn.github.io/status/"><img src="https://img.shields.io/badge/%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%BE-2026--11--23-1f2937?style=for-the-badge" alt="обновлено: 2026-11-23"></a>
 
 <a href="https://thuggervpn.github.io/check/"><b>Проверить интернет</b></a> · <a href="https://thuggervpn.github.io/status/"><b>Статус сегодня</b></a> · <a href="https://thuggervpn.github.io/podklyuchenie/"><b>Как подключить</b></a> · <a href="https://t.me/ThuggerVPN_bot"><b>Попробовать бесплатно</b></a>
 
@@ -17,16 +17,16 @@
 
 ## 📡 Сводка блокировок
 
-Обновляется каждый день. Последнее обновление: **22 ноября 2026, 08:56 МСК**. Полная картина - на странице [статуса](https://thuggervpn.github.io/status/) и в [индексе блокировок](https://thuggervpn.github.io/index-blokirovok/).
+Обновляется каждый день. Последнее обновление: **23 ноября 2026, 09:05 МСК**. Полная картина - на странице [статуса](https://thuggervpn.github.io/status/) и в [индексе блокировок](https://thuggervpn.github.io/index-blokirovok/).
 
 | Дата | Где | Что случилось | Источник |
 |---|---|---|---|
+| 23 ноября | Новосибирская область | 🟧 Около 800 жалоб за сутки: не открывались сайты и приложения | [Sib.fm](https://sib.fm/news/2026/11/23/pochemu-v-novosibirskoj-oblasti-ne-rabotaet-internet-23-noyabrya) |
+| 23 ноября | Челябинская область | ⛔ Власти предупредили о перебоях связи и мобильного интернета из-за беспилотной опасности | [АиФ Челябинск](https://chel.aif.ru/society/yuzhnouralcev-preduprezhdayut-o-pereboyah-so-svyazyu-i-internetom-23-noyabrya) |
+| 22 ноября | Пермский край | 🟧 Т2: жалобы на пропавший 4G, мобильную связь и интернет | [Info24](https://info24.ru/news/chto-s-t2-segodnya-22-noyabrya-ne-rabotaet-internet-net-svyazi-chto-delat.html) |
+| 22 ноября | Москва | ⛔ Сбои мобильного интернета в десятках регионов на фоне беспилотной опасности | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-22-noyabrya-prichiny-sboi-v-rossii) |
 | 22 ноября | Архангельская | 🟧 Жалобы на мобильный интернет у МегаФона, Билайна и Т2 в шести регионах | [Метарейтинг](https://cybersport.metaratings.ru/articles/chto-s-mobilnym-internetom-v-rossii/) |
 | 21 ноября | Вся Россия | ⚠️ Перебои YouTube вечером: не открывался сайт, сбоило приложение и воспроизведение | [Метарейтинг](https://cybersport.metaratings.ru/articles/chto-proishodit-s-youtube-segodnya/) |
-| 21 ноября | Пермский край, Санкт-Петербург | 🟧 МТС: около 300 жалоб за сутки на пропавший мобильный интернет, SMS и звонки | [Hi-Tech Mail](https://hi-tech.mail.ru/news/145491-chto-segodnya-s-mts/) |
-| 21 ноября | Кировская | 🟧 Билайн: почти 500 жалоб за сутки на мобильный интернет, звонки и SMS | [Hi-Tech Mail](https://hi-tech.mail.ru/news/145605-chto-segodnya-s-bilajn/) |
-| 21 ноября | Санкт-Петербург | ⛔ Мобильный интернет отключали из-за угрозы беспилотников, жалобы шли также из Москвы и десятков регионов | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-21-noyabrya-prichiny-sboi-v-rossii) |
-| 21 ноября | Санкт-Петербург | 🟥 Утром в Петербурге открывались только сайты и приложения из белого списка | [Форпост Северо-Запад](https://forpost-sz.ru/a/2026-11-21/peterburzhcy-pozhalovalis-na-sboj-mobilnogo-interneta-utrom-21-noyabrya) |
 
 <sub>🟥 белые списки · ⛔ отключение · 🟧 замедление · 🔒 блокировка VPN · ⚠️ сбой сервиса · 📜 решения властей</sub>
 
@@ -74,12 +74,12 @@ iPhone, Android, Windows, macOS и телевизор - по шагам. Отд�
 
 ## 📝 Свежие статьи
 
+- [VPN на iPhone не работает: почему не подключается и что делать](https://thuggervpn.github.io/blog/vpn-na-iphone-ne-rabotaet/)
+- [Индекс блокировок: итоги недели 16-22 ноября 2026](https://thuggervpn.github.io/blog/indeks-blokirovok-16-22-noyabrya/)
 - [Не грузит YouTube с VPN: почему крутится загрузка и что делать](https://thuggervpn.github.io/blog/youtube-ne-rabotaet-s-vpn/)
 - [Telegram не подключается: почему висит «Соединение» и что делать](https://thuggervpn.github.io/blog/telegram-ne-podklyuchaetsya/)
 - [VPN и банковские приложения: почему Сбер и маркетплейсы не открываются](https://thuggervpn.github.io/blog/vpn-i-bankovskie-prilozheniya/)
 - [VPN подключён, но интернета нет: 5 причин и что делать](https://thuggervpn.github.io/blog/vpn-podklyuchen-no-net-interneta/)
-- [Не работает VPN на мобильном интернете: что делать в 2026 году](https://thuggervpn.github.io/blog/ne-rabotaet-vpn-na-mobilnom/)
-- [Как выбрать VPN в 2026 году: 7 критериев, которые реально важны](https://thuggervpn.github.io/blog/kak-vybrat-vpn-2026/)
 
 [Все статьи →](https://thuggervpn.github.io/blog/)
 
@@ -132,12 +132,12 @@ VPN для мобильного и домашнего интернета с оп
 
 **Latest guides**
 
+- [VPN not working on iPhone in Russia: why it won't connect and fixes](https://thuggervpn.github.io/en/blog/vpn-na-iphone-ne-rabotaet/)
+- [Russia internet blocking index: week of 16-22 November 2026](https://thuggervpn.github.io/en/blog/indeks-blokirovok-16-22-noyabrya/)
 - [YouTube not working in Russia even with a VPN: causes and fixes](https://thuggervpn.github.io/en/blog/youtube-ne-rabotaet-s-vpn/)
 - [Telegram not connecting in Russia: why it's stuck on "Connecting" and fixes](https://thuggervpn.github.io/en/blog/telegram-ne-podklyuchaetsya/)
 - [Does WhatsApp work in Russia in 2026? What tourists and expats should know](https://thuggervpn.github.io/en/blog/does-whatsapp-work-in-russia/)
 - [Russian bank apps not working with VPN: Sber, T-Bank, Ozon fixes](https://thuggervpn.github.io/en/blog/vpn-i-bankovskie-prilozheniya/)
-- [VPN connected but no internet: 5 causes and fixes](https://thuggervpn.github.io/en/blog/vpn-podklyuchen-no-net-interneta/)
-- [Travelling to Russia in 2026: internet, SIM cards and VPN - what to set up before you fly](https://thuggervpn.github.io/en/blog/travel-russia-internet-vpn/)
 
 ThuggerVPN: 3 days free, then from 210 ₽/month - [Telegram bot](https://t.me/ThuggerVPN_bot) · reviews on [vpnstatus.site](https://vpnstatus.site/vpn/thuggervpn).
 

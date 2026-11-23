@@ -1,7 +1,67 @@
 {
   "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата - дата события по Москве. updated - момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ. Для английской версии сайта заполняйте region_en, title_en, meaning_en (перевод).",
-  "updated": "2026-11-22 08:56",
+  "updated": "2026-11-23 09:05",
   "events": [
+    {
+      "date": "2026-11-23",
+      "region": "Новосибирская область",
+      "operators": [
+        "all"
+      ],
+      "type": "slow",
+      "title": "Около 800 жалоб за сутки: не открывались сайты и приложения",
+      "meaning": "Жаловались и на мобильный, и на домашний интернет: сайты грузились долго или не открывались, приложения не запускались. Причину не называли. Если на мобильном работают только банки и Госуслуги, это похоже на белые списки",
+      "source": "Sib.fm",
+      "url": "https://sib.fm/news/2026/11/23/pochemu-v-novosibirskoj-oblasti-ne-rabotaet-internet-23-noyabrya",
+      "region_en": "Novosibirsk region",
+      "title_en": "About 800 complaints in a day: websites and apps would not open",
+      "meaning_en": "Complaints covered both mobile and home internet: sites loaded slowly or not at all, apps would not start. No cause was given. If only banks and Gosuslugi work on mobile data, it looks like whitelist mode"
+    },
+    {
+      "date": "2026-11-23",
+      "region": "Челябинская область",
+      "operators": [
+        "all"
+      ],
+      "type": "outage",
+      "title": "Власти предупредили о перебоях связи и мобильного интернета из-за беспилотной опасности",
+      "meaning": "Утром в регионе объявили режим «Беспилотная опасность», правительство области предупредило о временных перебоях со связью и мобильным интернетом. Держите под рукой Wi-Fi и заранее скачайте нужное",
+      "source": "АиФ Челябинск",
+      "url": "https://chel.aif.ru/society/yuzhnouralcev-preduprezhdayut-o-pereboyah-so-svyazyu-i-internetom-23-noyabrya",
+      "region_en": "Chelyabinsk region",
+      "title_en": "Authorities warned of phone and mobile internet disruptions due to a drone alert",
+      "meaning_en": "A drone alert was declared in the region in the morning, and the regional government warned of temporary disruptions to phone service and mobile internet. Keep Wi-Fi at hand and download what you need in advance"
+    },
+    {
+      "date": "2026-11-22",
+      "region": "Пермский край, Челябинская и Свердловская области, ХМАО, Курганская область",
+      "operators": [
+        "t2"
+      ],
+      "type": "slow",
+      "title": "Т2: жалобы на пропавший 4G, мобильную связь и интернет",
+      "meaning": "Больше всего жалоб из Пермского края, Челябинской и Свердловской областей. Официально аварию оператор не подтверждал. Если сеть есть, а интернета нет, перезагрузите телефон и проверьте статус",
+      "source": "Info24",
+      "url": "https://info24.ru/news/chto-s-t2-segodnya-22-noyabrya-ne-rabotaet-internet-net-svyazi-chto-delat.html",
+      "region_en": "Perm, Chelyabinsk, Sverdlovsk regions, Khanty-Mansi, Kurgan region",
+      "title_en": "T2: complaints about lost 4G, calls and mobile data",
+      "meaning_en": "Most complaints came from Perm, Chelyabinsk and Sverdlovsk regions. The operator did not confirm an outage. If you have signal but no internet, restart the phone and check the status page"
+    },
+    {
+      "date": "2026-11-22",
+      "region": "Москва, Санкт-Петербург, Новосибирская, Свердловская, Челябинская, Нижегородская, Оренбургская, Ростовская области, Татарстан, Краснодарский край",
+      "operators": [
+        "all"
+      ],
+      "type": "outage",
+      "title": "Сбои мобильного интернета в десятках регионов на фоне беспилотной опасности",
+      "meaning": "Жаловались на нестабильное соединение, неработающие приложения и видео у абонентов разных операторов. Основная причина: режимы беспилотной опасности. В такие часы на мобильном часто работают только белые списки",
+      "source": "News.ru",
+      "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-22-noyabrya-prichiny-sboi-v-rossii",
+      "region_en": "Moscow, St Petersburg, Novosibirsk, Sverdlovsk, Chelyabinsk, Nizhny Novgorod, Orenburg, Rostov regions, Tatarstan, Krasnodar",
+      "title_en": "Mobile internet disruptions in dozens of regions during drone alerts",
+      "meaning_en": "Users of different operators reported unstable connections, apps and video not loading. The main cause was drone alerts. During such hours mobile data often works in whitelist mode only"
+    },
     {
       "date": "2026-11-22",
       "region": "Архангельская, Липецкая, Смоленская, Вологодская, Ульяновская области, Татарстан",
