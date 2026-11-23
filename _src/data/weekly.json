@@ -1,0 +1,16 @@
+{
+  "_comment": "Недельные цифры продвижения для сравнения неделя к неделе. Даты по Москве. null - получить не удалось.",
+  "weeks": [
+    {
+      "date": "2026-11-23",
+      "period": "2026-11-16..2026-11-22",
+      "vpnstatus": {"rating": 5.0, "votes": 19, "reviews": 10, "distinct_voters": 10, "low_votes": ["МТС моб 2", "Т2 2", "Ростелеком 2", "Дом.ру 1", "МТС дом 2", "МегаФон дом 1"], "whitelist_votes": 6},
+      "telegram": {"subscribers": 8, "posts_week": 5, "avg_views": 7.0},
+      "github": {"views_14d": 19, "uniques_14d": 5, "views_week": 19, "referrers": {"github.com": 2}},
+      "telegraph": {"total_views": 1, "pages": 20, "top": [["ru/vpn-i-bankovskie-prilozheniya", 1]]},
+      "goatcounter": null,
+      "hosts": {"checked": "2026-11-23 11:08", "thuggervpn.github.io": "3/3", "thugger-vpn.github.io": "3/3"},
+      "search_indexed": false
+    }
+  ]
+}
