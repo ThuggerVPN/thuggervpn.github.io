@@ -467,4 +467,5 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
     urls.append(("/en/", UPD))
     import friends
     friends.page('en', urls, UPD)
+    __import__('video_block').watch_page('en', urls, UPD)
     return urls, posts

@@ -36,7 +36,7 @@ CHANNEL = CFG.get("channel_url", "")
 MSK = ZoneInfo("Europe/Moscow")
 
 # Страницы, у которых есть английская версия (/en + тот же путь)
-EN_STATIC = {"/", "/priglasit/", "/check/", "/podklyuchenie/", "/status/", "/index-blokirovok/", "/informer/", "/blog/",
+EN_STATIC = {"/", "/priglasit/", "/video/", "/check/", "/podklyuchenie/", "/status/", "/index-blokirovok/", "/informer/", "/blog/",
              "/operator/mts/", "/operator/beeline/", "/operator/megafon/", "/operator/t2/"}
 
 
@@ -569,7 +569,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
                f'<a class="hide-xs" href="/en/podklyuchenie/">Setup</a><a class="btn-s" href="{BOT}" rel="nofollow">Try free</a>')
         foot_l = "Guides on stable internet access in Russia: blocking status, internet check, setup."
         foot_r = footer_cols([
-            ("Service", [("Try 3 days free", BOT), ("Plans", "/en/#prices"), ("How to connect", "/en/podklyuchenie/"), ("Invite friends", "/en/priglasit/"), ("Support", SUPPORT)]),
+            ("Service", [("Try 3 days free", BOT), ("Plans", "/en/#prices"), ("How to connect", "/en/podklyuchenie/"), ("Invite friends", "/en/priglasit/"), ("Video guide", "/en/video/"), ("Support", SUPPORT)]),
             ("Tools", [("Internet check", "/en/check/"), ("Whitelist check", "/en/check/#wl"), ("Blocking status", "/en/status/"), ("Blocking index", "/en/index-blokirovok/")]),
             ("Carriers", [("MTS", "/en/operator/mts/"), ("Beeline", "/en/operator/beeline/"), ("MegaFon", "/en/operator/megafon/"), ("T2", "/en/operator/t2/")]),
             ("More", [("Articles", "/en/blog/"), ("Reviews", VPNSTATUS), ("Telegram channel", CHANNEL), ("Site widget", "/en/informer/")]),
@@ -581,7 +581,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
                f'<a class="hide-xs" href="/podklyuchenie/">Инструкция</a><a class="btn-s" href="{BOT}" rel="nofollow">Попробовать</a>')
         foot_l = "Справочные материалы о стабильном доступе к интернету: статус блокировок, проверка, инструкции."
         foot_r = footer_cols([
-            ("Сервис", [("Попробовать 3 дня", BOT), ("Тарифы", "/#prices"), ("Как подключить", "/podklyuchenie/"), ("Приведи друга", "/priglasit/"), ("Поддержка", SUPPORT)]),
+            ("Сервис", [("Попробовать 3 дня", BOT), ("Тарифы", "/#prices"), ("Как подключить", "/podklyuchenie/"), ("Приведи друга", "/priglasit/"), ("Видеоинструкция", "/video/"), ("Поддержка", SUPPORT)]),
             ("Инструменты", [("Проверка интернета", "/check/"), ("Белые списки", "/check/#wl"), ("Статус блокировок", "/status/"), ("Индекс блокировок", "/index-blokirovok/")]),
             ("Операторы", [("МТС", "/operator/mts/"), ("Билайн", "/operator/beeline/"), ("МегаФон", "/operator/megafon/"), ("Т2", "/operator/t2/")]),
             ("Ещё", [("Статьи", "/blog/"), ("Отзывы", VPNSTATUS), ("Telegram-канал", CHANNEL), ("Информер для сайта", "/informer/")]),
@@ -1115,7 +1115,7 @@ def main():
     ST = load_status()
     UPD = ST["updated"]
 
-    for d in ("blog", "status", "check", "podklyuchenie", "priglasit", "operator", "index-blokirovok", "embed", "informer", "data", "en"):
+    for d in ("blog", "status", "check", "podklyuchenie", "priglasit", "video", "operator", "index-blokirovok", "embed", "informer", "data", "en"):
         shutil.rmtree(ROOT / d, ignore_errors=True)
 
     urls = [("/", UPD)]
@@ -1189,6 +1189,7 @@ def main():
     build_setup_page(urls, UPD)
     import friends
     friends.page('ru', urls, UPD)
+    __import__('video_block').watch_page('ru', urls, UPD)
 
     # --- страницы операторов ---
     for slug, (name, name_loc) in OPS.items():
