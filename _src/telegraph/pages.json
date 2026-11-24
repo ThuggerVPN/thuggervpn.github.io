@@ -39,6 +39,11 @@
   "path": "Russian-bank-apps-not-working-with-VPN-Sber-T-Bank-Ozon-fixes-11-20",
   "url": "https://telegra.ph/Russian-bank-apps-not-working-with-VPN-Sber-T-Bank-Ozon-fixes-11-20"
  },
+ "en/vpn-na-android-otklyuchaetsya": {
+  "hash": "09034270ce4b18e8",
+  "path": "VPN-keeps-disconnecting-on-Android-in-Russia-causes-and-fixes-11-24",
+  "url": "https://telegra.ph/VPN-keeps-disconnecting-on-Android-in-Russia-causes-and-fixes-11-24"
+ },
  "en/vpn-na-iphone-ne-rabotaet": {
   "hash": "92b7124cc99b1821",
   "path": "VPN-not-working-on-iPhone-in-Russia-why-it-wont-connect-and-fixes-11-23",
@@ -83,6 +88,11 @@
   "hash": "6f83af5b98318076",
   "path": "VPN-i-bankovskie-prilozheniya-pochemu-Sber-i-marketplejsy-ne-otkryvayutsya-11-20",
   "url": "https://telegra.ph/VPN-i-bankovskie-prilozheniya-pochemu-Sber-i-marketplejsy-ne-otkryvayutsya-11-20"
+ },
+ "ru/vpn-na-android-otklyuchaetsya": {
+  "hash": "e20f3b8cea4c3d77",
+  "path": "VPN-na-Android-otklyuchaetsya-sam-pochemu-i-kak-ehto-ispravit-11-24",
+  "url": "https://telegra.ph/VPN-na-Android-otklyuchaetsya-sam-pochemu-i-kak-ehto-ispravit-11-24"
  },
  "ru/vpn-na-iphone-ne-rabotaet": {
   "hash": "3a3b5733cc9c1ced",
