@@ -1,7 +1,37 @@
 {
   "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата - дата события по Москве. updated - момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ. Для английской версии сайта заполняйте region_en, title_en, meaning_en (перевод).",
-  "updated": "2026-11-23 09:05",
+  "updated": "2026-11-24 08:55",
   "events": [
+    {
+      "date": "2026-11-23",
+      "region": "Москва, Санкт-Петербург",
+      "operators": [
+        "all"
+      ],
+      "type": "slow",
+      "title": "Утром перестал работать мобильный и домашний интернет, у части не открывались даже сайты из белого списка",
+      "meaning": "Пик жалоб по Downdetector пришёлся примерно на 8 утра, сбоили мессенджеры и приложения. Днём жалоб стало меньше. Причину не называли. Если не грузится ничего, даже банки, это сбой сети, а не VPN",
+      "source": "Meduza",
+      "url": "https://meduza.io/news/2026/11/23/zhiteli-moskvy-i-peterburga-pozhalovalis-chto-u-nih-perestal-rabotat-internet-kak-mobilnyy-tak-i-domashniy",
+      "region_en": "Moscow, St Petersburg",
+      "title_en": "Mobile and home internet failed in the morning, for some even whitelisted sites would not open",
+      "meaning_en": "Downdetector complaints peaked at around 8 am, messengers and apps failed. Complaints dropped during the day. No cause was given. If nothing loads at all, even banking apps, it's a network failure, not your VPN"
+    },
+    {
+      "date": "2026-11-23",
+      "region": "Москва и Подмосковье, Санкт-Петербург, Новосибирская, Самарская, Свердловская области, Краснодарский край",
+      "operators": [
+        "beeline"
+      ],
+      "type": "slow",
+      "title": "Больше всего жалоб на интернет пришлось на Билайн и Ростелеком",
+      "meaning": "По Москве и области больше 6,5 тысячи жалоб за сутки, по Петербургу больше 2,7 тысячи. Местами работали только ресурсы из белых списков. Официальных заявлений не было",
+      "source": "Men Today (по данным Downdetector)",
+      "url": "https://www.mentoday.ru/technics/news/23-11-2026/massovye-sboi-interneta-23-noyabrya-gde-v-rossii-propala-svyaz-i-ne-rabotayut-servisy/",
+      "region_en": "Moscow and Moscow region, St Petersburg, Novosibirsk, Samara, Sverdlovsk regions, Krasnodar Krai",
+      "title_en": "Beeline and Rostelecom got the most internet complaints",
+      "meaning_en": "Over 6,500 complaints in a day for Moscow and the region, over 2,700 for St Petersburg. In some places only whitelisted resources worked. No official statements"
+    },
     {
       "date": "2026-11-23",
       "region": "Новосибирская область",
