@@ -74,12 +74,12 @@ iPhone, Android, Windows, macOS и телевизор - по шагам. Отд�
 
 ## 📝 Свежие статьи
 
+- [Настройки Incy VPN: стабильный мобильный интернет и низкий пинг](https://thuggervpn.github.io/blog/nastrojki-incy/)
 - [VPN с белыми списками: какой впн работает при белых списках в 2026](https://thuggervpn.github.io/blog/vpn-s-belymi-spiskami/)
 - [VPN на компьютер: как настроить на Windows и Mac за 2 минуты](https://thuggervpn.github.io/blog/vpn-na-kompyuter/)
 - [Не работает мобильный интернет: почему и что делать сегодня](https://thuggervpn.github.io/blog/ne-rabotaet-mobilnyj-internet/)
 - [Incy VPN: как добавить подписку и настроить (инси впн) в 2026](https://thuggervpn.github.io/blog/incy-vpn-kak-nastroit/)
 - [Happ VPN: как добавить подписку и ключ, настройка за 2 минуты](https://thuggervpn.github.io/blog/happ-vpn-kak-nastroit/)
-- [VPN на Андроиде отключается сам: почему и как исправить](https://thuggervpn.github.io/blog/vpn-na-android-otklyuchaetsya/)
 
 [Все статьи →](https://thuggervpn.github.io/blog/)
 
