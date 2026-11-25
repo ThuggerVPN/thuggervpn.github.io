@@ -147,7 +147,7 @@ def build(ST):
     if status:
         path = "/en/status/"
         crumbs = [home_c, (status["title"], path)]
-        bh = status["body_html"].replace("<p>{{STATUS_TABLE}}</p>", status_block(ST) + (
+        bh = status["body_html"].replace("<p>{{STATUS_TABLE}}</p>", __import__("ru_map").build(ST["events"], ST["updated"], "en") + status_block(ST) + (
             f'<p>Daily summary on Telegram (in Russian): <a href="{CHANNEL}" target="_blank" rel="noopener">@{CHANNEL.rsplit("/", 1)[-1]}</a></p>'
             if CHANNEL else ""))
         status["updated"] = UPD

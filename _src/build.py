@@ -890,18 +890,48 @@ def status_block(st):
     return note + events_table(last)
 
 
+def plural(n, one, few, many):
+    n = abs(n) % 100
+    if 11 <= n <= 19: return many
+    n %= 10
+    return one if n == 1 else few if 2 <= n <= 4 else many
+
+
 def telegram_post(st):
+    """Пост в канал: главы, ссылки спрятаны в текст, без превью (превью выключает workflow)."""
     fresh = recent(st["events"], st["updated"], 2)
-    lines = [f"<b>Статус блокировок · {upd_label(st, year=False)}</b>", ""]
-    if fresh:
-        for e in fresh[:5]:
-            lines.append(f"• <b>{html.escape(e['region'])}:</b> {html.escape(e['title'])}")
-            lines.append(f"  → {html.escape(e['meaning'])}")
+    a = lambda url, text: f'<a href="{url}">{text}</a>'
+    def reg(r):
+        parts = [p.strip() for p in r.replace(" и ", ", ").split(",") if p.strip()]
+        return r if len(parts) <= 3 else ", ".join(parts[:3]) + f" и ещё {len(parts) - 3}"
+    def first(t):
+        t = t.strip()
+        k = t.find(". ")
+        return t if k < 0 or k > 220 else t[:k + 1]
+    groups = [("🔴 Ограничения и белые списки", ("whitelist",)), ("🟠 Сбои и отключения", ("outage", "slow")),
+              ("🔒 Блокировки сервисов и VPN", ("vpn_block", "service")), ("📜 Решения властей и операторов", ("policy",))]
+    L = [f"<b>📡 Интернет сегодня · {upd_label(st, year=False)}</b>", ""]
+    if not fresh:
+        L += ["За сутки новых крупных сбоев в открытых источниках не найдено. Если у вас не работает, "
+              + a(f"{SITE}/check/", "проверьте свой интернет за 5 секунд") + "."]
     else:
-        lines.append("За сутки новых крупных сбоев в открытых источниках не найдено.")
-    lines += ["", f'Проверить свой интернет за 5 секунд: {SITE}/check/',
-              f'Полная сводка: {SITE}/status/']
-    return "\n".join(lines)
+        nwl = sum(1 for e in fresh if e["type"] == "whitelist")
+        L += ["<b>Коротко</b>", f"За сутки {len(fresh)} {plural(len(fresh), 'событие', 'события', 'событий')}"
+              + (f", ограничения мобильного интернета: {nwl}" if nwl else "") + "."]
+        for title, types in groups:
+            evs = [e for e in fresh if e["type"] in types][:4]
+            if not evs:
+                continue
+            L += ["", f"<b>{title}</b>"]
+            for e in evs:
+                L.append(f"▫️ <b>{html.escape(reg(e['region']))}.</b> {html.escape(e['title'])}")
+                L.append(f"<i>{html.escape(first(e['meaning']))}</i>")
+    L += ["", "<b>Что делать</b>",
+          "▫️ Не уверены, что у вас: " + a(f"{SITE}/check/", "проверка за 5 секунд") + " покажет, отключение это, белые списки или блокировка.",
+          "▫️ Мобильный не работает, а Wi-Fi есть: это ограничения в регионе, " + a(f"{SITE}/blog/ne-rabotaet-mobilnyj-internet/", "что делать") + ".",
+          "▫️ Не работает VPN: " + a(f"{SITE}/blog/ne-rabotaet-vpn-na-mobilnom/", "разбор по шагам") + ".",
+          "", a(f"{SITE}/status/", "Полная сводка и карта") + " · " + a(f"{SITE}/index-blokirovok/", "Индекс блокировок")]
+    return "\n".join(L)
 
 
 
@@ -1141,7 +1171,7 @@ def main():
         status["title"] = f"Не работает мобильный интернет сегодня, {ru_date(ST['updated'][:10], year=False)}: где сбои и белые списки"
         status["description"] = (f"Что с мобильным интернетом и VPN сегодня, {ru_date(ST['updated'][:10], year=False)}: где отключают интернет, "
                                  "включены ли белые списки у МТС, Билайна, МегаФона и Т2, почему не работает VPN и что делать.")
-        body_html = status["body_html"].replace("<p>{{STATUS_TABLE}}</p>", status_block(ST) + (f'<p>Сводка каждое утро в Telegram: <a href="{CHANNEL}" target="_blank" rel="noopener">@{CHANNEL.rsplit("/", 1)[-1]}</a></p>' if CHANNEL else ""))
+        body_html = status["body_html"].replace("<p>{{STATUS_TABLE}}</p>", __import__("ru_map").build(ST["events"], ST["updated"], "ru") + status_block(ST) + (f'<p>Сводка каждое утро в Telegram: <a href="{CHANNEL}" target="_blank" rel="noopener">@{CHANNEL.rsplit("/", 1)[-1]}</a></p>' if CHANNEL else ""))
         body = (f'<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
                 f'<h1>{esc(status["title"])}</h1>'
                 f'<div class="meta">Обновлено {upd_label(ST)}</div>'
