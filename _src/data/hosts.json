@@ -3,14 +3,14 @@
   "hosts": {
     "https://thuggervpn.github.io": {
       "ok": true,
-      "ru_ok": 0,
+      "ru_ok": 2,
       "ru_fail": 0
     },
     "https://thugger-vpn.github.io": {
       "ok": true,
-      "ru_ok": 0,
+      "ru_ok": 2,
       "ru_fail": 0
     }
   },
-  "checked": "2026-11-25 18:40"
+  "checked": "2026-11-25 20:27"
 }
