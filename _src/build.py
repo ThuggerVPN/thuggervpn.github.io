@@ -1138,6 +1138,9 @@ def main():
         path = "/status/"
         crumbs = [("Главная", "/"), (status["title"], path)]
         status["updated"] = max(status["updated"], UPD)
+        status["title"] = f"Не работает мобильный интернет сегодня, {ru_date(ST['updated'][:10], year=False)}: где сбои и белые списки"
+        status["description"] = (f"Что с мобильным интернетом и VPN сегодня, {ru_date(ST['updated'][:10], year=False)}: где отключают интернет, "
+                                 "включены ли белые списки у МТС, Билайна, МегаФона и Т2, почему не работает VPN и что делать.")
         body_html = status["body_html"].replace("<p>{{STATUS_TABLE}}</p>", status_block(ST) + (f'<p>Сводка каждое утро в Telegram: <a href="{CHANNEL}" target="_blank" rel="noopener">@{CHANNEL.rsplit("/", 1)[-1]}</a></p>' if CHANNEL else ""))
         body = (f'<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
                 f'<h1>{esc(status["title"])}</h1>'
@@ -1194,7 +1197,7 @@ def main():
     # --- страницы операторов ---
     for slug, (name, name_loc) in OPS.items():
         path = f"/operator/{slug}/"
-        title = f"Не работает VPN на {name_loc}: статус на {ru_date(UPD, year=False)} и что делать"
+        title = f"Не работает мобильный интернет {name} сегодня, {ru_date(UPD, year=False)}: белые списки и VPN"
         evs = [e for e in recent(ST["events"], UPD, 14)
                if "all" in e["operators"] or slug in e["operators"]]
         own = [e for e in evs if slug in e["operators"]]

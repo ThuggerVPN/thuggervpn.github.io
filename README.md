@@ -74,12 +74,12 @@ iPhone, Android, Windows, macOS и телевизор - по шагам. Отд�
 
 ## 📝 Свежие статьи
 
-- [VPN на Android отключается сам: почему и как это исправить](https://thuggervpn.github.io/blog/vpn-na-android-otklyuchaetsya/)
-- [VPN на iPhone не работает: почему не подключается и что делать](https://thuggervpn.github.io/blog/vpn-na-iphone-ne-rabotaet/)
-- [Индекс блокировок: итоги недели 16-22 ноября 2026](https://thuggervpn.github.io/blog/indeks-blokirovok-16-22-noyabrya/)
-- [Не грузит YouTube с VPN: почему крутится загрузка и что делать](https://thuggervpn.github.io/blog/youtube-ne-rabotaet-s-vpn/)
-- [Telegram не подключается: почему висит «Соединение» и что делать](https://thuggervpn.github.io/blog/telegram-ne-podklyuchaetsya/)
-- [VPN и банковские приложения: почему Сбер и маркетплейсы не открываются](https://thuggervpn.github.io/blog/vpn-i-bankovskie-prilozheniya/)
+- [VPN с белыми списками: какой впн работает при белых списках в 2026](https://thuggervpn.github.io/blog/vpn-s-belymi-spiskami/)
+- [Не работает мобильный интернет: почему и что делать сегодня](https://thuggervpn.github.io/blog/ne-rabotaet-mobilnyj-internet/)
+- [Incy VPN: как добавить подписку и настроить (инси впн) в 2026](https://thuggervpn.github.io/blog/incy-vpn-kak-nastroit/)
+- [Happ VPN: как добавить подписку и ключ, настройка за 2 минуты](https://thuggervpn.github.io/blog/happ-vpn-kak-nastroit/)
+- [VPN на Андроиде отключается сам: почему и как исправить](https://thuggervpn.github.io/blog/vpn-na-android-otklyuchaetsya/)
+- [VPN на айфоне не работает: почему не подключается и что делать](https://thuggervpn.github.io/blog/vpn-na-iphone-ne-rabotaet/)
 
 [Все статьи →](https://thuggervpn.github.io/blog/)
 

@@ -151,6 +151,9 @@ def build(ST):
             f'<p>Daily summary on Telegram (in Russian): <a href="{CHANNEL}" target="_blank" rel="noopener">@{CHANNEL.rsplit("/", 1)[-1]}</a></p>'
             if CHANNEL else ""))
         status["updated"] = UPD
+        status["title"] = f"Mobile internet down in Russia today, {d(ST['updated'][:10], False)}: outages and whitelists"
+        status["description"] = (f"Is mobile internet working in Russia today, {d(ST['updated'][:10], False)}? Where it is cut off, whitelist mode "
+                                 "on MTS, Beeline, MegaFon and T2, why VPNs fail and what to do.")
         body = (f'<article class="narrow" style="margin:0 auto">{B.crumbs_html(crumbs)}<h1>{esc(status["title"])}</h1>'
                 f'<div class="meta">Updated {upd(ST)}</div>{bh}{cta()}</article>')
         B.write("en/status/index.html", page(f'{status["title"]} | {BRAND}', status["description"], path, body,
@@ -271,7 +274,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
     for slug, name in OPS.items():
         path = f"/en/operator/{slug}/"
         short = name.split(" ")[0]
-        title = f"VPN not working on {short}: status for {d(UPD, False)} and what to do"
+        title = f"{short} mobile internet not working today, {d(UPD, False)}: whitelists and VPN"
         evs = [e for e in B.recent(ST["events"], UPD, 14) if "all" in e["operators"] or slug in e["operators"]]
         own = [e for e in evs if slug in e["operators"]]
         summary = (f"In the last 14 days: {len(evs)} events affecting {short} subscribers"
