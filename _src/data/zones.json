@@ -18,7 +18,7 @@
   "t":"ЦАО Москвы: отключения мобильной связи и интернета","te":"Central Moscow: mobile network and internet cut-offs",
   "m":"С 5 марта 2026 года в районах Центрального округа пропадали мобильный интернет и связь, у части жителей работали только сервисы из белого списка. Позже отключения в Москве повторялись.",
   "me":"From 5 March 2026 mobile internet and calls dropped in central districts; some residents had only whitelisted services. Shutdowns in Moscow recurred later.",
-  "s":[{"t":"Comss.ru","u":"https://www.comss.ru/page.php?id=19856"},{"t":"Т—Ж","u":"https://t-j.ru/news/moscow-bez-interneta/"}]},
+  "s":[{"t":"Comss.ru","u":"https://www.comss.ru/page.php?id=19856"},{"t":"Т-Ж","u":"https://t-j.ru/news/moscow-bez-interneta/"}]},
  {"id":"msk-yuao-2026","kind":"mobile","lat":55.6226,"lon":37.6464,"r":6000,"since":"2026",
   "t":"ЮАО Москвы: отключения мобильной связи и интернета","te":"Southern Moscow: mobile network and internet cut-offs",
   "m":"В марте 2026 года мобильный интернет и связь перестали стабильно работать в районах Южного округа. Операторы подтвердили ограничения спустя сутки, причины официально не называли.",
