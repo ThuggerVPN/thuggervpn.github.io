@@ -36,7 +36,7 @@ CHANNEL = CFG.get("channel_url", "")
 MSK = ZoneInfo("Europe/Moscow")
 
 # Страницы, у которых есть английская версия (/en + тот же путь)
-EN_STATIC = {"/", "/priglasit/", "/video/", "/check/", "/podklyuchenie/", "/status/", "/index-blokirovok/", "/informer/", "/blog/",
+EN_STATIC = {"/", "/priglasit/", "/video/", "/karta/", "/check/", "/podklyuchenie/", "/status/", "/index-blokirovok/", "/informer/", "/blog/",
              "/operator/mts/", "/operator/beeline/", "/operator/megafon/", "/operator/t2/"}
 
 
@@ -405,7 +405,7 @@ def write_pwa():
              {"src": "/assets/app/icon-512.png", "sizes": "512x512", "type": "image/png"},
              {"src": "/assets/app/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]
     for pre, lang, desc, sc in (("", "ru", "Проверка VPN, статус блокировок и инструкции", [
-            ("Проверить VPN", "/check/"), ("Как подключить", "/podklyuchenie/"), ("Статус блокировок", "/status/")]),
+            ("Проверить VPN", "/check/"), ("Карта ограничений", "/karta/"), ("Как подключить", "/podklyuchenie/"), ("Статус блокировок", "/status/")]),
             ("/en", "en", "VPN check, blocking status and setup guides", [
             ("Check VPN", "/en/check/"), ("Setup guide", "/en/podklyuchenie/"), ("Blocking status", "/en/status/")])):
         man = {"name": BRAND, "short_name": BRAND, "description": desc, "lang": lang,
@@ -571,7 +571,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
         foot_l = "Guides on stable internet access in Russia: blocking status, internet check, setup."
         foot_r = footer_cols([
             ("Service", [("Try 3 days free", BOT), ("Plans", "/en/#prices"), ("How to connect", "/en/podklyuchenie/"), ("Invite friends", "/en/priglasit/"), ("Video guide", "/en/video/"), ("Support", SUPPORT)]),
-            ("Tools", [("Internet check", "/en/check/"), ("Whitelist check", "/en/check/#wl"), ("Blocking status", "/en/status/"), ("Blocking index", "/en/index-blokirovok/")]),
+            ("Tools", [("Restrictions map", "/en/karta/"), ("Internet check", "/en/check/"), ("Whitelist check", "/en/check/#wl"), ("Blocking status", "/en/status/"), ("Blocking index", "/en/index-blokirovok/")]),
             ("Carriers", [("MTS", "/en/operator/mts/"), ("Beeline", "/en/operator/beeline/"), ("MegaFon", "/en/operator/megafon/"), ("T2", "/en/operator/t2/")]),
             ("More", [("Articles", "/en/blog/"), ("Reviews", VPNSTATUS), ("Telegram channel", CHANNEL), ("Site widget", "/en/informer/")]),
         ])
@@ -583,7 +583,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
         foot_l = "Справочные материалы о стабильном доступе к интернету: статус блокировок, проверка, инструкции."
         foot_r = footer_cols([
             ("Сервис", [("Попробовать 3 дня", BOT), ("Тарифы", "/#prices"), ("Как подключить", "/podklyuchenie/"), ("Приведи друга", "/priglasit/"), ("Видеоинструкция", "/video/"), ("Поддержка", SUPPORT)]),
-            ("Инструменты", [("Проверка интернета", "/check/"), ("Белые списки", "/check/#wl"), ("Статус блокировок", "/status/"), ("Индекс блокировок", "/index-blokirovok/")]),
+            ("Инструменты", [("Карта ограничений", "/karta/"), ("Проверка интернета", "/check/"), ("Белые списки", "/check/#wl"), ("Статус блокировок", "/status/"), ("Индекс блокировок", "/index-blokirovok/")]),
             ("Операторы", [("МТС", "/operator/mts/"), ("Билайн", "/operator/beeline/"), ("МегаФон", "/operator/megafon/"), ("Т2", "/operator/t2/")]),
             ("Ещё", [("Статьи", "/blog/"), ("Отзывы", VPNSTATUS), ("Telegram-канал", CHANNEL), ("Информер для сайта", "/informer/")]),
         ])
@@ -931,7 +931,7 @@ def telegram_post(st):
           "▫️ Не уверены, что у вас: " + a(f"{SITE}/check/", "проверка за 5 секунд") + " покажет, отключение это, белые списки или блокировка.",
           "▫️ Мобильный не работает, а Wi-Fi есть: это ограничения в регионе, " + a(f"{SITE}/blog/ne-rabotaet-mobilnyj-internet/", "что делать") + ".",
           "▫️ Не работает VPN: " + a(f"{SITE}/blog/ne-rabotaet-vpn-na-mobilnom/", "разбор по шагам") + ".",
-          "", a(f"{SITE}/status/", "Полная сводка и карта") + " · " + a(f"{SITE}/index-blokirovok/", "Индекс блокировок")]
+          "", a(f"{SITE}/status/", "Полная сводка") + " · " + a(f"{SITE}/karta/", "Карта и проверка маршрута") + " · " + a(f"{SITE}/index-blokirovok/", "Индекс блокировок")]
     return "\n".join(L)
 
 
@@ -1146,7 +1146,7 @@ def main():
     ST = load_status()
     UPD = ST["updated"]
 
-    for d in ("blog", "status", "check", "podklyuchenie", "priglasit", "video", "operator", "index-blokirovok", "embed", "informer", "data", "en"):
+    for d in ("blog", "status", "check", "podklyuchenie", "priglasit", "video", "karta", "operator", "index-blokirovok", "embed", "informer", "data", "en"):
         shutil.rmtree(ROOT / d, ignore_errors=True)
 
     urls = [("/", UPD)]
@@ -1224,6 +1224,9 @@ def main():
     import friends
     friends.page('ru', urls, UPD)
     __import__('video_block').watch_page('ru', urls, UPD)
+    import karta
+    karta.write_data(ST)
+    karta.page('ru', ST, urls, UPD)
 
     # --- страницы операторов ---
     for slug, (name, name_loc) in OPS.items():

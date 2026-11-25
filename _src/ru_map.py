@@ -89,10 +89,10 @@ def build(events, upd, lang="ru"):
     T = {
         "ru": {"h": "Карта ограничений", "p": "Где за последнее время сообщали об отключениях, белых списках и сбоях. Нажмите на регион, чтобы увидеть события.",
                "d7": "7 дней", "d30": "30 дней", "none": "В этом регионе за период событий нет.", "nat": "По всей стране",
-               "pick": "Выберите регион на карте", "zin": "Крупнее", "zout": "Вся Россия", "l0": "нет событий", "l1": "1", "l2": "2-3", "l3": "4+"},
+               "pick": "Выберите регион на карте", "full": "🧭 Открыть карту-навигатор: города, зоны, маршрут", "fullu": "/karta/", "zin": "Крупнее", "zout": "Вся Россия", "l0": "нет событий", "l1": "1", "l2": "2-3", "l3": "4+"},
         "en": {"h": "Restrictions map", "p": "Where shutdowns, whitelists and outages were reported recently. Tap a region to see events.",
                "d7": "7 days", "d30": "30 days", "none": "No events in this region for the period.", "nat": "Nationwide",
-               "pick": "Pick a region on the map", "zin": "Zoom in", "zout": "All Russia", "l0": "no events", "l1": "1", "l2": "2-3", "l3": "4+"},
+               "pick": "Pick a region on the map", "full": "🧭 Open the map navigator: cities, zones, route", "fullu": "/en/karta/", "zin": "Zoom in", "zout": "All Russia", "l0": "no events", "l1": "1", "l2": "2-3", "l3": "4+"},
     }[lang]
     css = """<style>
 .rmap{margin:22px 0;padding:20px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line)}
@@ -139,4 +139,5 @@ def build(events, upd, lang="ru"):
             f'<button type="button" data-d="31" aria-pressed="false">{T["d30"]}</button>'
             f'<button type="button" class="rmap-z" style="margin-left:auto">{T["zin"]}</button></div>'
             f'<svg viewBox="0 0 {MAP["w"]} {MAP["h"]}" role="img" aria-label="{T["h"]}">{"".join(paths)}{dots}</svg>'
+            f'<a class="btn" href="{T["fullu"]}" style="display:flex;justify-content:center;margin:4px 0 12px">{T["full"]}</a>'
             f'<div class="rmap-l">{legend}</div><div class="rmap-i"><small>{T["pick"]}</small></div></section>' + js)
