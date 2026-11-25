@@ -36,6 +36,8 @@ Two VPN apps, or a proxy enabled in Telegram and the system, can interfere with 
 
 **Fix:** close extra VPN apps, turn off proxies and reconnect.
 
+Setting up on a laptop? See <a href="/en/blog/vpn-na-kompyuter/">how to set up a VPN on a PC or Mac</a>.
+
 ## 5-minute routine
 
 1. Change the server.

@@ -16,7 +16,7 @@ Russian services - Yandex Maps and Go, banks, marketplaces - work normally.
 
 ## Your foreign SIM on arrival
 
-Since October 2025, a foreign SIM or eSIM that connects to a Russian network **loses mobile internet and SMS for the first 24 hours**. Calls keep working. Carriers let you lift the block earlier by passing a check on their page - usually with Wi-Fi and VPN turned off, over mobile data.
+Since October 2025, a foreign SIM or eSIM that connects to a Russian network **loses mobile internet and SMS for the first 24 hours**. Calls keep working. Carriers let you lift the block earlier by passing a check on their page - usually with Wi-Fi and VPN turned off, over mobile data. Details in <a href="/en/blog/foreign-sim-24-hour-block-russia/">foreign SIM 24-hour block in Russia</a>.
 
 Some travellers used to rely on roaming eSIMs to reach blocked apps without a VPN. According to eSIM sellers and traveller reports, since summer 2026 roaming traffic is filtered too, so don't count on it - bring a VPN.
 
