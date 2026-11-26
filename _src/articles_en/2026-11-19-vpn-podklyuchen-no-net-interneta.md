@@ -48,6 +48,8 @@ Setting up on a laptop? See <a href="/en/blog/vpn-na-kompyuter/">how to set up a
 
 If it still doesn't work, contact your VPN's support. If support is silent for more than a day, keep a backup service.
 
+If your VPN won't connect at all or stopped working today, start with <a href="/en/blog/ne-rabotaet-vpn-segodnya/">VPN not working in Russia today</a>: it has a table to tell a network outage from a blocked server in a minute.
+
 ## FAQ
 
 ### My VPN worked yesterday; today it's "connected" but nothing opens. Why?
