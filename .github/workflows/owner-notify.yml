@@ -1,0 +1,42 @@
+name: Owner notify (Telegram)
+
+# Шлёт владельцу в Telegram текст из _src/notify/outbox.txt (его пишут радар, ежедневное обновление и недельный отчёт).
+# Пока владелец не нажал Start у бота, раз в 30 минут ищет его /start и запоминает chat_id.
+on:
+  push:
+    branches: [main]
+    paths: ["_src/notify/outbox.txt", "_src/notify/notify.py"]
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: owner-notify
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip if owner already known and nothing new (schedule)
+        id: chk
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && python3 -c "import json,sys;sys.exit(0 if json.load(open('_src/notify/owner.json')).get('chat_id') else 1)" 2>/dev/null; then echo "skip=1" >> $GITHUB_OUTPUT; fi
+      - name: Send
+        if: steps.chk.outputs.skip != '1'
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+        run: python3 _src/notify/notify.py
+      - name: Save
+        if: steps.chk.outputs.skip != '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _src/notify/owner.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -q -m "Владелец для уведомлений [no-post]"
+          for i in 1 2 3; do git pull -q --rebase --autostash origin main && git push -q origin HEAD:main && exit 0; sleep 5; done

@@ -70,7 +70,26 @@ def referrers(start, end):
         return {"error": str(e)[:120]}
 
 
+def alert_spikes(spikes, today, prev):
+    """Новый всплеск = сразу сообщение владельцу в Telegram (один раз на страницу в день)."""
+    alerted = prev.get("alerted", {}) if isinstance(prev.get("alerted"), dict) else {}
+    done = set(alerted.get(today, []))
+    new = [s for s in spikes if s["path"] not in done]
+    if new and os.environ.get("TG_BOT_TOKEN"):
+        import subprocess
+        lines = [f"Всплеск на сайте {today}:"] + [
+            f"{s['path']}: сегодня {s['today']} визитов (обычно {s['avg7']} в день)" for s in new]
+        lines.append("Радар обновит страницу в ближайший запуск.")
+        subprocess.run(["python3", str(ROOT / "_src" / "notify" / "notify.py"), "\n".join(lines)], check=False)
+        done |= {s["path"] for s in new}
+    return {today: sorted(done)}
+
+
 def main():
+    try:
+        prev = json.loads(OUT.read_text(encoding="utf-8"))
+    except Exception:
+        prev = {}
     now = datetime.now(MSK)
     today = now.date()
     days = [(today - timedelta(days=i)) for i in range(DAYS - 1, -1, -1)]
@@ -117,6 +136,7 @@ def main():
         "conversion": conv[:40],
         "events_all_time": {k: v for k, v in totals.items() if not k.startswith("/") and v},
         "referrers_7d": referrers((today - timedelta(days=6)).isoformat(), today.isoformat()),
+        "alerted": alert_spikes(spikes, today.isoformat(), prev),
     }
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"traffic: {len(pages)} страниц с визитами, всплесков сегодня: {len(spikes)}")
