@@ -17,6 +17,8 @@ from pathlib import Path
 D = Path(__file__).resolve().parent
 OWNER = D / "owner.json"
 OUTBOX = D / "outbox.txt"
+OUTBOX_ENC = D / "outbox.enc"
+PUBKEY = D / "pubkey.txt"
 OWNER_USERNAMES = {"thuggervpn_supp"}
 TOKEN = os.environ.get("TG_BOT_TOKEN", "").strip()
 
@@ -62,15 +64,41 @@ def send(o, text):
     return True
 
 
+def keypair():
+    """Ключ выводится из TG_BOT_TOKEN: открытый лежит в репозитории, закрытый существует только внутри workflow."""
+    import base64
+    import hashlib as h
+    from nacl.public import PrivateKey
+    sk = PrivateKey(h.sha256(("thuggervpn-notify:" + TOKEN).encode()).digest())
+    pub = base64.b64encode(bytes(sk.public_key)).decode()
+    if not PUBKEY.exists() or PUBKEY.read_text().strip() != pub:
+        PUBKEY.write_text(pub + "\n")
+    return sk
+
+
+def read_outbox():
+    if OUTBOX_ENC.exists():
+        import base64
+        from nacl.public import SealedBox
+        try:
+            return SealedBox(keypair()).decrypt(base64.b64decode(OUTBOX_ENC.read_text().strip())).decode()
+        except Exception as e:
+            return f"Не удалось расшифровать отчёт: {e}"
+    if OUTBOX.exists():
+        return OUTBOX.read_text(encoding="utf-8")
+    return ""
+
+
 def main():
     if not TOKEN:
         print("нет TG_BOT_TOKEN")
         return
+    keypair()
     o = ensure_owner(load())
     if len(sys.argv) > 1:
         send(o, sys.argv[1])
-    elif OUTBOX.exists():
-        text = OUTBOX.read_text(encoding="utf-8").strip()
+    else:
+        text = read_outbox().strip()
         h = hashlib.sha1(text.encode()).hexdigest()
         if text and h != o.get("last_sent") and send(o, text):
             o["last_sent"] = h

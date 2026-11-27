@@ -24,12 +24,14 @@ jobs:
         env:
           GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-        run: python3 _src/traffic_watch.py
+        run: |
+          pip install -q pynacl
+          python3 _src/traffic_watch.py
       - name: Save
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _src/data/traffic.json _src/notify/owner.json
+          git add _src/data/traffic.json _src/notify/owner.json _src/notify/pubkey.txt
           if git diff --cached --quiet; then exit 0; fi
           git commit -q -m "Трафик сайта [no-post]"
           for i in 1 2 3; do git pull -q --rebase --autostash origin main && git push -q origin HEAD:main && exit 0; sleep 5; done

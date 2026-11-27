@@ -24,4 +24,4 @@ jobs:
           R2=$(curl -sS --data-urlencode chat_id="$TG_CHANNEL" --data-urlencode description@_src/channel/description.txt "$API/setChatDescription"); echo "$R2"
           OK=$(echo "$R1" | python3 -c "import sys,json;print(json.load(sys.stdin).get('ok'))")
           if [ "$OK" = "True" ]; then MSG="Канал переименован: $T"; else MSG="Не удалось переименовать канал: $R1"; fi
-          TG_BOT_TOKEN="$TG_BOT_TOKEN" python3 _src/notify/notify.py "$MSG" || true
+          pip install -q pynacl; TG_BOT_TOKEN="$TG_BOT_TOKEN" python3 _src/notify/notify.py "$MSG" || true
