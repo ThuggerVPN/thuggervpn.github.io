@@ -270,6 +270,8 @@ details.acc-q p{margin:0;color:var(--soft)}
 .rv p{margin:6px 0 8px;font-size:15px;line-height:1.55}.rv small{color:var(--muted)}
 .cta{margin:36px 0;padding:28px;border-radius:24px;background:var(--violet-bg);border:1px solid var(--violet-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
 .cta b{font-size:22px;display:block;margin-bottom:4px}
+.icta{margin:24px 0;padding:16px 18px;border-radius:18px;background:var(--violet-bg);border:1px solid var(--violet-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}.icta p{margin:0;flex:1 1 280px;color:var(--violet-text);font-size:16px}.icta .btn{white-space:nowrap}
+.sticky-cta{position:fixed;left:12px;right:84px;bottom:16px;z-index:60;display:flex;align-items:center;gap:10px;padding:10px 10px 10px 16px;border-radius:16px;background:var(--violet-bg);border:1px solid var(--violet-line);box-shadow:0 8px 30px rgba(0,0,0,.25)}.sticky-cta[hidden]{display:none}.sticky-cta span{flex:1;font-size:14px;line-height:1.25}.sticky-cta .btn{padding:10px 16px}.sticky-cta button{background:none;border:0;color:inherit;font-size:22px;line-height:1;cursor:pointer;padding:4px 6px}@media(min-width:861px){.sticky-cta{display:none!important}}
 .cta p{margin:0;color:var(--violet-text);max-width:620px}
 .cta .links{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
 .cta .links a.small{font-size:15px;color:var(--accent2)}
@@ -519,6 +521,43 @@ def cta_block():
             f'Отзывы клиентов на vpnstatus.site ↗</a></div></div>')
 
 
+
+def inline_cta(a, path, where):
+    """Короткий оффер внутри статьи: сразу после «Коротко» и после таблицы-диагностики."""
+    low = min([p["per_month"] for p in CFG.get("plans", [])] or [210])
+    if where == "top":
+        txt = a.get("cta") or "Не хотите чинить VPN каждый вечер? ThuggerVPN работает на МТС, Билайне, МегаФоне, Т2 и дома."
+        btn = f"Попробовать {CFG['trial']}"
+    else:
+        txt = a.get("cta2") or f"Проще сменить VPN, чем искать причину. {CFG['trial'].capitalize()}, дальше от {low} ₽ в месяц."
+        btn = "Подключить за 2 минуты"
+    return (f'<div class="icta"><p>{esc(txt)}</p>'
+            f'<a class="btn" data-goatcounter-click="bot-{where}{path}" href="{BOT}" rel="nofollow">{btn}</a></div>')
+
+
+def with_inline_ctas(a, path):
+    html = a["body_html"]
+    m = re.search(r'<p class="lead">.*?</p>', html, re.S)
+    if m:
+        html = html[:m.end()] + inline_cta(a, path, "top") + html[m.end():]
+    t = html.find("</table></div>")
+    if t != -1:
+        t += len("</table></div>")
+        html = html[:t] + inline_cta(a, path, "mid") + html[t:]
+    else:
+        hs = [x.start() for x in re.finditer(r"<h2", html)]
+        if len(hs) >= 3:
+            html = html[:hs[2]] + inline_cta(a, path, "mid") + html[hs[2]:]
+    return html
+
+
+def sticky_cta(path):
+    return (f'<div class="sticky-cta" id="stcta" hidden><span>{CFG["trial"].capitalize()}</span>'
+            f'<a class="btn" data-goatcounter-click="bot-sticky{path}" href="{BOT}" rel="nofollow">Попробовать</a>'
+            f'<button type="button" aria-label="Закрыть" onclick="this.parentNode.hidden=true;try{{sessionStorage.setItem(\'stcta\',1)}}catch(e){{}}">×</button></div>'
+            '<script>(function(){var b=document.getElementById("stcta");try{if(sessionStorage.getItem("stcta"))return}catch(e){}'
+            'addEventListener("scroll",function(){if(scrollY>innerHeight*0.6)b.hidden=false},{passive:true})})()</script>')
+
 def trust_block():
     vp = SRC / "data" / "vpnstatus.json"
     d = json.loads(vp.read_text(encoding="utf-8")) if vp.exists() else None
@@ -646,6 +685,8 @@ def track_clicks(doc, path):
         if url:
             doc = doc.replace(f'href="{url}"', f'href="{url}" data-goatcounter-click="{name}{path}"')
     doc = re.sub(r'href="(https://vpnstatus\.site[^"]*)"', lambda m: f'{m.group(0)} data-goatcounter-click="reviews{path}"', doc)
+    # если у ссылки уже было своё событие (bot-top, bot-mid, bot-sticky), второе убираем
+    doc = re.sub(r'(data-goatcounter-click="[^"]*"[^>]*?) data-goatcounter-click="[^"]*"', r'\1', doc)
     return doc
 
 
@@ -1158,7 +1199,7 @@ def main():
         body = (f'<article class="narrow" style="margin:0 auto">{crumbs_html(crumbs)}'
                 f'<h1>{esc(a["title"])}</h1>'
                 f'<div class="meta">{ru_date(a["date"])}{upd}</div>'
-                f'{a["body_html"]}{cta_block()}{related_html(a, posts)}</article>')
+                f'{with_inline_ctas(a, path)}{cta_block()}{related_html(a, posts)}</article>{sticky_cta(path)}')
         write(f"blog/{a['slug']}/index.html",
               page(f'{a["title"]} | {BRAND}', a["description"], path, body,
                    article_jsonld(a, path, crumbs), "article"))
