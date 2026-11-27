@@ -6,6 +6,10 @@ on:
     paths: ["sitemap.xml"]
   workflow_dispatch:
 
+# Только чтение репозитория: этот запуск ничего не коммитит.
+permissions:
+  contents: read
+
 jobs:
   ping:
     runs-on: ubuntu-latest

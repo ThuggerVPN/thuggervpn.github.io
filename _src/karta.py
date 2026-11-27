@@ -53,7 +53,7 @@ def data(st):
         evs.append({"d": e["date"], "a": age, "k": e["type"], "r": regs,
                     "t": e["title"], "te": e.get("title_en") or e["title"],
                     "m": e.get("meaning", ""), "me": e.get("meaning_en") or e.get("meaning", ""),
-                    "s": e.get("source", ""), "u": e.get("url", "")})
+                    "s": e.get("source", ""), "u": B.safe_url(e.get("url", ""))})
         for c in cs:
             cities.setdefault(c["n"], {"n": c["n"], "lat": c["lat"], "lon": c["lon"], "e": []})["e"].append(i)
     feats = []
@@ -62,6 +62,8 @@ def data(st):
         feats.append({"type": "Feature", "properties": {"n": f["properties"]["name"], "en": f["properties"].get("name_latin", "")},
                       "geometry": {"type": g["type"], "coordinates": _fix_lon(g["coordinates"])}})
     zones = json.load(open(ZONES_F, encoding="utf-8")) if os.path.exists(ZONES_F) else []
+    for z in zones:
+        z["s"] = [dict(s, u=B.safe_url(s.get("u"))) for s in z.get("s", []) if B.safe_url(s.get("u"))]
     return {"updated": upd, "events": evs, "cities": list(cities.values()), "zones": zones,
             "regions": {"type": "FeatureCollection", "features": feats}}
 

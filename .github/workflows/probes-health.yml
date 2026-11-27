@@ -10,6 +10,10 @@ on:
     paths: ["_src/data/probes.json", "_src/probes_check.py"]
   workflow_dispatch:
 
+# Только чтение репозитория: этот запуск ничего не коммитит.
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest

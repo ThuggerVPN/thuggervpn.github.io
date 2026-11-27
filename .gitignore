@@ -1,2 +1,8 @@
 __pycache__/
 _src/notify/outbox.txt
+.env
+*.env
+*.pem
+*.key
+_src/notify/*.txt
+!_src/notify/pubkey.txt

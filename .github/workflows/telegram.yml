@@ -9,6 +9,10 @@ on:
     paths: ["_src/data/status.json"]
   workflow_dispatch:
 
+# Только чтение репозитория: этот запуск ничего не коммитит.
+permissions:
+  contents: read
+
 jobs:
   post:
     if: ${{ !contains(github.event.head_commit.message, '[no-post]') }}

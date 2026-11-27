@@ -96,6 +96,26 @@ def esc(s):
     return html.escape(s, quote=True)
 
 
+def safe_url(u):
+    """Ссылка-источник из базы событий: пропускаем только http(s), иначе пусто (защита от javascript: и т.п.)."""
+    u = str(u or "").strip()
+    return u if re.match(r"^https?://[^\s\"'<>]+$", u, re.I) else ""
+
+
+def ld_json(obj):
+    """JSON-LD внутри <script>: экранируем </ и <!--, чтобы текст статьи не мог закрыть тег."""
+    return json.dumps(obj, ensure_ascii=False).replace("</", "<\\/").replace("<!--", "<\\u0021--")
+
+
+# Политика безопасности страниц (CSP). Скрипты только свои, данные только на известные адреса.
+CSP = ("default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; "
+       "img-src 'self' https: data: blob:; font-src 'self' data:; media-src 'self' blob:; "
+       "connect-src 'self' https://*.goatcounter.com https://script.google.com https://script.googleusercontent.com "
+       "https://tiles.openfreemap.org https://nominatim.openstreetmap.org https://router.project-osrm.org; "
+       "worker-src 'self' blob:; child-src 'self' blob:; frame-src 'self'; manifest-src 'self'; "
+       "object-src 'none'; base-uri 'self'; form-action 'self'")
+
+
 def parse(path):
     text = path.read_text(encoding="utf-8")
     m = re.match(r"^---\n(.*?)\n---\n(.*)$", text, re.S)
@@ -431,9 +451,9 @@ self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(func
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k!==V}).map(function(k){return caches.delete(k)}))}).then(function(){return self.clients.claim()}))});
 self.addEventListener('fetch',function(e){var r=e.request,u=new URL(r.url);
  if(r.method!=='GET'||u.origin!==location.origin)return;
- if(r.mode==='navigate'){e.respondWith(fetch(r).then(function(res){var cp=res.clone();caches.open(V).then(function(c){c.put(r,cp)});return res})
+ if(r.mode==='navigate'){e.respondWith(fetch(r).then(function(res){if(res.ok){var cp=res.clone();caches.open(V).then(function(c){c.put(u.pathname,cp)})}return res})
   .catch(function(){return caches.match(r,{ignoreSearch:true}).then(function(m){return m||caches.match(u.pathname.indexOf('/en/')===0?'/en/':'/')})}));return;}
- if(/\.(png|svg|woff2|ico|webp|jpg)$/.test(u.pathname)){e.respondWith(caches.match(r).then(function(m){return m||fetch(r).then(function(res){var cp=res.clone();caches.open(V).then(function(c){c.put(r,cp)});return res})}));}
+ if(/\.(png|svg|woff2|ico|webp|jpg)$/.test(u.pathname)){e.respondWith(caches.match(r).then(function(m){return m||fetch(r).then(function(res){if(res.ok){var cp=res.clone();caches.open(V).then(function(c){c.put(r,cp)})}return res})}));}
 });
 """
 
@@ -725,11 +745,13 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
         theme_label = "Светлая или тёмная тема"
     ld = ""
     for obj in jsonld or []:
-        ld += f'<script type="application/ld+json">{json.dumps(obj, ensure_ascii=False)}</script>\n'
+        ld += f'<script type="application/ld+json">{ld_json(obj)}</script>\n'
     return track_clicks(f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="{CSP}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
@@ -754,7 +776,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <meta name="theme-color" content="#0a0b10" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f5f5fa" media="(prefers-color-scheme: light)">
 <script>{THEME_JS}</script><script>{failover_js()}</script>
 {CFG.get("head_extra", "")}
-{f'<script data-goatcounter="https://{GC}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>' if GC else ""}
+{f'<script data-goatcounter="https://{GC}.goatcounter.com/count" async src="/assets/gc/count.js"></script>' if GC else ""}
 <style>{CSS}{MENU_CSS}</style>
 {ld}</head>
 <body>
@@ -864,7 +886,7 @@ chips.addEventListener('click',function(e){{var id=e.target.getAttribute('data-i
 for(var i=0;i<D.intents.length;i++)if(D.intents[i].id===id){{inp.value=D.intents[i].chip;show(D.intents[i]);}}}});
 var CU=D.chat,call=document.getElementById('qa-call'),chat=document.getElementById('qa-chat'),th=document.getElementById('qa-thread');
 function ls(k,v){{try{{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}}catch(e){{}}}}
-var sid=ls('tvpn_sid');if(!sid){{sid=Math.random().toString(36).slice(2)+Date.now().toString(36);ls('tvpn_sid',sid);}}
+function rid(){{try{{var a=new Uint8Array(16);crypto.getRandomValues(a);return Array.prototype.map.call(a,function(x){{return ('0'+x.toString(16)).slice(-2)}}).join('')}}catch(e){{return Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)+Date.now().toString(36)}}}}var sid=ls('tvpn_sid');if(!sid){{sid=rid();ls('tvpn_sid',sid);}}
 var T=[];try{{T=JSON.parse(ls('tvpn_thread')||'[]')}}catch(e){{}}var last=Number(ls('tvpn_last')||0);
 function save(){{ls('tvpn_thread',JSON.stringify(T.slice(-60)));ls('tvpn_last',String(last));}}
 function render(){{th.textContent='';T.forEach(function(m){{var d=document.createElement('div');d.className='qa-m '+m.f;
@@ -976,6 +998,9 @@ def load_status():
         return {"updated": today_msk().isoformat(), "events": []}
     data = json.loads(p.read_text(encoding="utf-8"))
     data["events"].sort(key=lambda e: e["date"], reverse=True)
+    for e in data["events"]:
+        if "url" in e:
+            e["url"] = safe_url(e["url"])
     raw = str(data.get("updated", today_msk().isoformat()))
     data["updated"] = raw[:10]
     data["updated_time"] = raw[11:16] if len(raw) >= 16 else ""
@@ -1164,6 +1189,7 @@ def write_feed(rel, title, home, lang, posts, prefix, ST):
 
 def read_embed_template():
     return ("""<!DOCTYPE html><html lang="{{LANG}}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
 <meta name="robots" content="noindex"><title>{{TITLE}} - """ + BRAND + """</title><style>
 @font-face{font-family:Manrope;font-weight:200 800;src:url(/assets/fonts/manrope-cyrillic-wght-normal.woff2) format('woff2');unicode-range:U+0400-045F}
 @font-face{font-family:Manrope;font-weight:200 800;src:url(/assets/fonts/manrope-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F}

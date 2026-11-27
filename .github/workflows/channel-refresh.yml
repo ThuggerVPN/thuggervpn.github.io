@@ -8,6 +8,10 @@ on:
     paths: ["_src/channel/refresh.txt"]
   workflow_dispatch:
 
+# Только чтение репозитория: этот запуск ничего не коммитит.
+permissions:
+  contents: read
+
 jobs:
   refresh:
     runs-on: ubuntu-latest

@@ -8,6 +8,10 @@ on:
     paths: ["_src/video/post_ru.txt"]
   workflow_dispatch:
 
+# Только чтение репозитория: этот запуск ничего не коммитит.
+permissions:
+  contents: read
+
 jobs:
   post:
     runs-on: ubuntu-latest

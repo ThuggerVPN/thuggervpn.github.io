@@ -11,6 +11,10 @@ on:
     paths: ["_src/channel/run.txt"]
   workflow_dispatch:
 
+# Только чтение репозитория: этот запуск ничего не коммитит.
+permissions:
+  contents: read
+
 jobs:
   setup:
     runs-on: ubuntu-latest

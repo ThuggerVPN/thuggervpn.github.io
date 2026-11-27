@@ -8,6 +8,10 @@ on:
     paths: ["_src/channel/title.txt", "_src/channel/description.txt"]
   workflow_dispatch:
 
+# Только чтение репозитория: этот запуск ничего не коммитит.
+permissions:
+  contents: read
+
 jobs:
   title:
     runs-on: ubuntu-latest
