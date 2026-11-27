@@ -588,6 +588,103 @@ def trust_block():
 </div>"""
 
 
+MENU = {
+    "ru": {"tools": "Инструменты", "conn": "Подключение", "blog": "Статьи", "cta": "Попробовать", "cta_long": "Попробовать 3 дня бесплатно",
+           "open": "Открыть меню", "ops": "Операторы", "theme": "Светлая или тёмная тема", "more_h": "Ещё", "blog_d": "Почему не работает и что делать: разборы и инструкции", "alt": ("English", "/en/"),
+           "t": [("Карта ограничений", "Где режут связь сейчас и на маршруте", "/karta/"),
+                 ("Проверка интернета", "Что работает у вас, за 10 секунд", "/check/"),
+                 ("Белые списки", "Включён ли режим белых списков", "/check/#wl"),
+                 ("Статус блокировок", "Сводка за сегодня", "/status/"),
+                 ("Индекс блокировок", "Итоги недели по регионам", "/index-blokirovok/")],
+           "c": [("Как подключить", "4 шага для iPhone, Android и компьютера", "/podklyuchenie/"),
+                 ("Видеоинструкция", "Подключение по шагам на видео", "/video/"),
+                 ("Тарифы", "От 210 ₽ в месяц, 3 дня бесплатно", "/#prices"),
+                 ("Приведи друга", "4 друга на подписке, и твой VPN бесплатный", "/priglasit/"),
+                 ("Поддержка", "Ответим в Telegram", "SUPPORT")],
+           "o": [("МТС", "/operator/mts/"), ("Билайн", "/operator/beeline/"), ("МегаФон", "/operator/megafon/"), ("Т2", "/operator/t2/")],
+           "more": [("Отзывы", "VPNSTATUS"), ("Telegram-канал", "CHANNEL")]},
+    "en": {"tools": "Tools", "conn": "Get connected", "blog": "Articles", "cta": "Try free", "cta_long": "Try 3 days free",
+           "open": "Open menu", "ops": "Carriers", "theme": "Light or dark theme", "more_h": "More", "blog_d": "Why things stop working and what to do", "alt": ("Русский", "/"),
+           "t": [("Restrictions map", "Where the network is cut now and on your route", "/en/karta/"),
+                 ("Internet check", "What works for you, in 10 seconds", "/en/check/"),
+                 ("Whitelist check", "Is whitelist mode on", "/en/check/#wl"),
+                 ("Blocking status", "Today's summary", "/en/status/"),
+                 ("Blocking index", "Weekly results by region", "/en/index-blokirovok/")],
+           "c": [("How to connect", "4 steps for iPhone, Android and computer", "/en/podklyuchenie/"),
+                 ("Video guide", "Step-by-step setup on video", "/en/video/"),
+                 ("Plans", "From 210 ₽ a month, 3 days free", "/en/#prices"),
+                 ("Invite friends", "4 friends subscribed and your VPN is free", "/en/priglasit/"),
+                 ("Support", "We reply in Telegram", "SUPPORT")],
+           "o": [("MTS", "/en/operator/mts/"), ("Beeline", "/en/operator/beeline/"), ("MegaFon", "/en/operator/megafon/"), ("T2", "/en/operator/t2/")],
+           "more": [("Reviews", "VPNSTATUS"), ("Telegram channel", "CHANNEL")]},
+}
+
+
+def main_menu(lang, path):
+    m = MENU[lang]
+    pre = "/en" if lang == "en" else ""
+    sub = {"SUPPORT": SUPPORT, "CHANNEL": CHANNEL, "VPNSTATUS": VPNSTATUS}
+    def href(h): return sub.get(h, h)
+    def ext(h): return ' target="_blank" rel="noopener nofollow"' if h.startswith("http") else ""
+    def cur(h): return ' aria-current="page"' if h.split("#")[0] == path and "#" not in h else ""
+    def items(lst):
+        return "".join(f'<a class="mi" href="{href(h)}"{ext(href(h))}{cur(h)}><b>{t}</b><small>{d}</small></a>' for t, d, h in lst)
+    ops = f'<div class="mi-ops"><span>{m["ops"]}:</span>' + "".join(f'<a href="{h}"{cur(h)}>{t}</a>' for t, h in m["o"]) + '</div>'
+    chev = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
+    desk = (f'<details class="dd"><summary>{m["tools"]}{chev}</summary><div class="dd-p dd-w">{items(m["t"])}{ops}</div></details>'
+            f'<details class="dd"><summary>{m["conn"]}{chev}</summary><div class="dd-p">{items(m["c"])}</div></details>'
+            f'<a class="nv-l" href="{pre}/blog/"{cur(pre + "/blog/")}>{m["blog"]}</a>')
+    more = "".join(f'<a href="{href(h)}"{ext(href(h))}>{t}</a>' for t, h in m["more"])
+    mob = (f'<details class="nv-m"><summary aria-label="{m["open"]}"><span class="bg"><i></i><i></i><i></i></span></summary>'
+           f'<div class="nv-mp"><p class="mh">{m["tools"]}</p>{items(m["t"])}{ops}'
+           f'<p class="mh">{m["conn"]}</p>{items(m["c"])}'
+           f'<p class="mh">{m["more_h"]}</p><a class="mi" href="{pre}/blog/"><b>{m["blog"]}</b><small>{m["blog_d"]}</small></a>'
+           f'<div class="mi-more">{more}</div>'
+           f'<div class="mi-set"><button type="button" class="mi-th" onclick="document.getElementById(\'theme-t\').click()">{THEME_ICONS}<span>{m["theme"]}</span></button><a class="mi-lang" href="{m["alt"][1]}">{m["alt"][0]}</a></div>'
+           f'<a class="btn mi-cta" href="{BOT}" rel="nofollow">{m["cta_long"]}</a></div></details>')
+    return f'<div class="nv-d">{desk}</div><a class="btn-s" href="{BOT}" rel="nofollow">{m["cta"]}</a>{mob}'
+
+
+MENU_JS = ("(function(){var D=document.querySelectorAll('header details');function c(x){D.forEach(function(d){if(d!==x)d.open=false})}"
+           "D.forEach(function(d){d.addEventListener('toggle',function(){if(d.open){c(d);var h=document.querySelector('header');if(h)document.documentElement.style.setProperty('--nvt',Math.round(h.getBoundingClientRect().bottom)+'px')}document.documentElement.classList.toggle('nv-open',!!document.querySelector('.nv-m[open]'))})});"
+           "document.addEventListener('click',function(e){if(!e.target.closest('header details'))c(null)});"
+           "document.addEventListener('keydown',function(e){if(e.key==='Escape')c(null)});"
+           "document.querySelectorAll('header details a').forEach(function(a){a.addEventListener('click',function(){c(null)})})})();")
+
+MENU_CSS = """
+header{position:relative;z-index:50}
+.nv-d{display:flex;align-items:center;gap:2px}
+nav summary{list-style:none;cursor:pointer;color:var(--soft);font-size:15px;padding:9px 13px;border-radius:10px;min-height:40px;display:inline-flex;align-items:center;gap:6px;user-select:none}
+nav summary::-webkit-details-marker{display:none}
+nav summary:hover,nav details[open]>summary{background:var(--card2);color:var(--text-hi)}
+nav details[open]>summary svg{transform:rotate(180deg)}nav summary svg{transition:transform .2s}
+.dd{position:relative}
+.dd-p{position:absolute;top:calc(100% + 10px);left:-6px;width:320px;padding:8px;border-radius:18px;background:var(--card);border:1px solid var(--line2);box-shadow:0 24px 60px -12px var(--sh);display:grid;gap:2px;z-index:60}
+.dd-w{width:560px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.mi{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:2px;padding:11px 13px;border-radius:12px;text-decoration:none;color:var(--text)}
+.mi:hover,.mi[aria-current]{background:var(--card2)}.mi b{font-size:15px;font-weight:700}.mi small{font-size:13px;color:var(--muted);line-height:1.35}
+.mi-ops{grid-column:1/-1;display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 13px 6px;margin-top:4px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.mi-ops a{color:var(--text);text-decoration:none;font-weight:700;font-size:13.5px;padding:6px 10px;border-radius:9px;background:var(--card2)}.mi-ops a:hover{color:var(--text-hi);background:var(--line)}
+nav a.nv-l[aria-current]{color:var(--text-hi)}
+.nv-m{display:none}
+.nv-m>summary{padding:0;width:44px;height:42px;justify-content:center}
+.bg{display:flex;flex-direction:column;gap:4px;width:18px}.bg i{display:block;height:2px;border-radius:2px;background:currentColor;transition:transform .2s,opacity .2s}
+.nv-m[open] .bg i:nth-child(1){transform:translateY(6px) rotate(45deg)}.nv-m[open] .bg i:nth-child(2){opacity:0}.nv-m[open] .bg i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.nv-mp{position:fixed;left:0;right:0;top:var(--nvt,72px);bottom:0;overflow:auto;padding:8px 16px 28px;background:var(--bg);border-top:1px solid var(--line);z-index:60;display:flex;flex-direction:column;gap:2px}
+.nv-mp .mh{margin:16px 0 4px;padding:0 13px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.nv-mp .mi{padding:12px 13px;background:var(--card);border:1px solid var(--line);margin-bottom:6px}
+.nv-mp .mi-ops{border:0;padding:4px 13px 8px}.nv-mp a{flex:none!important;justify-content:flex-start!important;white-space:normal}.dd-p a{white-space:normal}.nv-mp .mi-cta{justify-content:center!important}
+.mi-more{display:flex;gap:16px;padding:14px 13px 4px}.mi-more a{font-weight:700;font-size:15px}
+.mi-cta{margin-top:14px;justify-content:center}
+html.nv-open{overflow:hidden}
+.mi-set{display:flex;gap:10px;flex-wrap:wrap;padding:14px 0 0}
+.mi-th,.mi-lang{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line2);background:var(--card);color:var(--text);font:600 14px Manrope,sans-serif;text-decoration:none;cursor:pointer}
+.mi-th svg{width:18px;height:18px}.mi-th .mo{display:none}:root[data-theme=light] .mi-th .su{display:none}:root[data-theme=light] .mi-th .mo{display:block}@media(prefers-color-scheme:light){:root:not([data-theme=dark]) .mi-th .su{display:none}:root:not([data-theme=dark]) .mi-th .mo{display:block}}
+@media(max-width:860px){.nv-d{display:none}.nv-m{display:block}nav{width:auto!important;padding:4px;gap:4px}nav a.btn-s{flex:none!important;padding:9px 14px}}
+@media(min-width:861px){.mi-set{display:none}}
+@media(max-width:600px){header .wrap{flex-wrap:nowrap}.hl{min-width:0}header .hl .lang,header .hl .theme-t{display:none}nav{background:transparent;border:0;padding:0}}
+"""
+
 def page(title, description, path, body, jsonld=None, og_type="website", lang="ru"):
     url = f"{SITE}{path}"
     suf = f" | {BRAND}"
@@ -605,8 +702,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
     alt_lang_href = (rp if rp in EN_PAGES else "/") if en else (f"/en{rp}" if rp in EN_PAGES else "/en/")
     alt_lang_label = "Русская версия" if en else "English version"
     if en:
-        nav = (f'<a href="/en/check/">Check</a><a href="/en/#prices">Plans</a>'
-               f'<a class="hide-xs" href="/en/podklyuchenie/">Setup</a><a class="btn-s" href="{BOT}" rel="nofollow">Try free</a>')
+        nav = main_menu('en', path)
         foot_l = "Guides on stable internet access in Russia: blocking status, internet check, setup."
         foot_r = footer_cols([
             ("Service", [("Try 3 days free", BOT), ("Plans", "/en/#prices"), ("How to connect", "/en/podklyuchenie/"), ("Invite friends", "/en/priglasit/"), ("Video guide", "/en/video/"), ("Support", SUPPORT)]),
@@ -617,8 +713,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
         home_label, menu_label, locale = "home", "Main menu", "en_US"
         theme_label = "Light or dark theme"
     else:
-        nav = (f'<a href="/check/">Проверка</a><a href="/#prices">Тарифы</a>'
-               f'<a class="hide-xs" href="/podklyuchenie/">Инструкция</a><a class="btn-s" href="{BOT}" rel="nofollow">Попробовать</a>')
+        nav = main_menu('ru', path)
         foot_l = "Справочные материалы о стабильном доступе к интернету: статус блокировок, проверка, инструкции."
         foot_r = footer_cols([
             ("Сервис", [("Попробовать 3 дня", BOT), ("Тарифы", "/#prices"), ("Как подключить", "/podklyuchenie/"), ("Приведи друга", "/priglasit/"), ("Видеоинструкция", "/video/"), ("Поддержка", SUPPORT)]),
@@ -660,7 +755,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <script>{THEME_JS}</script><script>{failover_js()}</script>
 {CFG.get("head_extra", "")}
 {f'<script data-goatcounter="https://{GC}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>' if GC else ""}
-<style>{CSS}</style>
+<style>{CSS}{MENU_CSS}</style>
 {ld}</head>
 <body>
 <header><div class="wrap"><span class="hl"><a class="logo" href="{pre}/" aria-label="{BRAND}, {home_label}"><i><b></b></i>{BRAND}</a>{sw}<button class="theme-t" type="button" id="theme-t" aria-label="{theme_label}" title="{theme_label}">{THEME_ICONS}</button></span>
@@ -671,6 +766,7 @@ def page(title, description, path, body, jsonld=None, og_type="website", lang="r
 <footer><div class="wrap"><div class="f-top"><div class="f-brand"><a class="logo" href="{pre}/"><i><b></b></i>{BRAND}</a><p>{foot_l}</p></div>{foot_r}</div>
 <div class="f-bot"><span>© {today_msk().year} {BRAND}</span><a href="{alt_lang_href}">{alt_lang_label}</a></div></div></footer>
 {assistant_html(lang)}
+<script>{MENU_JS}</script>
 </body>
 </html>
 """, path)
