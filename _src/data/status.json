@@ -1,7 +1,52 @@
 {
   "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата - дата события по Москве. updated - момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ. Для английской версии сайта заполняйте region_en, title_en, meaning_en (перевод).",
-  "updated": "2026-11-26 08:55",
+  "updated": "2026-11-27 08:55",
   "events": [
+    {
+      "date": "2026-11-27",
+      "region": "Санкт-Петербург, Ленинградская область",
+      "operators": [
+        "all"
+      ],
+      "type": "outage",
+      "title": "Не работает мобильный интернет в Петербурге ночью 27 ноября: пик жалоб около 3:00",
+      "meaning": "После 01:00 резко выросли жалобы на пропавший мобильный интернет и связь, пик пришёлся примерно на 3:00, после 4:00 пошёл спад. В 03:20 в Ленобласти объявили беспилотную опасность. К 6:30 в центре Петербурга интернет уже работал",
+      "source": "Фонтанка",
+      "url": "https://www.fontanka.ru/2026/11/27/76793196/",
+      "region_en": "St Petersburg, Leningrad region",
+      "title_en": "Mobile internet down in St Petersburg overnight on 27 November: complaints peaked around 3:00",
+      "meaning_en": "Complaints about lost mobile data and signal jumped after 01:00, peaked around 3:00 and eased after 4:00. A drone alert was declared in Leningrad region at 03:20. By 6:30 mobile internet worked in central St Petersburg"
+    },
+    {
+      "date": "2026-11-27",
+      "region": "Санкт-Петербург, Ленинградская область",
+      "operators": [
+        "mts"
+      ],
+      "type": "outage",
+      "title": "Сбой мобильной сети МТС в Петербурге и Ленобласти ночью 27 ноября",
+      "meaning": "Около 2:30 абоненты МТС в Петербурге сообщили о сбое связи и мобильного интернета. Это совпало с ночной беспилотной опасностью в регионе. Если сеть пропала ночью, дождитесь отбоя или подключитесь к Wi-Fi",
+      "source": "Фонтанка",
+      "url": "https://www.fontanka.ru/2026/11/27/76793129/",
+      "region_en": "St Petersburg, Leningrad region",
+      "title_en": "MTS mobile network outage in St Petersburg and Leningrad region overnight on 27 November",
+      "meaning_en": "Around 2:30 MTS subscribers in St Petersburg reported a loss of calls and mobile data. It coincided with the overnight drone alert in the region. If the network drops at night, wait for the all-clear or use Wi-Fi"
+    },
+    {
+      "date": "2026-11-26",
+      "region": "Москва и Подмосковье, Санкт-Петербург, Татарстан, Хабаровский край, Алтайский край, Нижегородская область, Новосибирская область, Самарская область, Иркутская область, Свердловская область, Саратовская область, Ростовская область, Вологодская область, Тюменская область",
+      "operators": [
+        "all"
+      ],
+      "type": "whitelist",
+      "title": "Не работает мобильный интернет 26 ноября: сбои в десятках регионов, больше всего жалоб из Москвы и Петербурга",
+      "meaning": "По данным «Сбой.рф», жаловались абоненты разных операторов. В части регионов на мобильном работали только сервисы из белого списка: Госуслуги, VK, MAX, Яндекс, маркетплейсы, крупные банки. Точные места и время ограничений заранее не объявляют",
+      "source": "NEWS.ru",
+      "url": "https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-26-noyabrya-prichiny-sboi-v-rossii",
+      "region_en": "Moscow and Moscow region, St Petersburg, Tatarstan, Khabarovsk Krai, Altai Krai, Nizhny Novgorod, Novosibirsk, Samara, Irkutsk, Sverdlovsk, Saratov, Rostov, Vologda and Tyumen regions",
+      "title_en": "Mobile internet not working on 26 November: outages in dozens of regions, most complaints from Moscow and St Petersburg",
+      "meaning_en": "According to Sboi.rf, subscribers of different carriers complained. In some regions mobile data only let through whitelisted services: Gosuslugi, VK, MAX, Yandex, marketplaces, major banks. Exact places and times of restrictions are not announced in advance"
+    },
     {
       "date": "2026-11-26",
       "region": "Новосибирская область",
