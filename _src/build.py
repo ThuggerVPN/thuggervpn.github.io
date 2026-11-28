@@ -290,7 +290,8 @@ details.acc-q p{margin:0;color:var(--soft)}
 .rv p{margin:6px 0 8px;font-size:15px;line-height:1.55}.rv small{color:var(--muted)}
 .cta{margin:36px 0;padding:28px;border-radius:24px;background:var(--violet-bg);border:1px solid var(--violet-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
 .cta b{font-size:22px;display:block;margin-bottom:4px}
-.icta{margin:24px 0;padding:16px 18px;border-radius:18px;background:var(--violet-bg);border:1px solid var(--violet-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}.icta p{margin:0;flex:1 1 280px;color:var(--violet-text);font-size:16px}.icta .btn{white-space:nowrap}
+.icta{margin:24px 0;padding:16px 18px;border-radius:18px;background:var(--violet-bg);border:1px solid var(--violet-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}.icta p{margin:0;flex:1 1 280px;color:var(--violet-text);font-size:16px}.icta .btn{white-space:nowrap}.icta .tg-help{flex-basis:100%;font-size:13.5px;color:var(--soft)}
+.acheck{margin:28px 0}.acheck-h{margin:0 0 12px}.acheck-h b{display:block;font-size:20px;margin-bottom:2px}.acheck-h span{color:var(--soft);font-size:15.5px}
 .sticky-cta{position:fixed;left:12px;right:84px;bottom:16px;z-index:60;display:flex;align-items:center;gap:10px;padding:10px 10px 10px 16px;border-radius:16px;background:var(--violet-bg);border:1px solid var(--violet-line);box-shadow:0 8px 30px rgba(0,0,0,.25)}.sticky-cta[hidden]{display:none}.sticky-cta span{flex:1;font-size:14px;line-height:1.25}.sticky-cta .btn{padding:10px 16px}.sticky-cta button{background:none;border:0;color:inherit;font-size:22px;line-height:1;cursor:pointer;padding:4px 6px}@media(min-width:861px){.sticky-cta{display:none!important}}
 .cta p{margin:0;color:var(--violet-text);max-width:620px}
 .cta .links{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
@@ -552,7 +553,9 @@ def inline_cta(a, path, where):
         txt = a.get("cta2") or f"Проще сменить VPN, чем искать причину. {CFG['trial'].capitalize()}, дальше от {low} ₽ в месяц."
         btn = "Подключить за 2 минуты"
     return (f'<div class="icta"><p>{esc(txt)}</p>'
-            f'<a class="btn" data-goatcounter-click="bot-{where}{path}" href="{BOT}" rel="nofollow">{btn}</a></div>')
+            f'<a class="btn" data-goatcounter-click="bot-{where}{path}" href="{BOT}" rel="nofollow">{btn}</a>'
+            + ('<small class="tg-help">Telegram не открывается? Напишите в чат «Помощь» внизу справа, поможем подключиться.</small>' if where == "top" else '')
+            + '</div>')
 
 
 def with_inline_ctas(a, path):
@@ -560,15 +563,24 @@ def with_inline_ctas(a, path):
     m = re.search(r'<p class="lead">.*?</p>', html, re.S)
     if m:
         html = html[:m.end()] + inline_cta(a, path, "top") + html[m.end():]
+    # после таблицы-диагностики: живая проверка VPN (лучшая конверсия на сайте), иначе короткий оффер
     t = html.find("</table></div>")
     if t != -1:
         t += len("</table></div>")
-        html = html[:t] + inline_cta(a, path, "mid") + html[t:]
+        html = html[:t] + article_check() + html[t:]
     else:
         hs = [x.start() for x in re.finditer(r"<h2", html)]
         if len(hs) >= 3:
-            html = html[:hs[2]] + inline_cta(a, path, "mid") + html[hs[2]:]
+            html = html[:hs[2]] + article_check() + html[hs[2]:]
+        else:
+            html += inline_cta(a, path, "mid")
     return html
+
+
+def article_check():
+    return (CHECK_CSS + '<div class="acheck"><p class="acheck-h"><b>Проверьте свой VPN прямо сейчас</b>'
+            '<span>5 секунд, прямо в браузере: покажет, что у вас открывается и что делать дальше.</span></p>'
+            + checker.widget('ru', BOT, BRAND, CFG['trial'], SUPPORT) + '</div>')
 
 
 def sticky_cta(path):
