@@ -17,16 +17,16 @@
 
 ## 📡 Сводка блокировок
 
-Обновляется каждый день. Последнее обновление: **28 ноября 2026, 08:50 МСК**. Полная картина - на странице [статуса](https://thuggervpn.github.io/status/) и в [индексе блокировок](https://thuggervpn.github.io/index-blokirovok/).
+Обновляется каждый день. Последнее обновление: **28 ноября 2026, 17:49 МСК**. Полная картина - на странице [статуса](https://thuggervpn.github.io/status/) и в [индексе блокировок](https://thuggervpn.github.io/index-blokirovok/).
 
 | Дата | Где | Что случилось | Источник |
 |---|---|---|---|
+| 28 ноября | Москва и Подмосковье | 🟥 Не работает мобильный интернет 28 ноября: больше всего жалоб из Москвы и Нижнего Новгорода | [News.ru](https://news.ru/society/pochemu-ne-rabotaet-mobilnyj-internet-28-noyabrya-prichiny-sboi-v-rossii) |
+| 28 ноября | Москва и Подмосковье | ⚠️ Не работает Steam 28 ноября: массовый сбой в «Чёрную пятницу», больше 3400 жалоб | [МР7](https://mr-7.ru/articles/2026/11/28/v-rabote-steam-proizoshel-sboi-po-vsei-rossii-news) |
+| 28 ноября | Россия | ⚠️ Telegram попросил владельцев iPhone срочно обновить iOS: волна взломов аккаунтов | [SecurityLab](http://www.securitylab.ru/news/584830.php) |
 | 28 ноября | Пензенская область | ⛔ В Пензенской области ночью 28 ноября ограничили мобильный интернет при беспилотной опасности | [PToday](https://www.ptoday.ru/17000-ataka-bpla-na-penzenskuju-oblast-28-nojabrja-2026-goda-dannyh-o-sbityh-net-ajeroport-penzy-vozobnovil-rabotu.html) |
 | 27 ноября | Архангельская область | 🟥 Не работает мобильный интернет в Архангельске 27 ноября: открывался только ВКонтакте | [29.ру](https://29.ru/text/gorod/2026/11/27/76793869/) |
 | 27 ноября | Нижегородская область | ⛔ Не работает домашний интернет в Нижнем Новгороде 27 ноября: больше 2 тысяч жалоб | [Нижегородская правда](https://pravda-nn.ru/news/massovyj-sboj-v-rabote-interneta-proizoshel-v-nizhegorodskoj-oblasti/) |
-| 27 ноября | Москва и Подмосковье | 🟥 Не работает мобильный интернет 27 ноября: сбои в Москве, Петербурге, Новосибирске и ещё 10 регионах | [Info24](https://info24.ru/news/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-27-noyabrya-gde-sboi-chto-delat.html) |
-| 27 ноября | Санкт-Петербург | ⚠️ Не работает Telegram 27 ноября: зависает обновление, перестали работать прокси | [Info24](https://info24.ru/news/pochemu-telegram-ne-rabotaet-segodnya-27-noyabrya-proksi-poslednie-novosti-gde-sboj.html) |
-| 27 ноября | Москва и Подмосковье | ⚠️ Telegram 27 ноября у части пользователей заработал без VPN | [Пруфы](https://prufy.ru/news/rossiya_i_mir/195648-telegram_nachal_rabotat_bez_vpn/) |
 
 <sub>🟥 белые списки · ⛔ отключение · 🟧 замедление · 🔒 блокировка VPN · ⚠️ сбой сервиса · 📜 решения властей</sub>
 
@@ -75,11 +75,11 @@ iPhone, Android, Windows, macOS и телевизор - по шагам. Отд�
 ## 📝 Свежие статьи
 
 - [Не работает TikTok даже с VPN: почему старая лента и что делать](https://thuggervpn.github.io/blog/tiktok-ne-rabotaet-s-vpn/)
+- [Не работает Steam сегодня: почему не заходит, даже с VPN, и что делать](https://thuggervpn.github.io/blog/steam-ne-rabotaet-segodnya/)
 - [Пробный VPN: где взять пробный период и как проверить до оплаты](https://thuggervpn.github.io/blog/probnyj-vpn/)
 - [Не работает VPN сегодня: почему перестал работать и что делать](https://thuggervpn.github.io/blog/ne-rabotaet-vpn-segodnya/)
 - [Настройки Incy VPN: стабильный мобильный интернет и низкий пинг](https://thuggervpn.github.io/blog/nastrojki-incy/)
 - [VPN с белыми списками: какой впн работает при белых списках в 2026](https://thuggervpn.github.io/blog/vpn-s-belymi-spiskami/)
-- [VPN на компьютер: как настроить на Windows и Mac за 2 минуты](https://thuggervpn.github.io/blog/vpn-na-kompyuter/)
 
 [Все статьи →](https://thuggervpn.github.io/blog/)
 
