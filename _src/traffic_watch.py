@@ -87,9 +87,9 @@ def alert_spikes(spikes, today, prev):
 
 def main():
     try:
-        prev = json.loads(OUT.read_text(encoding="utf-8"))
+        old = json.loads(OUT.read_text(encoding="utf-8"))
     except Exception:
-        prev = {}
+        old = {}
     now = datetime.now(MSK)
     today = now.date()
     days = [(today - timedelta(days=i)) for i in range(DAYS - 1, -1, -1)]
@@ -136,7 +136,7 @@ def main():
         "conversion": conv[:40],
         "events_all_time": {k: v for k, v in totals.items() if not k.startswith("/") and v},
         "referrers_7d": referrers((today - timedelta(days=6)).isoformat(), today.isoformat()),
-        "alerted": alert_spikes(spikes, today.isoformat(), prev),
+        "alerted": alert_spikes(spikes, today.isoformat(), old),
     }
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"traffic: {len(pages)} страниц с визитами, всплесков сегодня: {len(spikes)}")
