@@ -913,7 +913,7 @@ document.getElementById('qa-send').addEventListener('submit',function(e){{e.prev
  fetch(CU,{{method:'POST',headers:{{'Content-Type':'text/plain;charset=utf-8'}},body:JSON.stringify(body)}}).then(function(r){{return r.json()}}).then(function(j){{
   if(!j.ok)throw 0;if(!T.some(function(m){{return m.f==='sys'}}))T.push({{f:'sys',t:D.L.sent}});render();save();
   try{{goatcounter.count({{path:'chat/sent',title:'chat message',event:true}})}}catch(e){{}}
- }}).catch(function(){{T.push({{f:'sys',t:D.L.err+' '+D.support.replace('https://t.me/','@')}});render();save();}});}});
+ }}).catch(function(){{T.push({{f:'sys',t:D.L.err+' '+D.support.replace('https://','')}});render();save();}});}});
 function pull(){{if(!CU||!T.some(function(m){{return m.f==='me'}}))return;
  fetch(CU+'?u='+encodeURIComponent(sid)+'&since='+last).then(function(r){{return r.json()}}).then(function(j){{
   if(!j.ok||!j.msgs||!j.msgs.length)return;j.msgs.forEach(function(m){{T.push({{f:'op',t:m.text}});last=Math.max(last,m.ts);}});save();render();
@@ -1588,7 +1588,7 @@ def main():
         ("Что такое обход белых списков?", "Когда мобильный интернет переводят в режим белых списков, обычные VPN перестают работать. "
          f"Опция обхода - {CFG.get('whitelist_detail', '')}."),
         ("Что нужно установить?", "Приложение Incy (или HAPP, V2RayTun) для вашего устройства и ссылку подписки из Telegram-бота. Пошаговая инструкция - на странице «Как подключить»."),
-        ("Что делать, если не заработает?", "Напишите в поддержку @ThuggerVPN_supp - ответит живой человек и поможет подобрать рабочий сервер."),
+        ("Что делать, если не заработает?", "Напишите нам в личные сообщения канала: t.me/ThuggerVPN?direct. Ответит живой человек и поможет подобрать рабочий сервер."),
         ("Это сложно настроить?", "Нет. Скачать приложение, взять ссылку в боте и нажать «Подключиться», обычно это 2 минуты. Если что-то не получается, поддержка поможет по шагам."),
         ("Нужно ли включать VPN перед проверкой?", "Если хотите проверить свой VPN, да. Без VPN проверка покажет, что заблокировано у вас прямо сейчас. Для проверки белых списков наоборот: VPN и Wi-Fi нужно выключить."),
         ("Почему проверка иногда показывает разный результат?", "Блокировки работают неравномерно: мобильная сеть то пропускает соединение, то режет его, особенно вечером и во время ограничений. Поэтому проверка повторяет каждый сервис до 3 раз и показывает итог. Пометка «с перебоями» значит, что VPN держится нестабильно."),

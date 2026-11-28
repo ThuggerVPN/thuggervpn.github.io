@@ -37,7 +37,7 @@ For Happ a subscription is the better choice: when blocks hit, the service swaps
 4. **Check whether it's whitelist mode.** If it fails only on mobile data and works on Wi-Fi, run the <a href="/en/check/">connection check</a>. In whitelist mode an ordinary VPN won't connect, more in <a href="/en/blog/vpn-s-belymi-spiskami/">VPN that works with whitelists</a>.
 5. **Reinstall the configuration on iPhone.** Settings → General → VPN & Device Management → delete old profiles and connect again in Happ.
 
-Need instructions for another device? Message our [support](https://t.me/ThuggerVPN_supp) and we'll add them.
+Need instructions for another device? Message our [support](https://t.me/ThuggerVPN?direct) and we'll add them.
 
 ## Happ was removed from the App Store: how to install it
 

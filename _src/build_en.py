@@ -404,7 +404,7 @@ f'<h2 id="apple-id">iPhone with a Russian Apple ID</h2>'
             ("Do I need to turn on my VPN before the check?", "If you want to test your VPN, yes. Without a VPN the check shows what's blocked for you right now. For the whitelist check it's the other way round: turn VPN and Wi-Fi off."),
             ("Why does the check sometimes show different results?", "Blocking is uneven: the mobile network sometimes lets a connection through and sometimes cuts it, especially in the evening and during restrictions. That's why each service is checked up to 3 times and you see the overall result. \"Unstable\" means the VPN isn't holding steady."),
             ("What if ThuggerVPN stops working too?", "Blocking changes and no VPN is perfect. If something stops opening, change the server in the app or message support: we track blocking every day and will point you to a working option."),
-            ("What if it doesn't work?", "Message support @ThuggerVPN_supp - a real person will reply and help pick a working server."),
+            ("What if it doesn't work?", "Message us in the channel's direct messages: t.me/ThuggerVPN?direct. A real person will reply and help pick a working server."),
             ("Who is ThuggerVPN for?", "People in Russia and anyone who needs stable access to blocked services from Russian mobile and home networks. The bot and support work in Russian; this site has an English guide.")]
     faqh = "".join(f'<details class="acc-q"><summary>{esc(q)}</summary><p>{esc(a)}</p></details>' for q, a in hfaq if a)
     tiles = "".join(f'<div class="st" style="border-top-color:{B.TYPE_COLORS.get(e["type"], "#a78bfa")}"><small>{d(e["date"], False)} · '

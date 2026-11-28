@@ -41,7 +41,7 @@ The fastest way: open the <a href="/en/check/">connection check</a> with the VPN
 
 If nothing helps, set the subscription up again using the <a href="/en/podklyuchenie/">setup guide</a>: delete the old one and add it fresh with the link from the bot.
 
-Need a guide for another device? Message our [support](https://t.me/ThuggerVPN_supp) and we'll add it.
+Need a guide for another device? Message our [support](https://t.me/ThuggerVPN?direct) and we'll add it.
 
 ## Why even a VPN fails under whitelists
 

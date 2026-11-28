@@ -38,7 +38,7 @@ With a card or through an app store there's a risk of auto-renewal. In the App S
 5. **Support.** Ask a simple question and time the reply. When a server gets blocked, that speed matters most.
 6. **Server updates.** Tap "Update" on the subscription in your app. If the server list changes, the service is keeping up with blocks.
 
-Need instructions for another device? Message our [support](https://t.me/ThuggerVPN_supp) and we'll add them.
+Need instructions for another device? Message our [support](https://t.me/ThuggerVPN?direct) and we'll add them.
 
 ## What you see during the trial and what it means
 

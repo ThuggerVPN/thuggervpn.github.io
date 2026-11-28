@@ -2,4 +2,4 @@
 
 Проверка: thuggervpn.github.io/check
 VPN: @ThuggerVPN_bot
-Помощь: @ThuggerVPN_supp
+Помощь: t.me/ThuggerVPN?direct
