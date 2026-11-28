@@ -4,6 +4,9 @@ name: Traffic watch (GoatCounter)
 # Этот файл читают радар спроса, ежедневный прогон и недельный отчёт.
 # Секрет GOATCOUNTER_TOKEN необязателен: с ним добавляются источники переходов.
 on:
+  push:
+    branches: [main]
+    paths: ["_src/traffic_watch.py", ".github/workflows/traffic-watch.yml"]
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
