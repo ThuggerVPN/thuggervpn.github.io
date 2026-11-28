@@ -1,6 +1,6 @@
 {
  "_comment": "Сбор раз в час (GitHub Actions). Даты по Москве. by_day: последние 14 дней, последний элемент = сегодня.",
- "updated": "2026-11-28 02:07",
+ "updated": "2026-11-28 03:09",
  "days": [
   "2026-11-15",
   "2026-11-16",
@@ -787,5 +787,37 @@
   "support/": 1,
   "video/play": 7
  },
- "referrers_7d": null
+ "referrers_7d": [
+  {
+   "ref": "Yandex",
+   "count": 523
+  },
+  {
+   "ref": "(прямой заход)",
+   "count": 94
+  },
+  {
+   "ref": "ya.ru",
+   "count": 71
+  },
+  {
+   "ref": "App",
+   "count": 2
+  },
+  {
+   "ref": "www.ya.ru",
+   "count": 2
+  },
+  {
+   "ref": "mir.grfc.ru",
+   "count": 2
+  },
+  {
+   "ref": "github.com/ThuggerVPN/thuggervpn.github.io",
+   "count": 1
+  }
+ ],
+ "alerted": {
+  "2026-11-28": []
+ }
 }
