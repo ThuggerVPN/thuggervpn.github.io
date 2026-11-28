@@ -29,15 +29,43 @@ def api(method, **params):
         return json.loads(r.read().decode())
 
 
+def _open(enc):
+    import base64
+    from nacl.public import SealedBox
+    return SealedBox(keypair()).decrypt(base64.b64decode(enc)).decode()
+
+
+def _seal(text):
+    import base64
+    from nacl.public import SealedBox
+    return base64.b64encode(SealedBox(keypair().public_key).encrypt(text.encode())).decode()
+
+
 def load():
+    """chat_id владельца хранится в репозитории только зашифрованным (chat_id_enc)."""
     try:
-        return json.loads(OWNER.read_text(encoding="utf-8"))
+        o = json.loads(OWNER.read_text(encoding="utf-8"))
     except Exception:
         return {}
+    if o.get("chat_id_enc") and not o.get("chat_id"):
+        try:
+            o["chat_id"] = int(_open(o["chat_id_enc"]))
+        except Exception:
+            pass
+    return o
 
 
 def save(o):
-    OWNER.write_text(json.dumps(o, ensure_ascii=False, indent=1), encoding="utf-8")
+    out = dict(o)
+    cid = out.pop("chat_id", None)
+    if cid:
+        try:
+            same = out.get("chat_id_enc") and _open(out["chat_id_enc"]) == str(cid)
+        except Exception:
+            same = False
+        if not same:
+            out["chat_id_enc"] = _seal(str(cid))
+    OWNER.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 def ensure_owner(o):

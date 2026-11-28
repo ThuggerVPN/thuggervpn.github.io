@@ -25,7 +25,7 @@ jobs:
       - name: Skip if owner already known and nothing new (schedule)
         id: chk
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ] && python3 -c "import json,sys;sys.exit(0 if json.load(open('_src/notify/owner.json')).get('chat_id') else 1)" 2>/dev/null; then echo "skip=1" >> $GITHUB_OUTPUT; fi
+          if [ "${{ github.event_name }}" = "schedule" ] && python3 -c "import json,sys;sys.exit(0 if json.load(open('_src/notify/owner.json')).get('chat_id') or json.load(open('_src/notify/owner.json')).get('chat_id_enc') else 1)" 2>/dev/null; then echo "skip=1" >> $GITHUB_OUTPUT; fi
       - name: Send
         if: steps.chk.outputs.skip != '1'
         env:
