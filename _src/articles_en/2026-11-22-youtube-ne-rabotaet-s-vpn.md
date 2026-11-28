@@ -34,7 +34,7 @@ Ordinary outages happen too. On the evening of 21 November 2026, for example, pe
 6. **Clear the app cache.** On Android: Settings → Apps → YouTube → Storage → Clear cache. On iPhone it's easier to delete and reinstall the app. Subscriptions and history live in your Google account and won't be lost.
 7. **Check DNS.** If your phone or browser has your provider's DNS set manually, it may return the wrong address for YouTube. In the browser you can turn on Secure DNS; on Android check the Private DNS setting. Normally DNS goes through the tunnel when the VPN is on, but old settings sometimes get in the way.
 
-If nothing at all loads with the VPN on, see [VPN connected but no internet](/en/blog/vpn-podklyuchen-no-net-interneta/).
+If nothing at all loads with the VPN on, see [VPN connected but no internet](/en/blog/vpn-podklyuchen-no-net-interneta/). TikTok stuck on an old feed even with a VPN is covered in [TikTok not working in Russia even with a VPN](/en/blog/tiktok-ne-rabotaet-s-vpn/).
 
 ## If it only fails on mobile data
 

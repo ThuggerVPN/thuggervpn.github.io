@@ -2,6 +2,7 @@
 title: Telegram not connecting in Russia: why it's stuck on "Connecting" and fixes
 description: Why Telegram in Russia hangs on "Connecting...", won't load photos or videos, and a step-by-step checklist: network, VPN, proxy, cache.
 date: 2026-11-21
+updated: 2026-11-28
 slug: telegram-ne-podklyuchaetsya
 ---
 <p class="lead"><b>In short:</b> when Telegram won't connect in Russia, it's usually because of the restrictions Roskomnadzor (the Russian telecom regulator) has applied since February 2026, or because of outages and whitelist mode on mobile internet. First check that you have internet at all, then turn on a VPN and switch servers. If that doesn't help, clear the cache and update the app.</p>
@@ -19,7 +20,7 @@ There are usually three causes, and each looks different.
 
 Some background. Telegram and WhatsApp calls have been restricted in Russia since August 2025. On 10 February 2026, according to RBC, Roskomnadzor started throttling Telegram, and the regulator said it would keep restricting the app. Since then many people see slow media and some messages that won't load.
 
-One-off outages happen too. On 20 November 2026, from around 7:15 a.m. Moscow time, users reported that messages wouldn't send, media wouldn't load and calls failed. Most complaints came from Ivanovo, Novosibirsk and Chelyabinsk. No official cause was given. We track fresh outages on the [blocking status page](/en/status/).
+One-off outages happen too. On 20 November 2026, from around 7:15 a.m. Moscow time, users reported that messages wouldn't send, media wouldn't load and calls failed. Most complaints came from Ivanovo, Novosibirsk and Chelyabinsk. No official cause was given. On 27 November the picture was mixed: some users found Telegram suddenly working without a VPN, while for others the app hung on "Updating" and proxies stopped working. We track fresh outages on the [blocking status page](/en/status/). Travelling to Russia? See [Telegram in Russia for tourists](/en/blog/telegram-in-russia-for-tourists/).
 
 ## What to do: 6 steps in order
 

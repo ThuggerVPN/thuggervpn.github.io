@@ -1,7 +1,99 @@
 {
   "_comment": "База событий для статуса, индекса блокировок, страниц операторов и Telegram-поста. Добавляйте новые события в начало списка events. type: whitelist (только белые списки), outage (интернет отключён), slow (замедление/перебои), vpn_block (блокировки VPN/протоколов), service (сбой конкретного сервиса), policy (решения властей/операторов). operators: список из mts, beeline, megafon, t2 или all. Только факты из источников, дата - дата события по Москве. updated - момент обновления по Москве в формате ГГГГ-ММ-ДД ЧЧ:ММ. Для английской версии сайта заполняйте region_en, title_en, meaning_en (перевод).",
-  "updated": "2026-11-27 08:55",
+  "updated": "2026-11-28 08:50",
   "events": [
+    {
+      "date": "2026-11-28",
+      "region": "Пензенская область",
+      "operators": [
+        "all"
+      ],
+      "type": "outage",
+      "title": "В Пензенской области ночью 28 ноября ограничили мобильный интернет при беспилотной опасности",
+      "meaning": "Губернатор Олег Мельниченко сообщил о временных ограничениях мобильного интернета на время режима опасности БПЛА, аэропорт Пензы на время закрывали. Пока действует режим, надёжнее домашний Wi-Fi",
+      "source": "PToday",
+      "url": "https://www.ptoday.ru/17000-ataka-bpla-na-penzenskuju-oblast-28-nojabrja-2026-goda-dannyh-o-sbityh-net-ajeroport-penzy-vozobnovil-rabotu.html",
+      "region_en": "Penza region",
+      "title_en": "Mobile internet restricted in Penza region overnight on 28 November during a drone alert",
+      "meaning_en": "Governor Oleg Melnichenko announced temporary mobile internet restrictions while the drone alert was in force, and Penza airport was briefly closed. While the alert lasts, home Wi-Fi is the more reliable option"
+    },
+    {
+      "date": "2026-11-27",
+      "region": "Архангельская область",
+      "operators": [
+        "beeline",
+        "megafon",
+        "t2"
+      ],
+      "type": "whitelist",
+      "title": "Не работает мобильный интернет в Архангельске 27 ноября: открывался только ВКонтакте",
+      "meaning": "Жители Архангельска жаловались, что на мобильном у Билайна, МегаФона, T2 и Yota не грузятся сайты и приложения, а работает только ВКонтакте. Дома по Wi-Fi интернет был. Так обычно выглядит режим белых списков",
+      "source": "29.ру",
+      "url": "https://29.ru/text/gorod/2026/11/27/76793869/",
+      "region_en": "Arkhangelsk region",
+      "title_en": "Mobile internet down in Arkhangelsk on 27 November: only VKontakte opened",
+      "meaning_en": "Arkhangelsk residents reported that on Beeline, MegaFon, T2 and Yota mobile data sites and apps would not load and only VKontakte worked, while home Wi-Fi was fine. That is what whitelist mode usually looks like"
+    },
+    {
+      "date": "2026-11-27",
+      "region": "Нижегородская область",
+      "operators": [
+        "all"
+      ],
+      "type": "outage",
+      "title": "Не работает домашний интернет в Нижнем Новгороде 27 ноября: больше 2 тысяч жалоб",
+      "meaning": "После 15:00 начались массовые жалобы на домашний интернет одного из крупных провайдеров, пик пришёлся на 15:45, за час было 352 жалобы. В поддержке говорили об аварии, к вечеру доступ восстанавливался. Мобильный интернет в это время мог выручить",
+      "source": "Нижегородская правда",
+      "url": "https://pravda-nn.ru/news/massovyj-sboj-v-rabote-interneta-proizoshel-v-nizhegorodskoj-oblasti/",
+      "region_en": "Nizhny Novgorod region",
+      "title_en": "Home internet down in Nizhny Novgorod on 27 November: over 2,000 complaints",
+      "meaning_en": "Mass complaints about one large provider's home internet started after 15:00 and peaked at 15:45 with 352 reports in an hour. Support blamed an accident, and access was coming back by the evening. Mobile data could help in the meantime"
+    },
+    {
+      "date": "2026-11-27",
+      "region": "Москва и Подмосковье, Санкт-Петербург, Ленинградская область, Новосибирская область, Красноярский край, Иркутская область, Тюменская область, Псковская область, Самарская область, Свердловская область, Удмуртия, Хакасия",
+      "operators": [
+        "all"
+      ],
+      "type": "whitelist",
+      "title": "Не работает мобильный интернет 27 ноября: сбои в Москве, Петербурге, Новосибирске и ещё 10 регионах",
+      "meaning": "Больше всего жалоб снова из Новосибирской области, до 1,5 тысячи за сутки. Перебои связывают с ограничениями при угрозе БПЛА, работами на оборудовании и DDoS-атаками на провайдеров. При ограничениях работают сервисы из белого списка: Госуслуги, ВКонтакте, Яндекс, маркетплейсы, банки",
+      "source": "Info24",
+      "url": "https://info24.ru/news/pochemu-ne-rabotaet-mobilnyj-internet-segodnya-27-noyabrya-gde-sboi-chto-delat.html",
+      "region_en": "Moscow and Moscow region, St Petersburg, Leningrad region, Novosibirsk region, Krasnoyarsk territory, Irkutsk region, Tyumen region, Pskov region, Samara region, Sverdlovsk region, Udmurtia, Khakassia",
+      "title_en": "Mobile internet down on 27 November: outages in Moscow, St Petersburg, Novosibirsk and 10 more regions",
+      "meaning_en": "Novosibirsk region again had the most complaints, up to 1,500 a day. The disruptions are linked to restrictions during drone threats, equipment work and DDoS attacks on providers. During restrictions only whitelisted services work: Gosuslugi, VKontakte, Yandex, marketplaces, banks"
+    },
+    {
+      "date": "2026-11-27",
+      "region": "Санкт-Петербург, Москва, Новгородская область",
+      "operators": [
+        "all"
+      ],
+      "type": "service",
+      "title": "Не работает Telegram 27 ноября: зависает обновление, перестали работать прокси",
+      "meaning": "Пользователи жаловались, что Telegram не открывается или висит на обновлении, сообщения не уходят, а прокси перестали работать. Больше всего жалоб из Петербурга и Москвы, в основном с Android",
+      "source": "Info24",
+      "url": "https://info24.ru/news/pochemu-telegram-ne-rabotaet-segodnya-27-noyabrya-proksi-poslednie-novosti-gde-sboj.html",
+      "region_en": "St Petersburg, Moscow, Novgorod region",
+      "title_en": "Telegram not working on 27 November: stuck on updating, proxies stopped working",
+      "meaning_en": "Users reported that Telegram would not open or hung on updating, messages were not sent and proxies stopped working. Most complaints came from St Petersburg and Moscow, mostly from Android"
+    },
+    {
+      "date": "2026-11-27",
+      "region": "Москва и Подмосковье, Санкт-Петербург",
+      "operators": [
+        "all"
+      ],
+      "type": "service",
+      "title": "Telegram 27 ноября у части пользователей заработал без VPN",
+      "meaning": "Часть пользователей заметила, что Telegram открывается без VPN на телефоне и компьютере. Официальных заявлений о снятии ограничений не было, а у других мессенджер в тот же день висел на обновлении. Скорее всего, это временно",
+      "source": "Пруфы",
+      "url": "https://prufy.ru/news/rossiya_i_mir/195648-telegram_nachal_rabotat_bez_vpn/",
+      "region_en": "Moscow and Moscow region, St Petersburg",
+      "title_en": "Telegram worked without a VPN for some users on 27 November",
+      "meaning_en": "Some users noticed Telegram opening without a VPN on phones and computers. There was no official word on lifting restrictions, and for others the app hung on updating the same day. Most likely this is temporary"
+    },
     {
       "date": "2026-11-27",
       "region": "Санкт-Петербург, Ленинградская область",
